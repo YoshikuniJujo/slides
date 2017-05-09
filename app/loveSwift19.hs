@@ -9,4 +9,4 @@ version = [0, 1, 0, 0]
 
 main :: IO ()
 main = do
-	runLecture version ([writeTitle "Swiftの中心でHaskellをさけぶ"] :| [])
+	runLecture version ([writeTitle "Swiftの中心で、Haskellをさけぶ"] :| [])
