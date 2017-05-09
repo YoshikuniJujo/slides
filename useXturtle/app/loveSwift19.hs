@@ -9,4 +9,9 @@ version = [0, 1, 0, 0]
 
 main :: IO ()
 main = do
-	runLecture version ([writeTitle "Swiftの中心で、Haskellをさけぶ"] :| [])
+	runLecture version (titlePage :| [])
+
+titlePage :: Page
+titlePage = [
+	writeTitle "Swiftの中心で、Haskellをさけぶ" "第19回 Swift愛好会"
+	]
