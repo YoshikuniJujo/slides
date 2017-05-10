@@ -251,13 +251,11 @@ writeTitle ttl sttl st = do
 
 pageTitle :: String -> State -> IO ()
 pageTitle ttl st = do
-	setx  t $ width st / 8
-	setheading t 0
-	write t fontName (15 * ratio st) ttl
-	showturtle t
-	speed t "slowest"
-	forward t $ (15 * ratio st) * myLength ttl
 	hideturtle t
+	setx t $ width st / 8
+	write t fontName (15 * ratio st) ttl
+	setheading t (- 90)
+	forward t $ (15 * ratio st)
 	where
 	t = bodyTurtle st
 
