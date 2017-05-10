@@ -11,6 +11,8 @@ version = [0, 1, 0, 0]
 main :: IO ()
 main = do
 	runLecture version $ titlePage :| [
+		selfIntroduction,
+		selfIntroduction2,
 		samplePage,
 		samplePage2
 		]
@@ -18,6 +20,18 @@ main = do
 titlePage :: Page
 titlePage =
 	writeTitle "Swiftの中心で、Haskellをさけぶ" "第19回 Swift愛好会" :| []
+
+selfIntroduction :: Page
+selfIntroduction = pageTitle "自己紹介" :| [
+	]
+
+selfIntroduction2 :: Page
+selfIntroduction2 = pageTitle "自己紹介" :| [
+	text "Haskellの入門書を書きました",
+	writeImageRight (515 / 3, 654 / 3, "images/cover.png"),
+	text "「Haskell",
+	text "- 教養としての関数型プログラミング -」"
+	]
 
 samplePage, samplePage2 :: Page
 samplePage = pageTitle "ここにページタイトルを置きます" :| [

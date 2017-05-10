@@ -286,7 +286,7 @@ myLength (c : cs)
 	| otherwise = 1.4 + myLength cs
 
 writeImageRight :: (Double, Double, FilePath) -> Line
-writeImageRight img = writeImage (2 / 3) (1 / 6) img
+writeImageRight img = writeImage (25 / 40) (1 / 6) img
 
 writeImage :: Double -> Double -> (Double, Double, FilePath) -> Line
 writeImage x y (w, h, fp) st = do
