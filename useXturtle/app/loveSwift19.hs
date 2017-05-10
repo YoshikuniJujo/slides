@@ -20,6 +20,7 @@ titlePage =
 
 samplePage, samplePage2 :: Page
 samplePage = pageTitle "ここにページタイトルを置きます" :| [
+	writeImageRight (128.75, 163.5, "images/cover.png"),
 	text "サンプルのページですよ",
 	text "これは2行目です"
 	]

@@ -1,5 +1,6 @@
 module Lecture (
-	Page, Version, runLecture, writeTitle, pageTitle, text
+	Page, Version, runLecture, writeTitle, pageTitle, text,
+	writeImageRight
 	) where
 
 import Control.Applicative
@@ -276,3 +277,17 @@ myLength "" = 0
 myLength (c : cs)
 	| isAscii c = 0.7 + myLength cs
 	| otherwise = 1.4 + myLength cs
+
+writeImageRight :: (Double, Double, FilePath) -> State -> IO ()
+writeImageRight img = writeImage (2 / 3) (1 / 6) img
+
+writeImage :: Double -> Double -> (Double, Double, FilePath) -> State -> IO ()
+writeImage x y (w, h, fp) st = do
+	setheading t 90 >> forward t (24 * rt)
+	(x0, y0) <- position t
+	goto t (x * width st) (y * height st)
+	image t fp (w * rt) (h * rt)
+	goto t x0 y0
+	where
+	t = bodyTurtle st
+	rt = ratio st
