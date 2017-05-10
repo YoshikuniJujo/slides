@@ -3,6 +3,7 @@ module Main where
 import Data.List.NonEmpty
 
 import Lecture
+import Montecarlo
 
 version :: Version
 version = [0, 1, 0, 0]
@@ -26,6 +27,7 @@ samplePage = pageTitle "ここにページタイトルを置きます" :| [
 	]
 
 samplePage2 = pageTitle "ここに2つめのページタイトルを置きます" :| [
+	runMontecarloRightTop 8 10,
 	text "サンプルのページの2つめです",
 	text "これは2つめの2行目です"
 	]

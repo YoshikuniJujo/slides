@@ -1,6 +1,6 @@
 module Lecture (
-	Page, Version, runLecture, writeTitle, pageTitle, text,
-	writeImageRight
+	Page, Line, Version, runLecture, writeTitle, pageTitle, text,
+	writeImageRight, nextLine, backLine
 	) where
 
 import Control.Applicative
@@ -18,7 +18,8 @@ import Options
 
 import qualified Data.List.NonEmpty as NE
 
-type Page = NonEmpty (State -> IO ())
+type Page = NonEmpty Line
+type Line = State -> IO ()
 
 type Version = [Int]
 
@@ -195,6 +196,13 @@ runLecture v pga = do
 append :: NonEmpty a -> [a] -> NonEmpty a
 append (x :| xs) ys = (x :| xs ++ ys)
 
+nextLine, backLine :: State -> IO ()
+nextLine st = setheading t (- 90) >> forward t (24 * rt)
+	where t = bodyTurtle st; rt = ratio st
+
+backLine st = setheading t 90 >> forward t (24 * rt)
+	where t = bodyTurtle st; rt = ratio st
+
 runPage :: State -> IO ()
 runPage st = do
 	writeIORef (pageEnd st) False
@@ -207,9 +215,7 @@ runPage st = do
 	showturtle t
 	sequence_ . NE.toList
 		. (`append` [ readChan $ clock st ])
-		. NE.intersperse (do
-			readChan $ clock st
-			setheading t (- 90) >> forward t (24 * rt))
+		. NE.intersperse (readChan (clock st) >> nextLine st)
 		. NE.map ($ st) =<< getPage st
 	nextPage st
 	sleep t 500
@@ -232,7 +238,7 @@ printVersion v = putStrLn . intercalate "." $ map show v
 mergeSettings :: [Setting] -> Setting
 mergeSettings = mconcat
 
-writeTitle :: String -> String -> State -> IO ()
+writeTitle :: String -> String -> Line
 writeTitle ttl sttl st = do
 	hideturtle t
 	speed t "fastest"
@@ -250,7 +256,7 @@ writeTitle ttl sttl st = do
 	where
 	t = bodyTurtle st
 
-pageTitle :: String -> State -> IO ()
+pageTitle :: String -> Line
 pageTitle ttl st = do
 	hideturtle t
 	setx t $ width st / 8
@@ -260,7 +266,7 @@ pageTitle ttl st = do
 	where
 	t = bodyTurtle st
 
-text :: String -> State -> IO ()
+text :: String -> Line
 text tx st = do
 	setx  t $ width st / 8
 	setheading t 0
@@ -278,12 +284,12 @@ myLength (c : cs)
 	| isAscii c = 0.7 + myLength cs
 	| otherwise = 1.4 + myLength cs
 
-writeImageRight :: (Double, Double, FilePath) -> State -> IO ()
+writeImageRight :: (Double, Double, FilePath) -> Line
 writeImageRight img = writeImage (2 / 3) (1 / 6) img
 
-writeImage :: Double -> Double -> (Double, Double, FilePath) -> State -> IO ()
+writeImage :: Double -> Double -> (Double, Double, FilePath) -> Line
 writeImage x y (w, h, fp) st = do
-	setheading t 90 >> forward t (24 * rt)
+	backLine st
 	(x0, y0) <- position t
 	goto t (x * width st) (y * height st)
 	image t fp (w * rt) (h * rt)
