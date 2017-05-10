@@ -1,6 +1,7 @@
 module Lecture (
-	Page, Line, Version, runLecture, writeTitle, pageTitle, text,
-	writeImageRight, nextLine, backLine
+	Page, Line, Version, State(..),
+	runLecture, writeTitle, pageTitle, text,
+	writeImageRight, nextLine, backLine, width, height, fontName
 	) where
 
 import Control.Applicative

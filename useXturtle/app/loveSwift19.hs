@@ -27,7 +27,8 @@ samplePage = pageTitle "ここにページタイトルを置きます" :| [
 	]
 
 samplePage2 = pageTitle "ここに2つめのページタイトルを置きます" :| [
-	runMontecarloRightTop 8 10,
+	runMontecarloRightTop 15 100,
+	runMontecarloRightBottom 15 1000,
 	text "サンプルのページの2つめです",
 	text "これは2つめの2行目です"
 	]
