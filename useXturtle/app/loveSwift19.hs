@@ -15,17 +15,16 @@ main = do
 		]
 
 titlePage :: Page
-titlePage = [
-	writeTitle "Swiftの中心で、Haskellをさけぶ" "第19回 Swift愛好会"
-	]
+titlePage =
+	writeTitle "Swiftの中心で、Haskellをさけぶ" "第19回 Swift愛好会" :| []
 
 samplePage, samplePage2 :: Page
-samplePage = [
+samplePage = text "ここにページタイトルを置きます" :| [
 	text "サンプルのページですよ",
 	text "これは2行目です"
 	]
 
-samplePage2 = [
+samplePage2 = text "ここに2つめのページタイトルを置きます" :| [
 	text "サンプルのページの2つめです",
 	text "これは2つめの2行目です"
 	]
