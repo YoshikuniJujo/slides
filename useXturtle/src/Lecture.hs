@@ -1,10 +1,9 @@
 module Lecture (
-	Page, Version, runLecture, writeTitle, text
+	Page, Version, runLecture, writeTitle, pageTitle, text
 	) where
 
 import Control.Applicative
 import Control.Concurrent
-import Control.Concurrent.Chan
 import Data.Maybe
 import Data.List
 import Data.List.NonEmpty (NonEmpty(..), (<|))
@@ -85,9 +84,6 @@ setClock cl s = s { stClock = Just cl }
 instance Monoid Setting where
 	mempty = initialSetting
 	mappend = appendSettings
-
-getRatio :: Setting -> Double
-getRatio = fromMaybe 1 . stRatio
 
 data State = State {
 	ratio :: Double,
@@ -180,15 +176,13 @@ runLecture v pga = do
 		case c of
 			'q' -> return False
 			' ' -> do
-				e <- readIORef $ allEnd stt
-				pe <- readIORef $ pageEnd stt
-				case (e, pe) of
+				en <- readIORef $ allEnd stt
+				pen <- readIORef $ pageEnd stt
+				case (en, pen) of
 					(False, True) -> do
 						_ <- forkIO $ runPage stt
-						print pe
 						return ()
 					(False, False) -> do
-						print pe
 						writeChan (clock stt) ()
 						return ()
 					(True, _) -> return ()
@@ -196,6 +190,9 @@ runLecture v pga = do
 			_ -> return True
 
 	waitField fld
+
+append :: NonEmpty a -> [a] -> NonEmpty a
+append (x :| xs) ys = (x :| xs ++ ys)
 
 runPage :: State -> IO ()
 runPage st = do
@@ -208,6 +205,7 @@ runPage st = do
 	goto t (width st / 8) (height st / 8)
 	showturtle t
 	sequence_ . NE.toList
+		. (`append` [ readChan $ clock st ])
 		. NE.intersperse (do
 			readChan $ clock st
 			setheading t (- 90) >> forward t (24 * rt))
@@ -248,6 +246,18 @@ writeTitle ttl sttl st = do
 		(height st * 1 / 2 + 20 * ratio st)
 	write t fontName (12 * ratio st) sttl
 	speed t "slow"
+	where
+	t = bodyTurtle st
+
+pageTitle :: String -> State -> IO ()
+pageTitle ttl st = do
+	setx  t $ width st / 8
+	setheading t 0
+	write t fontName (15 * ratio st) ttl
+	showturtle t
+	speed t "slowest"
+	forward t $ (15 * ratio st) * myLength ttl
+	hideturtle t
 	where
 	t = bodyTurtle st
 
