@@ -1,5 +1,6 @@
 module Main where
 
+import Control.Monad
 import Data.List.NonEmpty
 
 import Lecture
@@ -23,14 +24,16 @@ titlePage =
 
 selfIntroduction :: Page
 selfIntroduction = pageTitle "自己紹介" :| [
+	text "はじめてのプログラミングは?",
+	itext 4 "MSXでBASIC言語"
 	]
 
 selfIntroduction2 :: Page
 selfIntroduction2 = pageTitle "自己紹介" :| [
 	text "Haskellの入門書を書きました",
 	writeImageRight (515 / 3, 654 / 3, "images/cover.png"),
-	text "「Haskell",
-	text "- 教養としての関数型プログラミング -」"
+	replicateM_ 7 . nextLine,
+	text "「Haskell - 教養としての関数型プログラミング -」"
 	]
 
 samplePage, samplePage2 :: Page

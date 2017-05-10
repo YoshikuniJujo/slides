@@ -1,6 +1,8 @@
+{-# LANGUAGE TupleSections #-}
+
 module Lecture (
 	Page, Line, Version, State(..),
-	runLecture, writeTitle, pageTitle, text,
+	runLecture, writeTitle, pageTitle, text, itext,
 	writeImageRight, nextLine, backLine, width, height, fontName
 	) where
 
@@ -35,7 +37,8 @@ data Setting = Setting {
 	stPageZipper :: Maybe (IORef (Zipper Page)),
 	stPageEnd :: Maybe (IORef Bool),
 	stAllEnd :: Maybe (IORef Bool),
-	stClock :: Maybe (Chan ()) }
+	stClock :: Maybe (Chan ()),
+	stPage :: Maybe Int }
 
 initialSetting :: Setting
 initialSetting = Setting {
@@ -47,7 +50,8 @@ initialSetting = Setting {
 	stPageZipper = Nothing,
 	stPageEnd = Nothing,
 	stAllEnd = Nothing,
-	stClock = Nothing }
+	stClock = Nothing,
+	stPage = Nothing }
 
 appendSettings :: Setting -> Setting -> Setting
 appendSettings s1 s2 = Setting {
@@ -59,7 +63,8 @@ appendSettings s1 s2 = Setting {
 	stPageZipper = stPageZipper s1 <|> stPageZipper s2,
 	stPageEnd = stPageEnd s1 <|> stPageEnd s2,
 	stAllEnd = stAllEnd s1 <|> stAllEnd s2,
-	stClock = stClock s1 <|> stClock s2 }
+	stClock = stClock s1 <|> stClock s2,
+	stPage = stPage s1 <|> stPage s2 }
 
 setTurtles :: Turtle -> Turtle -> Setting -> Setting
 setTurtles p t s = s {
@@ -99,10 +104,14 @@ data State = State {
 	allEnd :: IORef Bool,
 	clock :: Chan () }
 
+nextZipperWithN :: (Int, Zipper a) -> Maybe (Int, Zipper a)
+nextZipperWithN (n, z) = (n + 1 ,) <$> nextZipper z
+
 settingToState :: Setting -> IO State
 settingToState st = fromMaybe
 	(putStrLn "Settings are not enough" >> exitFailure) $ do
 		let	r = fromMaybe 1 $ stRatio st
+			pg = fromMaybe 0 $ stPage st
 		p <- stPageTurtle st
 		t <- stBodyTurtle st
 		apg <- stAllPages st
@@ -111,7 +120,14 @@ settingToState st = fromMaybe
 		pe <- stPageEnd st
 		ae <- stAllEnd st
 		cl <- stClock st
-		return (return $ State r p t apg pn pz pe ae cl)
+		return (do
+			z <- readIORef pz
+			case iterate (nextZipper =<<) (return z) !! (pg - 1) of
+				Just z' -> do
+					writeIORef pz z'
+					writeIORef pn pg
+				Nothing -> return ()
+			return $ State r p t apg pn pz pe ae cl)
 
 width, height :: State -> Double
 width = (512 *) . ratio
@@ -232,6 +248,7 @@ getAction :: Version -> NonEmpty Page -> Option -> Action
 getAction v _ Version = (1, printVersion v >> exitSuccess)
 getAction _ pgs CountPages = (2, print (NE.length pgs) >> exitSuccess)
 getAction _ _ (OptRatio r) = (3, return $ initialSetting { stRatio = Just r })
+getAction _ _ (OptPage p) = (3, return $ initialSetting { stPage = Just p })
 
 printVersion :: Version -> IO ()
 printVersion v = putStrLn . intercalate "." $ map show v
@@ -268,13 +285,16 @@ pageTitle ttl st = do
 	t = bodyTurtle st
 
 text :: String -> Line
-text tx st = do
-	setx  t $ width st / 8
+text = itext 0
+
+itext :: Double -> String -> Line
+itext i tx st = do
+	setx  t $ width st / 8 + i * 13 * ratio st
 	setheading t 0
-	write t fontName (10 * ratio st) tx
+	write t fontName (13 * ratio st) tx
 	showturtle t
 	speed t "slowest"
-	forward t $ (10 * ratio st) * myLength tx
+	forward t $ (13 * ratio st) * myLength tx
 	hideturtle t
 	where
 	t = bodyTurtle st

@@ -10,6 +10,7 @@ data Option
 	= Version
 	| CountPages
 	| OptRatio Double
+	| OptPage Int
 	deriving (Show, Eq)
 
 getOptions :: IO ([Option], [String])
@@ -22,5 +23,6 @@ optDescrs :: [OptDescr Option]
 optDescrs = [
 	Option "" ["version"] (NoArg Version) "show version",
 	Option "" ["count-pages"] (NoArg CountPages) "count pages",
-	Option "r" ["ratio"] (ReqArg (OptRatio . read) "ratio") "set ratio"
+	Option "r" ["ratio"] (ReqArg (OptRatio . read) "ratio") "set ratio",
+	Option "p" ["page"] (ReqArg (OptPage . read) "page") "begin with"
 	]
