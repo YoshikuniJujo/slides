@@ -12,7 +12,7 @@ haskell :: [Page]
 haskell = [
 	haskell1, haskell2, haskell3, haskell4, haskell5,
 	haskell6, haskell7, haskell8, haskell9, haskell10,
-	haskell11, haskell12, haskell13, haskell14, haskell15,
+	{- haskell11, -} haskell12, haskell13, haskell14, haskell15,
 	haskell16, haskell17, haskell18
 	]
 
@@ -97,7 +97,7 @@ haskell7 = pageTitle "関数定義、関数適用は、すなお" :| [
 	text "関数定義、関数適用は、とっても、すなおでした",
 	(>>)	<$> nextLine
 		<*> itext 4 "関数名 仮引数1 仮引数2 ... = 結果となる式",
-	(>>)	<$> itext 4 "関数名 実引数1 実引数2"
+	(>>)	<$> itext 4 "関数名 実引数1 実引数2 ..."
 		<*> nextLine,
 	text "すなおだなぁ"
 	]
@@ -138,13 +138,7 @@ haskell10 = pageTitle "複数の引数をとる関数はありまぁす" :| [
 	text "「べ、べつに買ってほしいわけじゃないんだから」",
 	writeImageCenter (515 * 21 / 60, 654 * 21 / 60, "images/cover.png"),
 	(>>)	<$> replicateM_ 4 . nextLine
-		<*> text "「べ、べつに買ってほしいわけじゃ(ry",
-	(>>) <$> text "." <*> backLine,
-	(>>) <$> itext 1 "." <*> backLine,
-	(>>) <$> itext 2 "." <*> backLine,
-	(>>) <$> itext 3 "." <*> backLine,
-	(>>) <$> itext 4 "." <*> backLine,
-	itext 5 "か、買わないの...?」"
+		<*> text "「べ、べつに買ってほしいわけじゃ(ry"
 	]
 
 haskell11 :: Page
