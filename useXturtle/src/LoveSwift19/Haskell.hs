@@ -11,7 +11,7 @@ haskell :: [Page]
 haskell = [
 	haskell1, haskell2, haskell3, haskell4, haskell5,
 	haskell6, haskell7, haskell8, haskell9, haskell10,
-	haskell11
+	haskell11, haskell12, haskell13, haskell14
 	]
 
 haskell1 :: Page
@@ -151,4 +151,40 @@ haskell11 = pageTitle "こういうギャグを" :| [
 		<*> text "こういうギャグを、真顔で打ち込んでいるわけです",
 	text "大丈夫です。こういう空気には慣れていますので",
 	text "つぎに進みます"
+	]
+
+haskell12 :: Page
+haskell12 = pageTitle "どうして、そんなに、すなおなの?" :| [
+	(>>) <$> text "引数を2倍する関数をSwiftで書くと" <*> nextLine,
+	itext 4 "func double (_ x: Int) -> Int {",
+	itext 8 "return(x * 2)",
+	(>>) <$> itext 4 "}" <*> nextLine,
+	text "のようになるかと思います",
+	text "(今日のために、Swiftを、ほんのちょっとだけ、",
+	itext 4 "勉強してきました)",
+	text "Swiftでは{}やreturnが必要",
+	text "これは{}のなかで動作が実行されるかもしれないから"
+	]
+
+haskell13 :: Page
+haskell13 = pageTitle "どうして、そんなに、すなおなの?" :| [
+	text "動作とは、文字列を表示したり、",
+	itext 4 "変数の値を変化させたりすること",
+	text "Swiftでは関数doubleを評価しているあいだに",
+	itext 4 "文字列が表示されたり",
+	itext 4 "変数の値が変化したりする",
+	itext 2 "かもしれない",
+	text "Haskellでは関数doubleは、ただ評価される",
+	text "そのあいだに、実行される動作はない",
+	(>>)	<$> text "だから{}もreturnも不要で、つぎのように書ける"
+		<*> nextLine,
+	itext 4 "double x = x * 2"
+	]
+
+haskell14 :: Page
+haskell14 = pageTitle "どうして、そんなに、すなおなの?" :| [
+	(>>)	<$> replicateM_ 3 . nextLine
+		<*> text "Haskellでは評価しているあいだに",
+	itext 4 "動作が実行されるということがない",
+	text "だから、「関数」が、とても「すなお」に書ける"
 	]
