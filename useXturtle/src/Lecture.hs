@@ -2,8 +2,9 @@
 
 module Lecture (
 	Page, Line, Version, State(..),
-	runLecture, writeTitle, pageTitle, text, itext,
-	writeImageRight, nextLine, backLine, width, height, fontName
+	runLecture, writeTitle, pageTitle, text, bigIText, itext,
+	writeImageRight, writeImageMoreRight,
+	nextLine, backLine, width, height, fontName
 	) where
 
 import Control.Applicative
@@ -287,14 +288,20 @@ pageTitle ttl st = do
 text :: String -> Line
 text = itext 0
 
+bigIText :: Double -> String -> Line
+bigIText = sitext 15
+
 itext :: Double -> String -> Line
-itext i tx st = do
-	setx  t $ width st / 8 + i * 13 * ratio st
+itext = sitext 13
+
+sitext :: Double -> Double -> String -> Line
+sitext s i tx st = do
+	setx  t $ width st / 8 + i * s * ratio st
 	setheading t 0
-	write t fontName (13 * ratio st) tx
+	write t fontName (s * ratio st) tx
 	showturtle t
 	speed t "slowest"
-	forward t $ (13 * ratio st) * myLength tx
+	forward t $ (s * ratio st) * myLength tx
 	hideturtle t
 	where
 	t = bodyTurtle st
@@ -307,6 +314,9 @@ myLength (c : cs)
 
 writeImageRight :: (Double, Double, FilePath) -> Line
 writeImageRight img = writeImage (25 / 40) (1 / 6) img
+
+writeImageMoreRight :: (Double, Double, FilePath) -> Line
+writeImageMoreRight img = writeImage (3 / 4) (1 / 6) img
 
 writeImage :: Double -> Double -> (Double, Double, FilePath) -> Line
 writeImage x y (w, h, fp) st = do

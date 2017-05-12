@@ -23,8 +23,6 @@ main = do
 		selfIntroduction9,
 		book0,
 		book1,
-		selfIntroductionX,
-		samplePage,
 		samplePage2
 		]
 
@@ -42,7 +40,8 @@ selfIntroduction = pageTitle "自己紹介" :| [
 	text "キーボードに触れたのは?",
 	itext 4 "ブラインドタッチの練習を",
 	itext 8 "キーボードの絵のコピーで",
-	nextLine >> text "紙のキーボード!!! 紙のディスプレイ???"
+	(>>) <$> nextLine
+		<*> bigIText 2 "紙でコーディング??? 紙のキーボード!!!"
 	]
 
 selfIntroduction2 :: Page
@@ -161,30 +160,25 @@ book0 = pageTitle "書籍紹介" :| [
 	text "先月、ついに出版されました",
 	writeImageRight (515 / 3, 654 / 3, "images/cover.png"),
 	replicateM_ 7 . nextLine,
-	text "「Haskell - 教養としての関数型プログラミング -」"
+	bigIText (- 3) "「Haskell - 教養としての関数型プログラミング -」"
 	]
 
 book1 :: Page
 book1 = pageTitle "書籍紹介" :| [
-	writeImageRight (515 / 6, 654 / 6, "images/cover.png"),
-	text ""
+	writeImageMoreRight (515 / 6, 654 / 6, "images/cover.png"),
+	text "特徴",
+	itext 4 "処理系の導入から説明",
+	itext 4 "「プログラミングがはじめて」でも",
+	itext 4 "エディタは使える必要がある",
+	itext 4 "シェルの操作にも慣れていたほうがいい",
+	itext 4 "本文の説明だけでは理解できなくても",
+	itext 8 "短いコードをうちこんで試すことで理解できる",
+	itext 4 "使用する構文や概念はひとつずつ追加していく",
+	itext 4 "あるていど意味のある例題を",
+	(>>) <$> nextLine <*> bigIText 2 "僕自身が理想とする入門書"
 	]
 
-selfIntroductionX :: Page
-selfIntroductionX = pageTitle "自己紹介" :| [
-	text "Haskellの入門書を書きました",
-	writeImageRight (515 / 3, 654 / 3, "images/cover.png"),
-	replicateM_ 7 . nextLine,
-	text "「Haskell - 教養としての関数型プログラミング -」"
-	]
-
-samplePage, samplePage2 :: Page
-samplePage = pageTitle "ここにページタイトルを置きます" :| [
-	writeImageRight (128.75, 163.5, "images/cover.png"),
-	text "サンプルのページですよ",
-	text "これは2行目です"
-	]
-
+samplePage2 :: Page
 samplePage2 = pageTitle "ここに2つめのページタイトルを置きます" :| [
 	runMontecarloRightTop 15 100,
 	runMontecarloRightBottom 15 1000,
