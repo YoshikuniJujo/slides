@@ -1,4 +1,5 @@
 module Montecarlo (
+	circleInSquare,
 	runMontecarloRightTop,
 	runMontecarloRightBottom
 	) where
@@ -20,6 +21,22 @@ runMontecarloRightTop = runMontecarlo (2 / 3, 1 / 6) (1 / 5)
 
 runMontecarloRightBottom = runMontecarlo (2 / 3, 1 / 2) (1 / 5)
 
+circleInSquare :: Position -> Size -> Line
+circleInSquare (xr, yr) s st = do
+	hideturtle t
+	backLine st
+	(x0, y0) <- position t
+	goto t (width st * xr) (height st * yr)
+	pendown t
+	setheading t 0
+	replicateM_ 4 $ forward t (s * width st) >> right t 90
+	forward t $ s * width st / 2
+	circle t (- s * width st / 2)
+	penup t
+	goto t x0 y0
+	where
+	t = bodyTurtle st
+
 runMontecarlo :: Position -> Size -> Int -> Int -> Line
 runMontecarlo (xr, yr) s g n st = do
 	hideturtle t
@@ -32,7 +49,6 @@ runMontecarlo (xr, yr) s g n st = do
 	forward t $ s * width st / 2
 	circle t (- s * width st / 2)
 	penup t
-	return ()
 	it <- newTurtle $ field t
 	penup it >> hideturtle it >> pencolor it "red"
 	goto it (x + sz + ratio st * 10) (y + ratio st * 13)
@@ -52,7 +68,9 @@ runMontecarlo (xr, yr) s g n st = do
 			(fromIntegral ipt / fromIntegral apt * 4 :: Double)
 	pencolor t "black"
 	goto t x0 y0
-	print . take 10 $ calcs ps
+	sleep it 100000 >> clear it
+	sleep at 100000 >> clear at
+	sleep pit 100000 >> clear pit
 	where
 	t = bodyTurtle st
 	sz = s * width st

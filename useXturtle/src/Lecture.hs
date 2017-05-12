@@ -3,9 +3,9 @@
 module Lecture (
 	Page, Line, Version, State(..),
 	runLecture, writeTitle, pageTitle, text, bigIText, itext,
-	writeImageCenter, writeImageRight, writeImageMoreRight,
-	writeImageAlmost,
-	nextLine, backLine, width, height, fontName
+	writeImageCenterTop, writeImageCenter,
+	writeImageRight, writeImageMoreRight, writeImageAlmost,
+	nextLine, backLine, width, height, fontName, erase
 	) where
 
 import Control.Applicative
@@ -316,6 +316,9 @@ myLength (c : cs)
 writeImageAlmost :: (Double, Double, FilePath) -> Line
 writeImageAlmost img = writeImage (1 / 10) (1 / 20) img
 
+writeImageCenterTop :: (Double, Double, FilePath) -> Line
+writeImageCenterTop img = writeImage (1 / 4) (2 / 60) img
+
 writeImageCenter :: (Double, Double, FilePath) -> Line
 writeImageCenter img = writeImage (1 / 4) (15 / 60) img
 
@@ -335,3 +338,6 @@ writeImage x y (w, h, fp) st = do
 	where
 	t = bodyTurtle st
 	rt = ratio st
+
+erase :: Line
+erase st = undo $ bodyTurtle st

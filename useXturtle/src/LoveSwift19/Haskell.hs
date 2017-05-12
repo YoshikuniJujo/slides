@@ -6,12 +6,14 @@ import Control.Monad
 import Data.List.NonEmpty
 
 import Lecture
+import Montecarlo
 
 haskell :: [Page]
 haskell = [
 	haskell1, haskell2, haskell3, haskell4, haskell5,
 	haskell6, haskell7, haskell8, haskell9, haskell10,
-	haskell11, haskell12, haskell13, haskell14
+	haskell11, haskell12, haskell13, haskell14, haskell15,
+	haskell16, haskell17, haskell18
 	]
 
 haskell1 :: Page
@@ -70,8 +72,8 @@ haskell5 = pageTitle "RSA暗号も、すなお" :| [
 		<*> itext 4 "c = m ^ e `mod` n",
 	(>>)	<$> itext 4 "m = c ^ d `mod` n"
 		<*> nextLine,
-	text "平文をe乗して、nでわった、あまりをとると、暗号文になる",
-	text "暗号文をd乗して、nでわった、あまりをとると、平文になる"
+	text "平文をe乗して、nでわった、あまりをとると、暗号文に",
+	text "暗号文をd乗して、nでわった、あまりをとると、平文に"
 	]
 
 haskell6 :: Page
@@ -82,7 +84,7 @@ haskell6 = pageTitle "RSA暗号も、すなお" :| [
 	(>>)	<$> itext 4 "decrypt n d c = c ^ d `mod` n"
 		<*> nextLine,
 	text "「すなお」だなぁ",
-	text "適切な値の例としてe = 13, d = 95497, n = 138689がある",
+	text "適切な値の例としてe = 13, d = 95497, n = 138689を",
 	text "暗号化と複号の例は、つぎのようになる",
 	(>>)	<$> nextLine
 		<*> itext 4 "encrypt 138689 13 12345 => 47046",
@@ -186,5 +188,56 @@ haskell14 = pageTitle "どうして、そんなに、すなおなの?" :| [
 	(>>)	<$> replicateM_ 3 . nextLine
 		<*> text "Haskellでは評価しているあいだに",
 	itext 4 "動作が実行されるということがない",
+	itext 4 "(これを参照透過性とよぶ)",
 	text "だから、「関数」が、とても「すなお」に書ける"
+	]
+
+haskell15 :: Page
+haskell15 = pageTitle "モンテカルロ法も、とっても、すなお" :| [
+	text "モンテカルロ法って何?",
+	itext 3 "モンテカルロにはカジノがある",
+	writeImageCenterTop (300 * 23 / 30, 450 * 23 / 30,
+		"images/monte_carlo_casino.jpg"),
+	(>>) <$> replicateM_ 5 . erase <*> replicateM_ 0 . nextLine,
+	itext 3 "モンテカルロ法は、ランダムな値を調べていくことで",
+	itext 6 "確率論的に正しい値を導こうという、やりかた",
+	itext 3 "結果が正しいかどうかは賭け",
+	itext 3 "だから「モンテカルロ」法",
+	itext 3 "正確な結果を得るのに時間がかかりすぎるときに使う",
+	itext 3 "(ちなみに、ラスベガス法というものも、ある)"
+	]
+
+haskell16 :: Page
+haskell16 = pageTitle "モンテカルロ法も、とっても、すなお" :| [
+	text "モンテカルロ法で円周率を、もとめる",
+	text "正方形のなかに、円を描いて、そこに米粒をばらまく",
+	(>>) <$> text "つぎの関係が、だいたい、成り立つ" <*> nextLine,
+	itext 3 "円の面積 : 正方形の面積 =",
+	(>>)	<$> itext 6 "円のなかの米粒の数 : 正方形のなかの米粒の数"
+		<*> nextLine,
+	text "半径1の円の面積が円周率に等しい",
+	text "半径1の円は、1辺が2の正方形に、ぎりぎり、はいる"
+	]
+
+haskell17 :: Page
+haskell17 = pageTitle "モンテカルロ法も、とっても、すなお" :| [
+	text "つぎの図を、みてください",
+	(>>)	<$> circleInSquare (3 / 10, 11 / 40) (1 / 5)
+		<*> replicateM_ 5 . nextLine,
+	text "半径1の円が、1辺が2の正方形の内側にある",
+	(>>)	<$> text "正方形の面積は4なので、だいたい、つぎのようになる"
+		<*> nextLine,
+	itext (- 1) "円周率 = 円の面積 = 4 * 円内の点の数 / 正方形内の点の数"
+	]
+
+haskell18 :: Page
+haskell18 = pageTitle "モンテカルロ法も、とっても、すなお" :| [
+	text "それでは、実際に米粒を",
+	itext 3 "まいてみましょう",
+	runMontecarloRightTop 15 100,
+	text "100粒まいてみました",
+	text "つぎは、1000粒まいてみましょう",
+	runMontecarloRightBottom 15 1000,
+	text "米粒の数を、ふやせばふやすほど、",
+	itext 3 "正確な値となる可能性が高まる"
 	]
