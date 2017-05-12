@@ -10,6 +10,7 @@ module Lecture (
 
 import Control.Applicative
 import Control.Concurrent
+import Data.Bool
 import Data.Maybe
 import Data.List
 import Data.List.NonEmpty (NonEmpty(..), (<|))
@@ -40,7 +41,9 @@ data Setting = Setting {
 	stPageEnd :: Maybe (IORef Bool),
 	stAllEnd :: Maybe (IORef Bool),
 	stClock :: Maybe (Chan ()),
-	stPage :: Maybe Int }
+	stPage :: Maybe Int,
+	stNeedEnd :: Maybe (IORef Int),
+	stEnd :: Maybe (Chan ()) }
 
 initialSetting :: Setting
 initialSetting = Setting {
@@ -53,7 +56,9 @@ initialSetting = Setting {
 	stPageEnd = Nothing,
 	stAllEnd = Nothing,
 	stClock = Nothing,
-	stPage = Nothing }
+	stPage = Nothing,
+	stNeedEnd = Nothing,
+	stEnd = Nothing }
 
 appendSettings :: Setting -> Setting -> Setting
 appendSettings s1 s2 = Setting {
@@ -66,12 +71,20 @@ appendSettings s1 s2 = Setting {
 	stPageEnd = stPageEnd s1 <|> stPageEnd s2,
 	stAllEnd = stAllEnd s1 <|> stAllEnd s2,
 	stClock = stClock s1 <|> stClock s2,
-	stPage = stPage s1 <|> stPage s2 }
+	stPage = stPage s1 <|> stPage s2,
+	stNeedEnd = stNeedEnd s1 <|> stNeedEnd s2,
+	stEnd = stEnd s1 <|> stEnd s2 }
 
 setTurtles :: Turtle -> Turtle -> Setting -> Setting
 setTurtles p t s = s {
 	stPageTurtle = Just p,
 	stBodyTurtle = Just t }
+
+setNeedEnd :: IORef Int -> Setting -> Setting
+setNeedEnd ne s = s { stNeedEnd = Just ne }
+
+setEnd :: Chan () -> Setting -> Setting
+setEnd e s = s { stEnd = Just e }
 
 setAllPages :: Int -> Setting -> Setting
 setAllPages p s = s { stAllPages = Just p }
@@ -104,7 +117,9 @@ data State = State {
 	pageZipper :: IORef (Zipper Page),
 	pageEnd :: IORef Bool,
 	allEnd :: IORef Bool,
-	clock :: Chan () }
+	clock :: Chan (),
+	needEnd :: IORef Int,
+	end :: Chan () }
 
 nextZipperWithN :: (Int, Zipper a) -> Maybe (Int, Zipper a)
 nextZipperWithN (n, z) = (n + 1 ,) <$> nextZipper z
@@ -122,6 +137,8 @@ settingToState st = fromMaybe
 		pe <- stPageEnd st
 		ae <- stAllEnd st
 		cl <- stClock st
+		ne <- stNeedEnd st
+		e <- stEnd st
 		return (do
 			z <- readIORef pz
 			case iterate (nextZipper =<<) (return z) !! (pg - 1) of
@@ -129,7 +146,7 @@ settingToState st = fromMaybe
 					writeIORef pz z'
 					writeIORef pn pg
 				Nothing -> return ()
-			return $ State r p t apg pn pz pe ae cl)
+			return $ State r p t apg pn pz pe ae cl ne e)
 
 width, height :: State -> Double
 width = (512 *) . ratio
@@ -184,7 +201,11 @@ runLecture v pga = do
 	pe <- newIORef True
 	ae <- newIORef False
 	cl <- newChan
+	ne <- newIORef 0
+	e <- newChan
 	stt <- settingToState
+		. setEnd e
+		. setNeedEnd ne
 		. setClock cl
 		. setAllEnd ae
 		. setPageEnd pe
@@ -201,6 +222,7 @@ runLecture v pga = do
 				pen <- readIORef $ pageEnd stt
 				case (en, pen) of
 					(False, True) -> do
+						checkEnd stt
 						_ <- forkIO $ runPage stt
 						return ()
 					(False, False) -> do
@@ -211,6 +233,14 @@ runLecture v pga = do
 			_ -> return True
 
 	waitField fld
+
+checkEnd :: State -> IO ()
+checkEnd st = do
+	nen <- readIORef $ needEnd st
+	flip (bool $ return ()) (nen > 0) $ do
+		writeChan (end st) ()
+		modifyIORef (needEnd st) pred
+		checkEnd st
 
 append :: NonEmpty a -> [a] -> NonEmpty a
 append (x :| xs) ys = (x :| xs ++ ys)

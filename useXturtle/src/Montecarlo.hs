@@ -6,8 +6,10 @@ module Montecarlo (
 
 import Control.Arrow ((***))
 import Control.Monad
+import Control.Concurrent
 import Data.Foldable
 import Data.Bool
+import Data.IORef
 import System.Random
 import Graphics.X11.Turtle
 
@@ -39,6 +41,7 @@ circleInSquare (xr, yr) s st = do
 
 runMontecarlo :: Position -> Size -> Int -> Int -> Line
 runMontecarlo (xr, yr) s g n st = do
+	modifyIORef (needEnd st) succ
 	hideturtle t
 	backLine st
 	(x0, y0) <- position t
@@ -68,9 +71,12 @@ runMontecarlo (xr, yr) s g n st = do
 			(fromIntegral ipt / fromIntegral apt * 4 :: Double)
 	pencolor t "black"
 	goto t x0 y0
-	sleep it 100000 >> clear it
-	sleep at 100000 >> clear at
-	sleep pit 100000 >> clear pit
+	_ <- forkIO $ do
+		_ <- readChan $ end st
+		clear it
+		clear at
+		clear pit
+	return ()
 	where
 	t = bodyTurtle st
 	sz = s * width st
