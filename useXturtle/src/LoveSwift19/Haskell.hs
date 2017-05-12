@@ -13,7 +13,7 @@ haskell = [
 	haskell1, haskell2, haskell3, haskell4, haskell5,
 	haskell6, haskell7, haskell8, haskell9, haskell10,
 	{- haskell11, -} haskell12, haskell13, haskell14, haskell15,
-	haskell16, haskell17, haskell18
+	haskell16, haskell17, haskell18, haskell19
 	]
 
 haskell1 :: Page
@@ -234,4 +234,9 @@ haskell18 = pageTitle "モンテカルロ法も、とっても、すなお" :| [
 	runMontecarloRightBottom 15 1000,
 	text "米粒の数を、ふやせばふやすほど、",
 	itext 3 "正確な値となる可能性が高まる"
+	]
+
+haskell19 :: Page
+haskell19 = pageTitle "モンテカルロ法も、とっても、すなお" :| [
+	text "モンテカルロ法で円周率をもとめる関数を、つくる"
 	]
