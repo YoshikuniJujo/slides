@@ -20,6 +20,9 @@ main = do
 		selfIntroduction6,
 		selfIntroduction7,
 		selfIntroduction8,
+		selfIntroduction9,
+		book0,
+		book1,
 		selfIntroductionX,
 		samplePage,
 		samplePage2
@@ -125,7 +128,46 @@ selfIntroduction7 = pageTitle "自己紹介" :| [
 
 selfIntroduction8 :: Page
 selfIntroduction8 = pageTitle "自己紹介" :| [
-	text "入門書出版"
+	text "入門書出版",
+	itext 4 "転職サイトでHaskellを検索",
+	itext 4 "Haskellに興味のある会社に面接に行ってみる",
+	itext 4 "社員のかたにHaskellを教えることになる",
+	itext 4 "スライドを作成し週一でレクチャー",
+	itext 4 "他の会社の、コードを見たかたからスカウト",
+	itext 4 "(株)Reproに、ちょいちょい遊びに行くように",
+	itext 8 "(「Repro飯」もいただきました)",
+	itext 4 "CTOのかたにHaskellを教えはじめる",
+	itext 4 "今日、まねいていただいた七島さんに",
+	itext 8 "秀和システムの編集のかたを紹介してもらう"
+	]
+
+selfIntroduction9 :: Page
+selfIntroduction9 = pageTitle "自己紹介" :| [
+	text "入門書出版(続き)",
+	itext 4 "編集のかたにHaskellのすばらしさを熱弁する",
+	itext 4 "Haskellの入門書の出版が決まる",
+	itext 4 "レクチャー用のスライドとウェブページに",
+	itext 8 "肉づけ、説明を追加、サンプルコードも追加",
+	itext 4 "半年ほどで出版のはずだったが",
+	itext 8 "何度となく読み返し",
+	itext 8 "構成の修正、誤字脱字のチェック、",
+	itext 8 "処理系のインストールのテスト、",
+	itext 8 "読点の追加、鉤括弧の追加、",
+	itext 8 "索引の作成などで、結局1年ちょっとかかる"
+	]
+
+book0 :: Page
+book0 = pageTitle "書籍紹介" :| [
+	text "先月、ついに出版されました",
+	writeImageRight (515 / 3, 654 / 3, "images/cover.png"),
+	replicateM_ 7 . nextLine,
+	text "「Haskell - 教養としての関数型プログラミング -」"
+	]
+
+book1 :: Page
+book1 = pageTitle "書籍紹介" :| [
+	writeImageRight (515 / 6, 654 / 6, "images/cover.png"),
+	text ""
 	]
 
 selfIntroductionX :: Page
