@@ -17,7 +17,9 @@ haskell = [
 haskell1 :: Page
 haskell1 = pageTitle "Haskell" :| [
 	text "Haskell! Haskell! Haskell!",
-	text "Haskellの魅力をつたえたい",
+	text "よろしい、それならHaskellだ",
+	(>>)	<$> nextLine
+		<*> text "Haskellの魅力をつたえたい",
 	text "僕にとってHaskellは空気のようなもの",
 	text "空気の魅力をつたえるのは、むずかしいこと",
 	text "「Haskellはすなお」",
