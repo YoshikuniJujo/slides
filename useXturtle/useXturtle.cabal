@@ -15,7 +15,9 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     Lecture, Montecarlo
+  exposed-modules:     Lecture,
+                       Montecarlo,
+                       LoveSwift19.SelfIntroduction, LoveSwift19.Book
   other-modules:       Options
   ghc-options:         -Wall -fno-warn-tabs
   build-depends:       base >= 4.7 && < 5, xturtle, random
