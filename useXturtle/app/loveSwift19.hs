@@ -7,13 +7,17 @@ import Lecture
 import Montecarlo
 import LoveSwift19.SelfIntroduction
 import LoveSwift19.Book
+import LoveSwift19.Haskell
 
 version :: Version
 version = [0, 1, 0, 0]
 
 main :: IO ()
 main = do
-	runLecture version $ titlePage :| selfIntroduction ++ book ++ [
+	runLecture version $ titlePage :|
+		selfIntroduction ++
+		book ++
+		haskell ++ [
 		samplePage2
 		]
 

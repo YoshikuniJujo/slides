@@ -4,6 +4,7 @@ module Lecture (
 	Page, Line, Version, State(..),
 	runLecture, writeTitle, pageTitle, text, bigIText, itext,
 	writeImageCenter, writeImageRight, writeImageMoreRight,
+	writeImageAlmost,
 	nextLine, backLine, width, height, fontName
 	) where
 
@@ -311,6 +312,9 @@ myLength "" = 0
 myLength (c : cs)
 	| isAscii c = 0.7 + myLength cs
 	| otherwise = 1.4 + myLength cs
+
+writeImageAlmost :: (Double, Double, FilePath) -> Line
+writeImageAlmost img = writeImage (1 / 10) (1 / 20) img
 
 writeImageCenter :: (Double, Double, FilePath) -> Line
 writeImageCenter img = writeImage (1 / 4) (15 / 60) img

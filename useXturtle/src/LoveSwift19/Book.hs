@@ -8,7 +8,7 @@ import Data.List.NonEmpty
 import Lecture
 
 book :: [Page]
-book = [book0, book1]
+book = [book0, book1, book2]
 
 book0 :: Page
 book0 = pageTitle "書籍紹介" :| [
@@ -32,4 +32,11 @@ book1 = pageTitle "書籍紹介" :| [
 	itext 4 "使用する構文や概念はひとつずつ追加していく",
 	itext 4 "あるていど意味のある例題を",
 	(>>) <$> nextLine <*> bigIText 2 "僕自身が理想とする入門書"
+	]
+
+book2 :: Page
+book2 = pageTitle "書籍紹介" :| [
+	(>>)
+		<$> replicateM_ 4 . nextLine
+		<*> bigIText 5 "自己紹介と書籍の宣伝でした"
 	]
