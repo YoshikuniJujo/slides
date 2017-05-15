@@ -15,7 +15,8 @@ haskell = [
 	{- haskell11, -} haskell12, haskell13, haskell14, haskell15,
 	haskell16, haskell17, haskell18, haskell19, haskell20,
 	haskell21, haskell22, haskell23, haskell24, haskell25,
-	haskell26, haskell27, haskell28, haskell29, haskell30
+	haskell26, haskell27, haskell28, haskell29, haskell30,
+	haskell31
 	]
 
 haskell1 :: Page
@@ -395,3 +396,14 @@ haskell30 = pageTitle "モンテカルロ法: 円周率をもとめる: コー�
 	miniIText 4 "is = filter inCircle ps in",
 	miniIText 4 "4 * fromIntegral (lengh is) / fromIntegral (length ps)"
 	] ]
+
+haskell31 :: Page
+haskell31 = pageTitle "ここまでの、まとめ" :| [
+	text "Haskellは、とっても、すなお",
+	text "関数を評価しているときに、動作の実行がない",
+	itext 3 "-> 関数の定義の書きかたが、すなおになる",
+	text "無限リストが使える",
+	itext 3 "-> 「まず無限個、要素をもつリストを使って",
+	itext 9 "そこから、いくつか取り出して...」",
+	itext 3 "というコーディングができる"
+	]
