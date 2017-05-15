@@ -13,7 +13,8 @@ haskell = [
 	haskell1, haskell2, haskell3, haskell4, haskell5,
 	haskell6, haskell7, haskell8, haskell9, haskell10,
 	{- haskell11, -} haskell12, haskell13, haskell14, haskell15,
-	haskell16, haskell17, haskell18, haskell19
+	haskell16, haskell17, haskell18, haskell19, haskell20,
+	haskell21, haskell22, haskell23, haskell24
 	]
 
 haskell1 :: Page
@@ -245,5 +246,69 @@ haskell19 = pageTitle "モンテカルロ法も、とっても、すなお" :| [
 	itext 3 "3. n個の点のうち、円の内部にあるものを取り出す",
 	itext 3 "4. 円の内部の点の数を数える(m個とする)",
 	itext 3 "5. 円周率の予測値は4 * m / nとなる",
-	itext 6 "(4は正方形の面積)"
+	itext 6 "(4は正方形の面積)",
+	(>>) <$> nextLine <*> text "それでは、ひとつずつ、みていきましょう"
+	]
+
+haskell20 :: Page
+haskell20 = pageTitle "モンテカルロ法: 正方形内のランダムな点" :| [
+	text "乱数値を得るライブラリはいくつかある",
+	text "ここでは、古いほうのライブラリを使う",
+	text "パッケージrandomにふくまれる",
+	itext 3 "ライブラリSystem.Randomを使う",
+	text "乱数を得るには、乱数の種が必要",
+	(>>) <$> text "つぎのように、整数から乱数の種を生成する" <*> nextLine,
+	(>>) <$> itext 3 "mkStdGen 8" <*> nextLine,
+	text "関数mkStdGenのとる引数で、得られる乱数の種が変わる",
+	text "乱数の種が異なれば",
+	itext 3 "得られる乱数のリストも異なるものになる"
+	]
+
+haskell21 :: Page
+haskell21 = pageTitle "モンテカルロ法: 正方形内のランダムな点" :| [
+	text "種から指定した範囲の乱数値のリストを生成するには",
+	(>>) <$> itext 3 "関数randomRsを使う" <*> nextLine,
+	(>>) <$> itext 3 "randomRs (-1, 1) (mkStdGen 8)" <*> nextLine,
+	text "この関数が返すリストには-1から1までの範囲の乱数値が",
+	itext 3 "無限個ふくまれている"
+	]
+
+haskell22 :: Page
+haskell22 = pageTitle "モンテカルロ法: 正方形内のランダムな点" :| [
+	text "-1から1までの範囲の乱数値のリストが手に入った",
+	text "ほしいものは、1辺が2の正方形内のランダムな点のリスト",
+	text "原点を中心とする1辺が2の正方形を考える",
+	text "-1から1までの範囲の乱数値のリストが、ふたつ必要だ",
+	(>>) <$> text "乱数の種は、ふたつに割ることができる" <*> nextLine,
+	(>>) <$> itext 3 "split (mkStdGen 8)" <*> nextLine,
+	text "このようにすると、乱数の種が、ふたつ手に入る"
+	]
+
+haskell23 :: Page
+haskell23 = pageTitle "モンテカルロ法: 正方形内のランダムな点" :| [
+	text "乱数の種が、ふたつ手に入れば、",
+	itext 3 "乱数値のリストも、ふたつ手に入る",
+	text "ふたつの乱数値のリストを、点のリストにするには",
+	itext 3 "それぞれの乱数値をペアにしていく必要がある",
+	(>>) <$> text "そのための関数zipがある、たとえば" <*> nextLine,
+	(>>)	<$> itext 3 "zip [1, 2, 3] [\"hello\", \"my\", \"friend\"]"
+		<*> nextLine,
+	(>>)	<$> text "のようにすると、つぎのような値が、つくられる"
+		<*> nextLine,
+	(>>)	<$> itext 3 "[(1, \"hello\"), (2, \"my\"), (3, \"friend\")]"
+		<*> nextLine
+	]
+
+haskell24 :: Page
+haskell24 = pageTitle "モンテカルロ法: 正方形内のランダムな点" :| [
+	(>>) <$> text "正方形内のランダムな点が定義できる" <*> nextLine,
+	itext 3 "randomPoints :: Int -> [(Double, Double)]",
+	itext 3 "randomPoints n = let",
+	itext 7 "(g, g') = split (mkStdGen 8)",
+	itext 7 "xs = randomRs (-1, 1) g",
+	itext 7 "ys = randomRs (-1, 1) g' in",
+	(>>) <$> itext 7 "zip xs ys" <*> nextLine,
+	text "1行目は、型の定義。->の前後に引数の型と返り値の型が",
+	text "またlet-in構文も、ここが初出",
+	text "整数値から、それぞれの、ランダムな点の系列を生成"
 	]
