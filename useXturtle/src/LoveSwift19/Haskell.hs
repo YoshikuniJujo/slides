@@ -14,7 +14,8 @@ haskell = [
 	haskell6, haskell7, haskell8, haskell9, haskell10,
 	{- haskell11, -} haskell12, haskell13, haskell14, haskell15,
 	haskell16, haskell17, haskell18, haskell19, haskell20,
-	haskell21, haskell22, haskell23, haskell24
+	haskell21, haskell22, haskell23, haskell24, haskell25,
+	haskell26, haskell27, haskell28, haskell29
 	]
 
 haskell1 :: Page
@@ -302,13 +303,74 @@ haskell23 = pageTitle "モンテカルロ法: 正方形内のランダムな点"
 haskell24 :: Page
 haskell24 = pageTitle "モンテカルロ法: 正方形内のランダムな点" :| [
 	(>>) <$> text "正方形内のランダムな点が定義できる" <*> nextLine,
-	itext 3 "randomPoints :: Int -> [(Double, Double)]",
-	itext 3 "randomPoints n = let",
-	itext 7 "(g, g') = split (mkStdGen 8)",
+	itext 3 "points :: Int -> [(Double, Double)]",
+	itext 3 "points x = let",
+	itext 7 "(g, g') = split (mkStdGen x)",
 	itext 7 "xs = randomRs (-1, 1) g",
 	itext 7 "ys = randomRs (-1, 1) g' in",
 	(>>) <$> itext 7 "zip xs ys" <*> nextLine,
 	text "1行目は、型の定義。->の前後に引数の型と返り値の型が",
 	text "またlet-in構文も、ここが初出",
 	text "整数値から、それぞれの、ランダムな点の系列を生成"
+	]
+
+haskell25 :: Page
+haskell25 = pageTitle "モンテカルロ法: 円の内外の判定" :| [
+	text "円の内部か外部かの判定のために",
+	(>>)	<$> itext 3 "つぎのような関数を定義する"
+		<*> nextLine,
+	itext 3 "inCircle :: (Double, Double) -> Bool",
+	(>>) <$> itext 3 "inCircle (x, y) = x ^ 2 + y ^ 2 <= 1" <*> nextLine,
+	(>>) <$> text "つぎのようになる" <*> nextLine,
+	itext 3 "inCircle (0.7, 0.7) => True",
+	itext 3 "inCircle (0.8, 0.8) => False",
+	itext 3 "inCircle (1, 0) => True",
+	itext 3 "inCircle (1, 0.1) => False"
+	]
+
+haskell26 :: Page
+haskell26 = pageTitle "モンテカルロ法: リストをあつかう関数たち" :| [
+	text "ここで、リストをあつかう関数を、いくつか追加で導入する",
+	text "関数take",
+	itext 3 "リストの先頭から指定した数の要素を取り出す",
+	(>>) <$> itext 3 "つぎのようになる" <*> nextLine,
+	(>>) <$> itext 3 "take 3 [1, 2, 3, 4, 5] => [1, 2, 3]" <*> nextLine,
+	text "関数filter",
+	itext 3 "リストから条件を満たす要素だけを取り出す",
+	(>>) <$> itext 3 "つぎのようになる" <*> nextLine,
+	itext 3 "filter even [1, 2, 3, 4, 5] => [2, 4]"
+	]
+
+haskell27 :: Page
+haskell27 = pageTitle "モンテカルロ法: リストをあつかう関数たち" :| [
+	text "関数length",
+	itext 3 "リストの要素を数える",
+	(>>) <$> itext 3 "つぎのようになる" <*> nextLine,
+	itext 3 "length [1, 2, 3, 4, 5] => 5"
+	]
+
+haskell28 :: Page
+haskell28 = pageTitle "モンテカルロ法: 役者はそろった" :| [
+	text "手もとには、つぎのような部品がある",
+	itext 2 "正方形内のランダムな点のリスト (points x)",
+	itext 2 "円の内外を判定する (inCircle)",
+	itext 2 "リストから決められた数の要素を取り出す (take)",
+	itext 2 "リストから条件を満たす要素を取り出す (filter)",
+	(>>) <$> itext 2 "リストの要素を数える (length)" <*> nextLine,
+	text "追加で、もうひとつ",
+	itext 2 "整数値を実数値に変換する関数 (fromIntegral)"
+	]
+
+haskell29 :: Page
+haskell29 = pageTitle "モンテカルロ法: 円周率の予測値" :| [
+	(>>) <$> text "円周率の予測値は、つぎのようになる" <*> nextLine,
+	itext 3 "guessPi :: Int -> Int -> Double",
+	itext 3 "guessPi x n = let",
+	itext 7 "ps = take n (points x)",
+	itext 7 "is = filter inCircle ps in",
+	itext 7 "4 * fromIntegral (length is) /",
+	(>>) <$> itext 11 "fromIntegral (length ps)" <*> nextLine,
+	itext 3 "guessPi 8 100 => 3.24",
+	itext 3 "guessPi 8 10000 => 3.1616",
+	itext 3 "guessPi 8 1000000 => 3.141424"
 	]
