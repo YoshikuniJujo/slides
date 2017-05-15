@@ -16,7 +16,7 @@ haskell = [
 	haskell16, haskell17, haskell18, haskell19, haskell20,
 	haskell21, haskell22, haskell23, haskell24, haskell25,
 	haskell26, haskell27, haskell28, haskell29, haskell30,
-	haskell31
+	haskell31, haskell32, haskellXX, haskellYY
 	]
 
 haskell1 :: Page
@@ -406,4 +406,24 @@ haskell31 = pageTitle "ここまでの、まとめ" :| [
 	itext 3 "-> 「まず無限個、要素をもつリストを使って",
 	itext 9 "そこから、いくつか取り出して...」",
 	itext 3 "というコーディングができる"
+	]
+
+haskell32 :: Page
+haskell32 = pageTitle "関数は値" :| [
+	text "Haskellでは関数は値",
+	itext 3 "値なので「関数の引数」になれる",
+	itext 3 "「関数の返り値」になれる",
+	itext 3 "リストの要素にすることができる",
+	(>>)	<$> itext 3 "変数を束縛する(変数に代入する)ことができる"
+		<*> nextLine,
+	text "関数filterの例を、みてみる"
+	]
+
+haskellXX :: Page
+haskellXX = pageTitle "モナド" :| [
+	text ""
+	]
+
+haskellYY :: Page
+haskellYY = pageTitle "入出力" :| [
 	]
