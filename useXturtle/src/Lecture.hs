@@ -5,7 +5,8 @@ module Lecture (
 	runLecture, writeTitle, pageTitle, text, bigIText, itext,
 	writeImageCenterTop, writeImageCenter,
 	writeImageRight, writeImageMoreRight, writeImageAlmost,
-	nextLine, backLine, width, height, fontName, erase
+	nextLine, backLine, width, height, fontName, erase,
+	miniNextLine, miniIText
 	) where
 
 import Control.Applicative
@@ -249,6 +250,10 @@ nextLine, backLine :: State -> IO ()
 nextLine st = setheading t (- 90) >> forward t (24 * rt)
 	where t = bodyTurtle st; rt = ratio st
 
+miniNextLine :: State -> IO ()
+miniNextLine st = setheading t (- 90) >> forward t (16 * rt)
+	where t = bodyTurtle st; rt = ratio st
+
 backLine st = setheading t 90 >> forward t (24 * rt)
 	where t = bodyTurtle st; rt = ratio st
 
@@ -324,6 +329,12 @@ bigIText = sitext 15
 
 itext :: Double -> String -> Line
 itext = sitext 13
+
+miniIText :: Double -> String -> Line
+miniIText i tx st = do
+	sitext 11 i tx st
+	backLine st
+	miniNextLine st
 
 sitext :: Double -> Double -> String -> Line
 sitext s i tx st = do

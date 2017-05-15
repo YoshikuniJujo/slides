@@ -15,7 +15,7 @@ haskell = [
 	{- haskell11, -} haskell12, haskell13, haskell14, haskell15,
 	haskell16, haskell17, haskell18, haskell19, haskell20,
 	haskell21, haskell22, haskell23, haskell24, haskell25,
-	haskell26, haskell27, haskell28, haskell29
+	haskell26, haskell27, haskell28, haskell29, haskell30
 	]
 
 haskell1 :: Page
@@ -230,8 +230,8 @@ haskell18 :: Page
 haskell18 = pageTitle "モンテカルロ法も、とっても、すなお" :| [
 	text "それでは、実際に米粒を",
 	itext 3 "まいてみましょう",
-	runMontecarloRightTop 15 100,
-	text "100粒まいてみました",
+	runMontecarloRightTop 15 400,
+	text "400粒まいてみました",
 	text "つぎは、1000粒まいてみましょう",
 	runMontecarloRightBottom 15 1000,
 	text "米粒の数を、ふやせばふやすほど、",
@@ -330,7 +330,7 @@ haskell25 = pageTitle "モンテカルロ法: 円の内外の判定" :| [
 
 haskell26 :: Page
 haskell26 = pageTitle "モンテカルロ法: リストをあつかう関数たち" :| [
-	text "ここで、リストをあつかう関数を、いくつか追加で導入する",
+	text "リストをあつかう関数を、いくつか追加で導入する",
 	text "関数take",
 	itext 3 "リストの先頭から指定した数の要素を取り出す",
 	(>>) <$> itext 3 "つぎのようになる" <*> nextLine,
@@ -373,4 +373,22 @@ haskell29 = pageTitle "モンテカルロ法: 円周率の予測値" :| [
 	itext 3 "guessPi 8 100 => 3.24",
 	itext 3 "guessPi 8 10000 => 3.1616",
 	itext 3 "guessPi 8 1000000 => 3.141424"
+	]
+
+haskell30 :: Page
+haskell30 = pageTitle "モンテカルロ法: 円周率をもとめる: コード" :| [
+	miniIText 0 "points :: Int -> [(Double, Double)]",
+	miniIText 0 "points x = let",
+	miniIText 4 "(g, g') = split (mkStdGen x)",
+	miniIText 4 "xs = randomRs (-1, 1) g",
+	miniIText 4 "ys = randomRs (-1, 1) g' in",
+	(>>) <$> miniIText 4 "zip xs ys" <*> miniNextLine,
+	miniIText 0 "inCircle :: (Double, Double) -> Bool",
+	(>>)	<$> miniIText 0 "inCircle (x, y) = x ^ 2 + y ^ 2 <= 1"
+		<*> miniNextLine,
+	miniIText 0 "guessPi :: Int -> Int -> Double",
+	miniIText 0 "guessPi x n = let",
+	miniIText 4 "ps = take n (points x)",
+	miniIText 4 "is = filter inCircle ps in",
+	miniIText 4 "4 * fromIntegral (lengh is) / fromIntegral (length ps)"
 	]
