@@ -6,10 +6,11 @@ module Lecture (
 	writeImageCenterTop, writeImageCenter,
 	writeImageRight, writeImageMoreRight, writeImageAlmost,
 	nextLine, backLine, width, height, fontName, erase,
-	miniNextLine, miniIText
+	miniNextLine, miniIText, oneshot
 	) where
 
 import Control.Applicative
+import Control.Monad
 import Control.Concurrent
 import Data.Bool
 import Data.Maybe
@@ -120,7 +121,8 @@ data State = State {
 	allEnd :: IORef Bool,
 	clock :: Chan (),
 	needEnd :: IORef Int,
-	end :: Chan () }
+	end :: Chan (),
+	runTurtle :: IORef Bool }
 
 nextZipperWithN :: (Int, Zipper a) -> Maybe (Int, Zipper a)
 nextZipperWithN (n, z) = (n + 1 ,) <$> nextZipper z
@@ -147,7 +149,8 @@ settingToState st = fromMaybe
 					writeIORef pz z'
 					writeIORef pn pg
 				Nothing -> return ()
-			return $ State r p t apg pn pz pe ae cl ne e)
+			rt <- newIORef True
+			return $ State r p t apg pn pz pe ae cl ne e rt)
 
 width, height :: State -> Double
 width = (512 *) . ratio
@@ -341,10 +344,12 @@ sitext s i tx st = do
 	setx  t $ width st / 8 + i * s * ratio st
 	setheading t 0
 	write t fontName (s * ratio st) tx
-	showturtle t
-	speed t "slowest"
-	forward t $ (s * ratio st) * myLength tx
-	hideturtle t
+	rt <- readIORef $ runTurtle st
+	when rt $ do
+		showturtle t
+		speed t "slowest"
+		forward t $ (s * ratio st) * myLength tx
+		hideturtle t
 	where
 	t = bodyTurtle st
 
@@ -382,3 +387,11 @@ writeImage x y (w, h, fp) st = do
 
 erase :: Line
 erase st = undo $ bodyTurtle st
+
+oneshot :: Line -> Line
+oneshot act st = do
+	writeIORef (runTurtle st) False
+	act st
+	writeIORef (runTurtle st) True
+	where
+	t = bodyTurtle st

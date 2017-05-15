@@ -377,6 +377,7 @@ haskell29 = pageTitle "モンテカルロ法: 円周率の予測値" :| [
 
 haskell30 :: Page
 haskell30 = pageTitle "モンテカルロ法: 円周率をもとめる: コード" :| [
+	oneshot $
 	foldl1 (\l1 l2 -> (\x y z -> x >> y >> z) <$> l1 <*> nextLine <*> l2)
 	[
 	miniIText 0 "points :: Int -> [(Double, Double)]",
