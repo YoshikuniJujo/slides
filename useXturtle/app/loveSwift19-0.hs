@@ -3,9 +3,9 @@ module Main where
 import Data.List.NonEmpty
 
 import Lecture
-import LoveSwift19.SelfIntroduction
-import LoveSwift19.Book
-import LoveSwift19.Haskell
+import LoveSwift19_0.SelfIntroduction
+import LoveSwift19_0.Book
+import LoveSwift19_0.Haskell
 
 version :: Version
 version = [0, 1, 0, 0]

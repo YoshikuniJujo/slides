@@ -347,7 +347,7 @@ sitext s i tx st = do
 	rt <- readIORef $ runTurtle st
 	when rt $ do
 		showturtle t
-		speed t "slowest"
+		speed t "slow"
 		forward t $ (s * ratio st) * myLength tx
 		hideturtle t
 	where

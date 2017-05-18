@@ -1,4 +1,4 @@
-module LoveSwift19.Haskell (
+module LoveSwift19_0.Haskell (
 	haskell
 	) where
 

@@ -1,4 +1,4 @@
-module LoveSwift19.Book (
+module LoveSwift19_0.Book (
 	book
 	) where
 

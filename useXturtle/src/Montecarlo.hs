@@ -49,10 +49,12 @@ runMontecarlo (xr, yr) s g n st = do
 	pendown t
 	setheading t 0
 	speed t "fastest"
+	flushoff t
 	replicateM_ 4 $ forward t (s * width st) >> right t 90
 	forward t $ s * width st / 2
 	circle t (- s * width st / 2)
 	penup t
+	flushon t
 	it <- newTurtle $ field t
 	penup it >> hideturtle it >> pencolor it "red"
 	goto it (x + sz + ratio st * 10) (y + ratio st * 13)

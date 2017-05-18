@@ -1,4 +1,4 @@
-module LoveSwift19.SelfIntroduction (
+module LoveSwift19_0.SelfIntroduction (
 	selfIntroduction
 	) where
 
