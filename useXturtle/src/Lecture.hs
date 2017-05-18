@@ -131,7 +131,7 @@ settingToState :: Setting -> IO State
 settingToState st = fromMaybe
 	(putStrLn "Settings are not enough" >> exitFailure) $ do
 		let	r = fromMaybe 1 $ stRatio st
-			pg = fromMaybe 0 $ stPage st
+			pg = fromMaybe 1 $ stPage st
 		p <- stPageTurtle st
 		t <- stBodyTurtle st
 		apg <- stAllPages st
