@@ -10,8 +10,8 @@ version = [0, 1, 0, 0]
 main :: IO ()
 main = runLecture version $ titlePage :| [
 	greeting, introduction, mosadomo,
-	benefit1, benefit2,
-	simpleFunction, monad
+	benefit1, benefit2, benefit3, benefit4, benefit5,
+	simpleFunction, composition, composition2, monad, monad2
 	]
 
 titlePage :: Page
@@ -87,6 +87,45 @@ benefit2 = pageTitle "自分が何をしているのか、わかる" :| [
 	itext 4 "何もしないことが保証される(ただし黒魔術は(ry"
 	]
 
+benefit3 :: Page
+benefit3 = pageTitle "単純で簡単" :| [
+	(>>)	<$> text "たとえば、Swiftでジェネリックな関数を定義するには"
+		<*> nextLine,
+	(>>)	<$> itext 4 "func letItBe<T>(_ x : T) -> T { return x }"
+		<*> nextLine,
+	(>>)	<$> text "こんな感じかと思います。Haskellでは、おなじものを"
+		<*> nextLine,
+	itext 4 "letItBe :: a -> a",
+	(>>)	<$> itext 4 "letItBe x = x"
+		<*> nextLine,
+	text "のように書けます"
+	]
+
+benefit4 :: Page
+benefit4 = pageTitle "単純で簡単" :| [
+	text "関数letItBeの例では、関数の型は単純なものでした",
+	text "より複雑な型になると",
+	itext 4 "表記の単純さは、大きな助けになります",
+	text "多くの場合に「Haskellは、むずかしい」とされるのは",
+	itext 4 "Haskellだと、より、むずかしいことができるため",
+	itext 4 "より、むずかしい分野でHaskellが使われるため"
+	]
+
+benefit5 :: Page
+benefit5 = pageTitle "本当に、つたえたい「得」" :| [
+	text "本当に、つたえたい「得」は、言葉にできない",
+	text "Haskellの持つ、単純さや、純粋さのなかには",
+	itext 4 "それを学ぶことで",
+	itext 4 "プログラムについての見方を変える力がある",
+	text "はじめてプログラミングを学んだときに感じた、あれ",
+	text "Haskellを学ぶと",
+	itext 4 "その「あれ」を、もう一度、体験できる",
+	text "それは「がっつり学ぶ」ことでしか、体験できない",
+	text "ぜひぜひ、拙書を読んでいただきたい",
+	text "今日は、ほんのちょっとだけ",
+	itext 4 "いくつかの要素を紹介する"
+	]
+
 simpleFunction :: Page
 simpleFunction = pageTitle "関数の定義" :| [
 	text "Haskellは簡単です",
@@ -101,6 +140,27 @@ simpleFunction = pageTitle "関数の定義" :| [
 	text "のように試すことができます"
 	]
 
+composition :: Page
+composition = pageTitle "関数合成" :| [
+	text "関数を合成する演算子について、理解することが",
+	itext 4 "モナドを理解する、ひとつの道",
+	text "2倍する関数doubleと、3を足す関数add3とが、あるとする",
+	(>>)	<$> text "このとき、値8を2倍して、3を考す式を、みる"
+		<*> nextLine,
+	(>>)	<$> itext 4 "add3 (double 8)"
+		<*> nextLine,
+	text "これは、「8を2倍して3を足し」ています",
+	(>>)	<$> text "おなじことを、ふたつの関数を、さきに合成すると考えて"
+		<*> nextLine,
+	(>>)	<$> itext 4 "(add3 . double) 8"
+		<*> nextLine,
+	text "のように書けます"
+	]
+
+composition2 :: Page
+composition2 = pageTitle "関数合成" :| [
+	]
+
 monad :: Page
 monad = pageTitle "モナド" :| [
 	text "Haskellは簡単って言うけれど",
@@ -112,4 +172,16 @@ monad = pageTitle "モナド" :| [
 	text "誤解しやすいところがある",
 	itext 4 "モナドとIOモナドとは",
 	itext 4 "切りわけて学んだほうがいい"
+	]
+
+monad2 :: Page
+monad2 = pageTitle "モナド" :| [
+	text "モナドの導入にはMaybeモナドを使うのがいい",
+	(>>)	<$> text "たとえば、偶数だけ2でわる関数halveを考える"
+		<*> nextLine,
+	itext 4 "halve n | even n = Just (n `div` 2)",
+	(>>)	<$> itext 9 "| otherwise = Nothing"
+		<*> nextLine,
+	text "nが偶数(even)ならJust値としてnを2でわった値を",
+	text "そうでない(otherwise)ならNothing値をかえす"
 	]
