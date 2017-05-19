@@ -11,7 +11,10 @@ main :: IO ()
 main = runLecture version $ titlePage :| [
 	greeting, introduction, mosadomo,
 	benefit1, benefit2, benefit3, benefit4, benefit5,
-	simpleFunction, composition, composition2, monad, monad2
+	simpleFunction, composition, composition2,
+	monad, monad2, monad3, monad4, monad5, monad6,
+	ioMonad, ioMonad2, summary1,
+	book, book2, book3
 	]
 
 titlePage :: Page
@@ -159,6 +162,18 @@ composition = pageTitle "関数合成" :| [
 
 composition2 :: Page
 composition2 = pageTitle "関数合成" :| [
+	text "Haskellでは演算子と関数とは、ほとんど、おなじ",
+	text "演算子を関数として、あつかうときには()でかこむ",
+	text "さっき、みた例は関数(.)に",
+	itext 4 "引数として関数add3, doubleをあたえたもの",
+	text "(.)は第2引数である関数の返り値を",
+	itext 4 "第1引数である関数に引数としてあたえる",
+	(>>)	<$> text "関数(.)の型は、つぎのようになる"
+		<*> nextLine,
+	(>>)	<$> itext 4 "(.) :: (b -> c) -> (a -> b) -> (a -> c)"
+		<*> nextLine,
+	text "f :: b -> c, g :: a -> bとしたとき",
+	itext 4 "f . g :: a -> cとなるということ"
 	]
 
 monad :: Page
@@ -184,4 +199,127 @@ monad2 = pageTitle "モナド" :| [
 		<*> nextLine,
 	text "nが偶数(even)ならJust値としてnを2でわった値を",
 	text "そうでない(otherwise)ならNothing値をかえす"
+	]
+
+monad3 :: Page
+monad3 = pageTitle "モナド" :| [
+	(>>)	<$> text "おなじようにdiv3を定義する"
+		<*> nextLine,
+	itext 4 "div3 n  | n `mod` 3 == 0 = Just (n `div` 3)",
+	(>>)	<$> itext 9 "| otherwise = Nothing"
+		<*> nextLine,
+	text "halveとdiv3を使って、「6の倍数なら6でわる関数」を",
+	(>>)	<$> text "関数合成演算子(.)を使いたいが、型が合わない"
+		<*> nextLine,
+	itext 4 "halve :: Integer -> Maybe Integer",
+	itext 4 "div3 :: Integer -> Maybe Integer"
+	]
+
+monad4 :: Page
+monad4 = pageTitle "モナド" :| [
+	text "Maybe値をかえす関数の関数合成演算子(<=<)を考える",
+	(>>)	<$> text "関数合成演算子(.)と比較して、型を示す"
+		<*> nextLine,
+	itext 4 "(.) :: (b -> c) -> (a -> b) -> (a -> c)",
+	itext 4 "(<=<) :: (b -> Maybe c) -> (a -> Maybe b)",
+	itext 19 "-> (a -> Maybe c)",
+	(>>)	<$> text "このような演算子を使うと、もとめる関数は"
+		<*> nextLine,
+	(>>) <$> itext 4 "div3 <=< halve" <*> nextLine,
+	text "のようになる",
+	text "関数div3、halveの、どちらかが失敗すれば、全体も失敗"
+	]
+
+monad5 :: Page
+monad5 = pageTitle "モナド" :| [
+	text "a -> bに対してa -> Maybe bでは",
+	itext 4 "「失敗するかもしれない」という性質が追加される",
+	text "このような「追加される性質」を「文脈」とよぶ",
+	(>>)	<$> text "より一般的に文脈mに対して"
+		<*> nextLine,
+	(>>)	<$> itext 4 "a -> m b"
+		<*> nextLine,
+	text "のように書ける",
+	text "このようなmに対して、関数合成演算子が定義できれば",
+	itext 4 "そのようなmがモナドとなる(すこしウソだけど)"
+	]
+
+monad6 :: Page
+monad6 = pageTitle "モナド" :| [
+	(>>)	<$> text "モナドmに対して、つぎのような演算子が定義できる"
+		<*> nextLine,
+	(>>)	<$> itext 4 "(<=<) :: (b -> m c) -> (a -> m b) -> (a -> m c)"
+		<*> nextLine,
+	text "雑な言いかたをすれば",
+	itext 4 "文脈mつきの値をかえす関数同士をつなげられれば",
+	itext 4 "そのような文脈mがモナドとなる"
+	]
+
+ioMonad :: Page
+ioMonad = pageTitle "入出力" :| [
+	text "Haskellでは",
+	itext 4 "入出力はIOモナドという仕組みであつかう",
+	text "大事なことは",
+	itext 4 "入出力は関数の評価とは独立しているということ",
+	text "「入出力を実行する機械」を考える",
+	text "その「機械」を値として結合していく",
+	text "「結合」のしかたにモナドのわくぐみを使う"
+	]
+
+ioMonad2 :: Page
+ioMonad2 = pageTitle "入出力" :| [
+	(>>)	<$> text "機械をつなぐイメージとして、つぎのコードを示す"
+		<*> nextLine,
+	(>>)	<$> itext 4 "printHello >> printWorld"
+		<*> nextLine,
+	text "このように、入出力をする機械をつないでいくことで",
+	itext 4 "実行される動作を組み立てていく",
+	text "この「組み立て」に、たまたま",
+	itext 4 "モナドという「わくぐみ」がぴったりだった"
+	]
+
+summary1 :: Page
+summary1 = pageTitle "まとめ" :| [
+	text "Haskellは美しい、Haskellは楽しい",
+	text "プログラミングのセンスがみがかれる",
+	text "より複雑なことにチャレンジするための道具になる",
+	text "もう一度、新鮮だった、あのころの気持ちが",
+	text "関数を作る構文が単純で、直観的",
+	text "モナドである文脈をつける関数どうしは、合成できる",
+	text "Haskellでは関数の評価時に入出力をしない",
+	text "入出力は「機械」として抽象化される",
+	text "「機械」どうしの結合にモナドの「わくぐみ」が使われる"
+	]
+
+book :: Page
+book = pageTitle "書籍の紹介、ふたたび" :| [
+	text "本当に、ちゃんと、説明しようとすると",
+	(>>)
+		<$> writeImageCenter
+			(515 * 22 / 60, 654 * 22 / 60, "images/cover.png")
+		<*> replicateM_ 10 . nextLine,
+	text "この書籍の内容をすべて説明することになる"
+	]
+
+book2 :: Page
+book2 = pageTitle "書籍の流れ" :| [
+	writeImageMoreRight (515 / 6, 654 / 6, "images/cover.png"),
+	text "まずは関数、型、多相性を説明する",
+	text "タプル、リストというデータ構造を説明し",
+	itext 4 "再帰について説明する",
+	text "自作の型の作りかたを説明し(代数的データ型)",
+	itext 4 "それらの型に共通する性質をくくりだす(型クラス)",
+	text "より単純な性質からモナドまでを、説明する",
+	(>>)	<$> text "入出力をあつかうやりかたとしてIOモナドを説明する"
+		<*> nextLine,
+	text "途中には演習問題として、やや大きめなコード例を",
+	itext 4 "構文解析",
+	itext 4 "XML類似の構造を解析",
+	itext 4 "ライフゲーム"
+	]
+
+book3 :: Page
+book3 = pageTitle "読書会"  :| [
+	text "Shinjuku.hsという勉強会で読書会をはじめました",
+	text "勉強会自体は月1で、隔月で読書会とする予定です"
 	]
