@@ -1,7 +1,7 @@
+import Control.Monad
 import Data.List.NonEmpty
 
-import Control.Monad
-
+import Graphics.X11.Turtle
 import Lecture
 
 version :: Version
@@ -14,7 +14,8 @@ main = runLecture version $ titlePage :| [
 	simpleFunction, composition, composition2,
 	monad, monad2, monad3, monad4, monad5, monad6,
 	ioMonad, ioMonad2, summary1,
-	book, book2, book3
+	book, book2, book3,
+	turtle
 	]
 
 titlePage :: Page
@@ -323,3 +324,96 @@ book3 = pageTitle "読書会"  :| [
 	text "Shinjuku.hsという勉強会で読書会をはじめました",
 	text "勉強会自体は月1で、隔月で読書会とする予定です"
 	]
+
+turtle :: Page
+turtle = pageTitle "xturtle" :| [
+	text "このスライドにはxturtleというパッケージを利用",
+	text "いわゆるタートルグラフィック",
+	\st -> let
+		t = bodyTurtle st
+		r = ratio st in do
+		showturtle t
+		speed t "slowest"
+		setheading t 0
+		goto t (200 * r) (300 * r)
+		pendown t
+		replicateM_ 4 $ forward t (100 * r) >> left t 90
+		beginfill t
+		replicateM_ 3 $ forward t (80 * r) >> left t 120
+		endfill t
+		penup t,
+	\st -> let
+		t = bodyTurtle st
+		r = ratio st in do
+		showturtle t
+		speed t "slowest"
+		setheading t 0
+		pendown t
+		pencolor t "red"
+		beginfill t
+		circle t (50 * r)
+		endfill t
+		penup t,
+	\st -> let
+		t = bodyTurtle st
+		r = ratio st in do
+		showturtle t
+		speed t "slowest"
+		setheading t 0
+		backward t (100 * r)
+		goto t (100 * r) (150 * r)
+		shape t "turtle"
+		shapesize t 3 3
+		pencolor t "green",
+	\st -> let
+		t = bodyTurtle st
+		r = ratio st in do
+		setheading t 0
+		pendown t
+		forward t (100 * r)
+		sleep t 1000
+		pensize t 3
+		forward t (100 * r)
+		sleep t 1000
+		pensize t 10
+		forward t (100 * r)
+		penup t,
+	\st -> let
+		t = bodyTurtle st
+		r = ratio st in do
+		pencolor t "darkgreen"
+		pensize t 1
+		setheading t 0
+		goto t (50 * r) (120 * r)
+		speed t "slowest"
+		pendown t
+		koch t (200 * r) 1
+		penup t
+		goto t (50 * r) (180 * r)
+		speed t "slow"
+		pendown t
+		koch t (200 * r) 3
+		penup t
+		goto t (50 * r) (240 * r)
+		speed t "fast"
+		pendown t
+		koch t (200 * r) 4
+		penup t
+		goto t (50 * r) (300 * r)
+		speed t "fastest"
+		pendown t
+		koch t (200 * r) 6
+		penup t
+	]
+
+koch :: Turtle -> Double -> Int -> IO ()
+koch t s 0 = forward t s
+koch t s n = do
+	let run = koch t (s / 3) (n - 1)
+	run
+	left t 60
+	run
+	right t 120
+	run
+	left t 60
+	run
