@@ -6,7 +6,7 @@ module Lecture (
 	writeImageCenterTop, writeImageCenter,
 	writeImageRight, writeImageMoreRight, writeImageAlmost,
 	nextLine, backLine, width, height, fontName, erase,
-	miniNextLine, miniIText, oneshot
+	miniNextLine, miniIText, oneshot, initTurtle
 	) where
 
 import Control.Applicative
@@ -393,5 +393,12 @@ oneshot act st = do
 	writeIORef (runTurtle st) False
 	act st
 	writeIORef (runTurtle st) True
+	where
+	t = bodyTurtle st
+
+initTurtle :: Line
+initTurtle st = do
+	shapesize t 1 1
+	pencolor t "black"
 	where
 	t = bodyTurtle st

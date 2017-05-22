@@ -12,15 +12,16 @@ main = runLecture version $ titlePage :| [
 	greeting, introduction, mosadomo,
 	benefit1, benefit2, benefit3, benefit4, benefit5,
 	simpleFunction, composition, composition2,
-	monad, monad2, monad3, monad4, monad5, monad6,
+	monad, monad2, monad3, monad4, monad5, monad6, monad7, monad8,
 	ioMonad, ioMonad2, summary1,
 	book, book2, book3,
-	turtle
+	turtle, turtle2, turtle3,
+	bookbookbook
 	]
 
 titlePage :: Page
-titlePage =
-	writeTitle "Swiftの中心で、Haskellをさけぶ" "第19回 Swift愛好会" :| []
+titlePage = writeTitle "Swiftの中心で、Haskellをさけぶ(仮)"
+		"第19回 Swift愛好会" :| []
 
 greeting :: Page
 greeting = pageTitle "ごあいさつ" :| [
@@ -256,6 +257,33 @@ monad6 = pageTitle "モナド" :| [
 	itext 4 "そのような文脈mがモナドとなる"
 	]
 
+monad7 :: Page
+monad7 = pageTitle "モナド" :| [
+	(>>) <$> text "たとえば、つぎのような関数を考える" <*> nextLine,
+	(>>) <$> itext 4 "fun :: a -> s -> (b, s)" <*> nextLine,
+	text "これはa型の引数とs型の引数をとって",
+	itext 4 "b型の値とs型の値のタプルをかえす関数",
+	text "この関数を「s型の値を変化させながら",
+	(>>)	<$> itext 4 "a型の値からb型の値を計算する関数」とみなせる"
+		<*> nextLine,
+	(>>)	<$> itext 4 "type State b = s -> (b, s)"
+		<*> nextLine,
+	text "型の別名Stateを定義した"
+	]
+
+monad8 :: Page
+monad8 = pageTitle "モナド" :| [
+	(>>)	<$> text "さっきの関数funの型は、つぎのように書ける"
+		<*> nextLine,
+	(>>) <$> itext 4 "fun :: a -> State b" <*> nextLine,
+	text "お、a -> m bの、かたちだ!",
+	text "そう、これもモナドになるのです",
+	text "僕の推奨するモナドの学習法",
+	itext 2 "MaybeモナドとStateモナドのふたつを学ぶ",
+	itext 2 "「全然ちがうこのふたつ、どっちもモナド?」と混乱",
+	itext 2 "モナドという「わくぐみ」は、ただ「形式」だと理解"
+	]
+
 ioMonad :: Page
 ioMonad = pageTitle "入出力" :| [
 	text "Haskellでは",
@@ -320,9 +348,13 @@ book2 = pageTitle "書籍の流れ" :| [
 	]
 
 book3 :: Page
-book3 = pageTitle "読書会"  :| [
+book3 = pageTitle "サポート"  :| [
 	text "Shinjuku.hsという勉強会で読書会をはじめました",
-	text "勉強会自体は月1で、隔月で読書会とする予定です"
+	text "勉強会自体は月1で、隔月で読書会とする予定です",
+	text "以下でサポートを行います",
+	itext 4 "funpaala@gmail.com",
+	itext 4 "twitter #funpaala",
+	text "本、買う前でも、何かあったら、どうぞ"
 	]
 
 turtle :: Page
@@ -403,7 +435,54 @@ turtle = pageTitle "xturtle" :| [
 		speed t "fastest"
 		pendown t
 		koch t (200 * r) 6
-		penup t
+		penup t,
+	initTurtle
+	]
+
+turtle2 :: Page
+turtle2 = pageTitle "xturtle" :| [
+	text "ちなみにパッケージxturtleは自作",
+	text "対話環境で対話的に試すことができる",
+	text "いろいろと凝った機能を搭載",
+	itext 4 "複数のタートルが並行して動く",
+	itext 4 "undo機能",
+	itext 4 "マウス、キー入力(日本語可)",
+	itext 4 "書いた絵はSVGで出力可",
+	itext 4 "PNG, JPGなど画像の表示も",
+	itext 4 "タートルごとのスリープ機能",
+	text "拙書の「図」もほとんど、これで作成",
+	text "スライドから、お絵描きまで"
+	]
+
+turtle3 :: Page
+turtle3 = pageTitle "xturtleの作成苦労話" :| [
+	text "xturtleの作成のときの苦労話",
+	text "X11の日本語入力のためにXIMが必要",
+	itext 4 "なかったのでC言語でインターフェースを作成",
+	itext 4 "Haskellからは「かんたんに」Cの関数が使える",
+	text "タートルが動くときに、ちらつく",
+	itext 4 "ダブルバッファリングや、画像の差分を利用",
+	text "画像のぬりつぶし",
+	itext 4 "単純に実装すると凹のところがうまくいかない",
+	itext 4 "図形を三角形に分割するアルゴリズムが必要",
+	(>>) <$> text "などなど...何のために?" <*> nextLine,
+	text "「それが僕には楽しかったから」"
+	]
+
+bookbookbook :: Page
+bookbookbook = pageTitle "また本の宣伝か?" :| [
+	text "本当は「たたみこみ」等々も説明したいが...",
+	writeImageMoreRight (515 / 6, 654 / 6, "images/cover.png"),
+	text "Haskellは、どういうところがいいの?",
+	itext 4 "それに対する僕の答えが、この本",
+	text "ここがいい、そこがいい、と言っても",
+	itext 4 "実際に「がっつり」やってもらわないと",
+	itext 4 "本当の「良さ」がつたわらない",
+	(>>) <$> text "ぜひぜひ" <*> nextLine,
+	text "「Haskell 教養としての関数型プログラミング」",
+	text "サポートサイト(工事中): https://support.funpaala.jp",
+	text "サポートアドレス: funpaala@gmail.com",
+	text "twitter: #funpaala"
 	]
 
 koch :: Turtle -> Double -> Int -> IO ()
