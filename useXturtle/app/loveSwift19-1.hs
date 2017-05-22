@@ -9,7 +9,7 @@ version = [0, 1, 0, 0]
 
 main :: IO ()
 main = runLecture version $ titlePage :| [
-	greeting, introduction, mosadomo,
+	greeting, selfIntroduction, introduction, mosadomo,
 	benefit1, benefit2, benefit3, benefit4, benefit5,
 	simpleFunction, composition, composition2,
 	monad, monad2, monad3, monad4, monad5, monad6, monad7, monad8,
@@ -32,6 +32,21 @@ greeting = pageTitle "ごあいさつ" :| [
 		<*> replicateM_ 10 . nextLine,
 	text "「Haskell 教養としての関数型プログラミング」の著者",
 	itext 4 "です"
+	]
+
+selfIntroduction :: Page
+selfIntroduction = pageTitle "自己紹介" :| [
+	text "この人は、こういう人",
+	itext 4 "OS: Gentoo on KVM on Gentoo",
+	itext 4 "言語: 日本語、Haskell",
+	itext 4 "エディタ: Vim",
+	itext 4 "日本語入力: TUT-code(漢字直接入力)",
+	itext 4 "GUI: Xmonad",
+	itext 4 "ターミナルエキュレータ: rxvt-unicode",
+	itext 4 "仮想端末: Tmux",
+	itext 4 "シェル: zsh",
+	itext 4 "ブラウザ: Firefox + Vimperator",
+	itext 4 "メールソフト: Mutt"
 	]
 
 introduction :: Page
