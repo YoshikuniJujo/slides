@@ -46,7 +46,8 @@ selfIntroduction = pageTitle "自己紹介" :| [
 	itext 4 "仮想端末: Tmux",
 	itext 4 "シェル: zsh",
 	itext 4 "ブラウザ: Firefox + Vimperator",
-	itext 4 "メールソフト: Mutt"
+	itext 4 "メールソフト: Mutt",
+	itext 4 "キーボード: HHKB"
 	]
 
 introduction :: Page
