@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- MADE BY SVG.HS -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+     xmlns:xlink="http://www.w3.org/1999/xlink" width="1200.0"
+     height="800.0"
+  ><rect id="" x="0.0" y="0.0" width="1200.0" height="800.0"
+         stroke-width="0.0" fill="rgb(255,255,255)"
+         stroke="rgb(255,255,255)"
+  /><text id="" x="128.0" y="93.75" font-family="KochiGothic"
+          font-weight="normal" font-size="30.0" fill="rgb(0,0,0)"
+  >モナド</text
+  ><text id="" x="128.0" y="171.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >Haskellは簡単って言うけれど</text
+  ><text id="" x="232.0" y="219.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >じゃあ、モナドは、どうなる?</text
+  ><text id="" x="232.0" y="267.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >圏論を知らないと、だめなんでしょ?</text
+  ><text id="" x="232.0" y="315.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >何やら、むずかしそう</text
+  ><text id="" x="128.0" y="363.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >圏論は、知らなくても大丈夫</text
+  ><text id="" x="128.0" y="411.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >モナドは、むずかしくないよ</text
+  ><text id="" x="128.0" y="459.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >誤解しやすいところがある</text
+  ><text id="" x="232.0" y="507.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >モナドとIOモナドとは</text
+  ><text id="" x="232.0" y="555.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >切りわけて学んだほうがいい</text></svg>

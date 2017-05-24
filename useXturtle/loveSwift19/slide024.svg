@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- MADE BY SVG.HS -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+     xmlns:xlink="http://www.w3.org/1999/xlink" width="1200.0"
+     height="800.0"
+  ><rect id="" x="0.0" y="0.0" width="1200.0" height="800.0"
+         stroke-width="0.0" fill="rgb(255,255,255)"
+         stroke="rgb(255,255,255)"
+  /><text id="" x="128.0" y="93.75" font-family="KochiGothic"
+          font-weight="normal" font-size="30.0" fill="rgb(0,0,0)"
+  >まとめ</text
+  ><text id="" x="128.0" y="171.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >Haskellは美しい、Haskellは楽しい</text
+  ><text id="" x="128.0" y="219.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >プログラミングのセンスがみがかれる</text
+  ><text id="" x="128.0" y="267.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >より複雑なことにチャレンジするための道具になる</text
+  ><text id="" x="128.0" y="315.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >もう一度、新鮮だった、あのころの気持ちが</text
+  ><text id="" x="128.0" y="363.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >関数を作る構文が単純で、直観的</text
+  ><text id="" x="128.0" y="411.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >モナドである文脈をつける関数どうしは、合成できる</text
+  ><text id="" x="128.0" y="459.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >Haskellでは関数の評価時に入出力をしない</text
+  ><text id="" x="128.0" y="507.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >入出力は「機械」として抽象化される</text
+  ><text id="" x="128.0" y="555.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >「機械」どうしの結合にモナドの「わくぐみ」が使われる</text></svg>

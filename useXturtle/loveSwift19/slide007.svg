@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- MADE BY SVG.HS -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+     xmlns:xlink="http://www.w3.org/1999/xlink" width="1200.0"
+     height="800.0"
+  ><rect id="" x="0.0" y="0.0" width="1200.0" height="800.0"
+         stroke-width="0.0" fill="rgb(255,255,255)"
+         stroke="rgb(255,255,255)"
+  /><text id="" x="128.0" y="93.75" font-family="KochiGothic"
+          font-weight="normal" font-size="30.0" fill="rgb(0,0,0)"
+  >自分が何をしているのか、わかる</text
+  ><text id="" x="128.0" y="171.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >自分が何をしているのか、わかる</text
+  ><text id="" x="232.0" y="219.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >関数の入口と出口とが、それぞれ、ひとつである</text
+  ><text id="" x="232.0" y="267.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >型によって、関数に入るものと出るものとが決まる</text
+  ><text id="" x="128.0" y="315.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >ということ</text
+  ><text id="" x="128.0" y="363.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >関数doubleを定義することを考える</text
+  ><text id="" x="128.0" y="411.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >Haskellでは、関数の型は、引数の型と返り値の型とを</text
+  ><text id="" x="232.0" y="459.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >-&gt;の左右に置くことで、あらわす</text
+  ><text id="" x="232.0" y="555.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >double :: Integer -&gt; Integer</text
+  ><text id="" x="128.0" y="651.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >この関数doubleは整数を整数に置き換える以外には</text
+  ><text id="" x="232.0" y="699.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >何もしないことが保証される(ただし黒魔術は(ry</text></svg>

@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- MADE BY SVG.HS -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+     xmlns:xlink="http://www.w3.org/1999/xlink" width="1200.0"
+     height="800.0"
+  ><rect id="" x="0.0" y="0.0" width="1200.0" height="800.0"
+         stroke-width="0.0" fill="rgb(255,255,255)"
+         stroke="rgb(255,255,255)"
+  /><text id="" x="128.0" y="93.75" font-family="KochiGothic"
+          font-weight="normal" font-size="30.0" fill="rgb(0,0,0)"
+  >入出力</text
+  ><text id="" x="128.0" y="171.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >Haskellでは</text
+  ><text id="" x="232.0" y="219.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >入出力はIOモナドという仕組みであつかう</text
+  ><text id="" x="128.0" y="267.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >大事なことは</text
+  ><text id="" x="232.0" y="315.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >入出力は関数の評価とは独立しているということ</text
+  ><text id="" x="128.0" y="363.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >「入出力を実行する機械」を考える</text
+  ><text id="" x="128.0" y="411.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >その「機械」を値として結合していく</text
+  ><text id="" x="128.0" y="459.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >「結合」のしかたにモナドのわくぐみを使う</text></svg>

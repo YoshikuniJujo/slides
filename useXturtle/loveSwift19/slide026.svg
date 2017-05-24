@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- MADE BY SVG.HS -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+     xmlns:xlink="http://www.w3.org/1999/xlink" width="1200.0"
+     height="800.0"
+  ><rect id="" x="0.0" y="0.0" width="1200.0" height="800.0"
+         stroke-width="0.0" fill="rgb(255,255,255)"
+         stroke="rgb(255,255,255)"
+  /><text id="" x="128.0" y="93.75" font-family="KochiGothic"
+          font-weight="normal" font-size="30.0" fill="rgb(0,0,0)"
+  >書籍の流れ</text
+  ><image id="" x="768.0" y="125.0" width="171.66666666666666"
+          height="218.0" xlink:href="images/cover.png"
+  /><text id="" x="128.0" y="171.75" font-family="KochiGothic"
+          font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >まずは関数、型、多相性を説明する</text
+  ><text id="" x="128.0" y="219.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >タプル、リストというデータ構造を説明し</text
+  ><text id="" x="232.0" y="267.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >再帰について説明する</text
+  ><text id="" x="128.0" y="315.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >自作の型の作りかたを説明し(代数的データ型)</text
+  ><text id="" x="232.0" y="363.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >それらの型に共通する性質をくくりだす(型クラス)</text
+  ><text id="" x="128.0" y="411.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >より単純な性質からモナドまでを、説明する</text
+  ><text id="" x="128.0" y="459.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >入出力をあつかうやりかたとしてIOモナドを説明する</text
+  ><text id="" x="128.0" y="555.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >途中には演習問題として、やや大きめなコード例を</text
+  ><text id="" x="232.0" y="603.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >構文解析</text
+  ><text id="" x="232.0" y="651.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >XML類似の構造を解析</text
+  ><text id="" x="232.0" y="699.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="rgb(0,0,0)"
+  >ライフゲーム</text></svg>

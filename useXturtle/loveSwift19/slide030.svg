@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- MADE BY SVG.HS -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+     xmlns:xlink="http://www.w3.org/1999/xlink" width="1200.0"
+     height="800.0"
+  ><rect id="" x="0.0" y="0.0" width="1200.0" height="800.0"
+         stroke-width="0.0" fill="rgb(255,255,255)"
+         stroke="rgb(255,255,255)"
+  /><text id="" x="128.0" y="93.75" font-family="KochiGothic"
+          font-weight="normal" font-size="30.0" fill="black"
+  >xturtleの作成苦労話</text
+  ><text id="" x="128.0" y="171.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="black"
+  >xturtleの作成のときの苦労話</text
+  ><text id="" x="128.0" y="219.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="black"
+  >X11の日本語入力のためにXIMが必要</text
+  ><text id="" x="232.0" y="267.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="black"
+  >なかったのでC言語でインターフェースを作成</text
+  ><text id="" x="232.0" y="315.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="black"
+  >Haskellからは「かんたんに」Cの関数が使える</text
+  ><text id="" x="128.0" y="363.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="black"
+  >タートルが動くときに、ちらつく</text
+  ><text id="" x="232.0" y="411.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="black"
+  >ダブルバッファリングや、画像の差分を利用</text
+  ><text id="" x="128.0" y="459.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="black"
+  >画像のぬりつぶし</text
+  ><text id="" x="232.0" y="507.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="black"
+  >単純に実装すると凹のところがうまくいかない</text
+  ><text id="" x="232.0" y="555.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="black"
+  >図形を三角形に分割するアルゴリズムが必要</text
+  ><text id="" x="128.0" y="603.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="black"
+  >などなど...何のために?</text
+  ><text id="" x="128.0" y="699.75" font-family="KochiGothic"
+         font-weight="normal" font-size="26.0" fill="black"
+  >「それが僕には楽しかったから」</text></svg>
