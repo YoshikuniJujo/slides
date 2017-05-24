@@ -26,6 +26,8 @@ import Options
 
 import qualified Data.List.NonEmpty as NE
 
+import Text.XML.YJSVG (showSVG)
+
 type Page = NonEmpty Line
 type Line = State -> IO ()
 
@@ -45,7 +47,8 @@ data Setting = Setting {
 	stClock :: Maybe (Chan ()),
 	stPage :: Maybe Int,
 	stNeedEnd :: Maybe (IORef Int),
-	stEnd :: Maybe (Chan ()) }
+	stEnd :: Maybe (Chan ()),
+	stGetSvg :: Maybe FilePath }
 
 initialSetting :: Setting
 initialSetting = Setting {
@@ -60,7 +63,8 @@ initialSetting = Setting {
 	stClock = Nothing,
 	stPage = Nothing,
 	stNeedEnd = Nothing,
-	stEnd = Nothing }
+	stEnd = Nothing,
+	stGetSvg = Nothing }
 
 appendSettings :: Setting -> Setting -> Setting
 appendSettings s1 s2 = Setting {
@@ -75,7 +79,8 @@ appendSettings s1 s2 = Setting {
 	stClock = stClock s1 <|> stClock s2,
 	stPage = stPage s1 <|> stPage s2,
 	stNeedEnd = stNeedEnd s1 <|> stNeedEnd s2,
-	stEnd = stEnd s1 <|> stEnd s2 }
+	stEnd = stEnd s1 <|> stEnd s2,
+	stGetSvg = stGetSvg s1 <|> stGetSvg s2 }
 
 setTurtles :: Turtle -> Turtle -> Setting -> Setting
 setTurtles p t s = s {
@@ -122,7 +127,8 @@ data State = State {
 	clock :: Chan (),
 	needEnd :: IORef Int,
 	end :: Chan (),
-	runTurtle :: IORef Bool }
+	runTurtle :: IORef Bool,
+	getSvg :: Maybe FilePath }
 
 nextZipperWithN :: (Int, Zipper a) -> Maybe (Int, Zipper a)
 nextZipperWithN (n, z) = (n + 1 ,) <$> nextZipper z
@@ -132,6 +138,7 @@ settingToState st = fromMaybe
 	(putStrLn "Settings are not enough" >> exitFailure) $ do
 		let	r = fromMaybe 1 $ stRatio st
 			pg = fromMaybe 1 $ stPage st
+			gs = stGetSvg st
 		p <- stPageTurtle st
 		t <- stBodyTurtle st
 		apg <- stAllPages st
@@ -150,7 +157,7 @@ settingToState st = fromMaybe
 					writeIORef pn pg
 				Nothing -> return ()
 			rt <- newIORef True
-			return $ State r p t apg pn pz pe ae cl ne e rt)
+			return $ State r p t apg pn pz pe ae cl ne e rt gs)
 
 width, height :: State -> Double
 width = (512 *) . ratio
@@ -265,7 +272,8 @@ runPage st = do
 	writeIORef (pageEnd st) False
 	clear p >> clear t
 	goto p (width st * 44 / 50) (height st * 48 / 50)
-	write p fontName (12 * rt) . show =<< readIORef (pageNumber st)
+	pn <- readIORef $ pageNumber st
+	write p fontName (12 * rt) $ show pn
 	forward p (24 * rt)
 	write p fontName (12 * rt) $ "/" ++ show apg
 	goto t (width st / 8) (height st / 8)
@@ -278,17 +286,26 @@ runPage st = do
 	sleep t 500
 	hideturtle t
 	writeIORef (pageEnd st) True
+	(flip $ maybe (return ())) (getSvg st) $ \pr -> do
+		svg <- getSVG t
+		let	fp = pr ++ showN 3 pn ++ ".svg"
+		writeFile fp . showSVG (600 * rt) (400 * rt) $ map ("" ,) svg
 	where
 	rt = ratio st
 	p = pageTurtle st
 	t = bodyTurtle st
 	apg = allPages st
 
+showN :: (Num a, Show a) => Int -> a -> String
+showN n x = replicate (n - length s) '0' ++ s
+	where s = show x
+
 getAction :: Version -> NonEmpty Page -> Option -> Action
 getAction v _ Version = (1, printVersion v >> exitSuccess)
 getAction _ pgs CountPages = (2, print (NE.length pgs) >> exitSuccess)
 getAction _ _ (OptRatio r) = (3, return $ initialSetting { stRatio = Just r })
 getAction _ _ (OptPage p) = (3, return $ initialSetting { stPage = Just p })
+getAction _ _ (OptGetSvg p) = (3, return $ initialSetting { stGetSvg = Just p })
 
 printVersion :: Version -> IO ()
 printVersion v = putStrLn . intercalate "." $ map show v
