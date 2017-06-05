@@ -8,7 +8,8 @@ version = [0, 1, 0, 0]
 
 main :: IO ()
 main = runLecture version $ titlePage :| [
-	greeting, selfIntroduction, installStack
+	greeting, selfIntroduction, installStack, startup, input,
+	calc, useIt, history
 	]
 
 titlePage :: Page
@@ -56,4 +57,76 @@ installStack = pageTitle "Stackある?" :| [
 	itext 4 "Version 1.3.2, Git ...",
 	text "僕の環境では、こうなります。",
 	text "みなさんの環境は?あまり古いと動かないかも、です"
+	]
+
+startup :: Page
+startup = pageTitle "対話環境の起動と終了" :| [
+	text "事前資料の内容を、もういちど、おさらいしましょう",
+	text "まずは、対話環境の起動と終了です",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude>",
+	text "新しい言語を学ぶときの",
+	itext 4 "一番はじめの壁は「インストール」かもしれません",
+	text "対話環境は立ち上がったでしょうか",
+	text "ここまで、できれば最初の壁は、こえたことになります",
+	text "さて、ソフトを立ち上げたときに、はじめに知りたいのは",
+	itext 4 "僕だったら、その終わらせかたです",
+	text "終わらせかたを知らないと、不安になります",
+	itext 4 "Prelude> :quit"
+	]
+
+input :: Page
+input = pageTitle "値や式の打ちこみ" :| [
+	text "対話環境に、いろいろな値を打ちこんでみます",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> 4492",
+	itext 4 "4492",
+	itext 4 "Prelude> 'c'",
+	itext 4 "'c'",
+	itext 4 "Prelude> pi",
+	itext 4 "3.141592653589793",
+	text "整数や文字はリテラルです。そのまま表示されます",
+	text "piは変数です。それが束縛されている値が表示されます"
+	]
+
+calc :: Page
+calc = pageTitle "電卓" :| [
+	text "計算もできます",
+	itext 4 "Prelude> 2 + 3",
+	itext 4 "5",
+	itext 4 "Prelude> 3 * 10 + 5 * 7",
+	itext 4 "65",
+	itext 4 "Prelude> 2 ^ 8",
+	itext 4 "256",
+	itext 4 "Prelude> 3 + 4 - 5",
+	itext 4 "2",
+	text "「Haskell 電卓としての関数型プログラミング」",
+	itext 4 "です"
+	]
+
+useIt :: Page
+useIt = pageTitle "変数it" :| [
+	text "計算の結果を、つぎの計算で使いたいとします",
+	itext 4 "Prelude> 123456789 * 123456789",
+	itext 4 "1524159121932621",
+	text "これを、もう1回、打ちこむのはめんどくさいですね",
+	text "変数itを使いましょう",
+	itext 4 "Prelude> it * 123456789",
+	itext 4 "188167791118860863013969",
+	text "対話環境は評価した値を変数itに束縛しておいてくれます"
+	]
+
+history :: Page
+history = pageTitle "履歴" :| [
+	text "対話環境を快適に使うには、履歴機能もかかせません",
+	text "以下を順に打ちこんでください",
+	itext 4 "Prelude> 12345 * 6789",
+	itext 4 "Prelude> \"Haskell Language\"",
+	itext 4 "Prelude> pi",
+	text "上矢印キーを3回、下矢印キーを1回、押してください",
+	itext 4 "Prelude> \"Haskell Language\"",
+	text "左矢印キーを1回、バックスペースキーを8回押します",
+	text "Brooks Curryと打ちこみ、エンターキーを押します",
+	itext 4 "Prelude> \"Haskell Brooks Curry\"",
+	itext 4 "\"Haskell Brooks Curry\""
 	]
