@@ -11,7 +11,7 @@ main = runLecture version $ titlePage :| [
 	greeting, selfIntroduction, installStack, startup, input,
 	calc, useIt, history, forcedTermination, fruits, reload,
 	simpleFunction, typeDeclaration, typeDeclaration2, maybeValue,
-	tuple
+	tuple, patternMatch, patternMatch2, patternMatch3
 	]
 
 titlePage :: Page
@@ -241,4 +241,42 @@ tuple = pageTitle "タプル" :| [
 	itext 4 "(\"Taro Yamada\",35)",
 	itext 4 "*Main> :type taro",
 	itext 4 "(String,Integer)"
+	]
+
+patternMatch :: Page
+patternMatch = pageTitle "パターンマッチ" :| [
+	text "パターンマッチは、Haskellでは本質的な機能のひとつ",
+	text "分岐と、複合的な値からの値のとりだし",
+	text "失敗するかもしれない計算の結果を使う例",
+	itext 4 "% vim functions.hs",
+	itext 4 "helloTo :: Maybe String -> String",
+	itext 4 "helloTo (Just n) = \"Hello, \" ++ n ++ \"!\"",
+	itext 4 "helloTo Nothing = \"Hello, customer!\"",
+	text "タプルの、それぞれの要素の取り出し",
+	itext 4 "human :: (String, Integer) -> String",
+	itext 4 "human (n, a) = n ++ \"(\" ++ show a ++ \")\""
+	]
+
+patternMatch2 :: Page
+patternMatch2 = pageTitle "パターンマッチ" :| [
+	text "リテラルもパターンとして使える",
+	itext 4 "safeRecip :: Double -> Maybe Double",
+	itext 4 "safeRecip 0 = Nothing",
+	itext 4 "safeRecip x = Just (1 / x)" ]
+
+patternMatch3 :: Page
+patternMatch3 = pageTitle "パターンマッチ" :| [
+	text "定義した関数を試してみる",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load functions.hs",
+	itext 4 "*Main> helloTo (Just \"Yoshikuni\")",
+	itext 4 "\"Hello, Yoshikuni!\"",
+	itext 4 "*Main> helloTo Nothing",
+	itext 4 "\"Hello, customer!\"",
+	itext 4 "*Main>human (\"Taro Yamada\", 32)",
+	itext 4 "\"Taro Yamada(32)\"",
+	itext 4 "*Main> safeRecip 8",
+	itext 4 "Just 0.125",
+	itext 4 "*Main> safeRecip 0",
+	itext 4 "Nothing"
 	]
