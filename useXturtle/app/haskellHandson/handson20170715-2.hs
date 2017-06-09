@@ -7,7 +7,7 @@ version = [0, 1, 0, 0]
 
 main :: IO ()
 main = runLecture version $ titlePage :| [
-	whatsRecursion, sumN, listVsRecursion
+	whatsRecursion, sumN, listVsRecursion, amount
 	]
 
 titlePage :: Page
@@ -38,9 +38,26 @@ sumN = pageTitle "1からNまでの和" :| [
 	]
 
 listVsRecursion :: Page
-listVsRecursion = pageTitle "くりかえし" :| [
+listVsRecursion = pageTitle "単純な「くりかえし」でない例" :| [
 	text "単純な「くりかえし」には、リストが使える",
 	text "直接、再帰を使うよりも、リストのほうがわかりやすい",
 	text "単純な「くりかえし」ではないような例を考える",
-	text "1円玉から500円玉を使って1000円をはらう、はらいかたの数"
+	text "1円玉から100円玉を使って200円をはらう、はらいかたの数",
+	text "どう考えるか?",
+	text "200円のはらいかたを分類すると、つぎのふたつ",
+	itext 4 "1. 100円玉を1枚以上使う",
+	itext 4 "2. 100円玉を使わない",
+	text "1は、1円玉から100円玉を使って100をはらう",
+	itext 4 "はらいかたの数に等しい",
+	text "わかりますか?"
+	]
+
+amount :: Page
+amount = pageTitle "お金のはらいかた" :| [
+	text "1円玉から100円玉を使って200円をはらうとは",
+	itext 4 "1円玉から100円玉を使って100円をはらう、と",
+	itext 4 "1円玉から50円玉を使って200円はらう",
+	text "ということ",
+	text "それぞれについて、さらに分類していくことができる",
+	text "コードにしてみましょう"
 	]
