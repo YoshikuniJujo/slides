@@ -7,7 +7,7 @@ version = [0, 1, 0, 0]
 
 main :: IO ()
 main = runLecture version $ titlePage :| [
-	whatsRecursion, sumN
+	whatsRecursion, sumN, listVsRecursion
 	]
 
 titlePage :: Page
@@ -35,4 +35,12 @@ sumN = pageTitle "1からNまでの和" :| [
 	itext 4 "Prelude> :load recursion.hs",
 	itext 4 "*Main> sumN 10",
 	itext 4 "55"
+	]
+
+listVsRecursion :: Page
+listVsRecursion = pageTitle "くりかえし" :| [
+	text "単純な「くりかえし」には、リストが使える",
+	text "直接、再帰を使うよりも、リストのほうがわかりやすい",
+	text "単純な「くりかえし」ではないような例を考える",
+	text "1円玉から500円玉を使って1000円をはらう、はらいかたの数"
 	]
