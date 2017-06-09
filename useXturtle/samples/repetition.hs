@@ -17,22 +17,23 @@ cases _ 0 = 1
 cases [] _ = 0
 cases ca@(c : cs) am = cases ca (am - c) + cases cs am
 
-type Memo = [(([Integer], Integer), Integer)]
-type Memoized = Memo -> (Integer, Memo)
+type Amount = Integer
+type Coin = Integer
+type Count = Integer
 
-ret :: Integer -> Memoized
-ret x = \m -> (x, m)
+type Memo = [(([Coin], Amount), Count)]
+type Memoized = Memo -> (Count, Memo)
 
-memo :: (([Integer], Integer) -> Memoized) -> ([Integer], Integer) -> Memoized
-memo f n s = case lookup n s of
-	Just v -> (v, s)
-	Nothing -> let (v, s1) = f n s in (v, (n, v) : s1)
+memo :: (([Coin], Amount) -> Memoized) -> ([Coin], Amount) -> Memoized
+memo f k m = case lookup k m of
+	Just v -> (v, m)
+	Nothing -> let (v, m1) = f k m in (v, (k, v) : m1)
 
-mcases :: ([Integer], Integer) -> Memoized
-mcases (_, am) | am < 0 = ret 0
-mcases (_, 0) = ret 1
-mcases ([], _) = ret 0
-mcases (ca@(c : cs), a) = \s -> let
-	(n1, s1) = memo mcases (ca, a - c) s
-	(n2, s2) = memo mcases (cs, a) s1 in
-	ret (n1 + n2) s2
+mcases :: ([Coin], Amount) -> Memoized
+mcases (_, am) m | am < 0 = (0, m)
+mcases (_, 0) m = (1, m)
+mcases ([], _) m = (0, m)
+mcases (ca@(c : cs), a) m = let
+	(n1, m1) = memo mcases (ca, a - c) m
+	(n2, m2) = memo mcases (cs, a) m1 in
+	(n1 + n2, m2)
