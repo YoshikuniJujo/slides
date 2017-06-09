@@ -11,7 +11,8 @@ main = runLecture version $ titlePage :| [
 	greeting, selfIntroduction, installStack, startup, input,
 	calc, useIt, history, forcedTermination, fruits, reload,
 	simpleFunction, typeDeclaration, typeDeclaration2, maybeValue,
-	tuple, patternMatch, patternMatch2, patternMatch3
+	tuple, patternMatch, patternMatch2, patternMatch3, generics,
+	comment, comment2, epilogue
 	]
 
 titlePage :: Page
@@ -273,10 +274,61 @@ patternMatch3 = pageTitle "パターンマッチ" :| [
 	itext 4 "\"Hello, Yoshikuni!\"",
 	itext 4 "*Main> helloTo Nothing",
 	itext 4 "\"Hello, customer!\"",
-	itext 4 "*Main>human (\"Taro Yamada\", 32)",
+	itext 4 "*Main> human (\"Taro Yamada\", 32)",
 	itext 4 "\"Taro Yamada(32)\"",
 	itext 4 "*Main> safeRecip 8",
 	itext 4 "Just 0.125",
 	itext 4 "*Main> safeRecip 0",
 	itext 4 "Nothing"
+	]
+
+generics :: Page
+generics = pageTitle "多相" :| [
+	text "多相性のある関数を定義する",
+	itext 4 "% vim functions.hs",
+	itext 4 "ignoreSecond :: a -> b -> a",
+	itext 4 "ignoreSecond x y = x",
+	text "試してみよう",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load functions.hs",
+	itext 4 "*Main> ignoreSecond 8 \"hello\"",
+	itext 4 "8",
+	itext 4 "*Main> ignoreSecond False 123.45",
+	itext 4 "False",
+	itext 4 "*Main> :type ignoreSecond",
+	itext 4 "ignoreSecond :: a -> b -> a"
+	]
+
+comment :: Page
+comment = pageTitle "コメント" :| [
+	text "コメントは、--から行末か、{-と-}とで、かこまれた部分",
+	text "コメントを書いてみよう",
+	itext 4 "% vim functions.hs",
+	itext 4 "some :: Integer",
+	itext 4 "some = 8        -- some is 8",
+	itext 4 "",
+	itext 4 "hoge :: Integer -> Integer",
+	itext 4 "hoge x = x * 3",
+	itext 4 "{-",
+	itext 4 "hoge 3 = 9",
+	itext 4 "hoge 10 = 30",
+	itext 4 "...",
+	itext 4 "-}"
+	]
+
+comment2 :: Page
+comment2 = pageTitle "コメント" :| [
+	text "試してみよう",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load functions.hs",
+	itext 4 "*Main> some",
+	itext 4 "8",
+	itext 4 "*Main> hoge 5",
+	itext 4 "15"
+	]
+
+epilogue :: Page
+epilogue = pageTitle "復習した" :| [
+	text "ざっと基本的な知識を復習した",
+	text "だいたい、わかっただろうか"
 	]
