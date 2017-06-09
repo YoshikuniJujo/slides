@@ -10,7 +10,8 @@ main :: IO ()
 main = runLecture version $ titlePage :| [
 	greeting, selfIntroduction, installStack, startup, input,
 	calc, useIt, history, forcedTermination, fruits, reload,
-	simpleFunction, typeDeclaration, typeDeclaration2
+	simpleFunction, typeDeclaration, typeDeclaration2, maybeValue,
+	tuple
 	]
 
 titlePage :: Page
@@ -213,4 +214,31 @@ typeDeclaration2 = pageTitle "型宣言" :| [
 	itext 4 "14",
 	itext 4 "*Main> :type double",
 	itext 4 "double :: Integer -> Integer"
+	]
+
+maybeValue :: Page
+maybeValue = pageTitle "Maybe値" :| [
+	text "Maybe値とは、値がないかもしれない値",
+	text "値がある: Just 値",
+	text "値がない: Nothing",
+	itext 4 "*Main> Just 8",
+	itext 4 "Just 8",
+	itext 4 "*Main> Nothing",
+	itext 4 "Nothing"
+	]
+
+tuple :: Page
+tuple = pageTitle "タプル" :| [
+	text "いくつかの値を組み合わせた構造がタプル",
+	text "タプルを定義してみましょう",
+	itext 4 "% vim functions.hs",
+	itext 4 "taro :: (String, Integer)",
+	itext 4 "taro = (\"Taro Yamada\", 35)",
+	text "対話環境で、みてみましょう",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load functions.hs",
+	itext 4 "*Main> taro",
+	itext 4 "(\"Taro Yamada\",35)",
+	itext 4 "*Main> :type taro",
+	itext 4 "(String,Integer)"
 	]
