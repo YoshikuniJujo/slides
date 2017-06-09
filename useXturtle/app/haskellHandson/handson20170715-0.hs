@@ -9,7 +9,7 @@ version = [0, 1, 0, 0]
 main :: IO ()
 main = runLecture version $ titlePage :| [
 	greeting, selfIntroduction, installStack, startup, input,
-	calc, useIt, history
+	calc, useIt, history, forcedTermination
 	]
 
 titlePage :: Page
@@ -129,4 +129,20 @@ history = pageTitle "履歴" :| [
 	text "Brooks Curryと打ちこみ、エンターキーを押します",
 	itext 4 "Prelude> \"Haskell Brooks Curry\"",
 	itext 4 "\"Haskell Brooks Curry\""
+	]
+
+forcedTermination :: Page
+forcedTermination = pageTitle "強制終了" :| [
+	text "対話環境に、つぎのように打ち込んでください",
+	itext 4 "Prelude> repeat \"Haskell\"",
+	itext 4 "[\"Haskell\",\"Haskell\",\"Haskell\",...",
+	text "「うわぁぁぁぁ」",
+	text "大丈夫、何事もなかったようにCtrl-Cを押しましょう",
+	text "強制終了にはCtrl-Cです",
+	text "プロンプトが、かえってきます",
+	text "さらに、つぎのように打ち込んでください",
+	itext 4 "Prelude> x = x",
+	itext 4 "Prelude> x",
+	text "「...おいっ...どうした...死んでる?」",
+	text "大丈夫、Ctrl-Cで意識を取りもどします"
 	]
