@@ -9,7 +9,8 @@ version = [0, 1, 0, 0]
 main :: IO ()
 main = runLecture version $ titlePage :| [
 	greeting, selfIntroduction, installStack, startup, input,
-	calc, useIt, history, forcedTermination, fruits, reload
+	calc, useIt, history, forcedTermination, fruits, reload,
+	simpleFunction, typeDeclaration, typeDeclaration2
 	]
 
 titlePage :: Page
@@ -174,4 +175,42 @@ reload = pageTitle "再読み込み" :| [
 	itext 4 "*Main> :reload",
 	itext 4 "*Main> myFavoriteFruit",
 	itext 4 "\"banana\""
+	]
+
+simpleFunction :: Page
+simpleFunction = pageTitle "関数の定義と使用" :| [
+	text "かんたんな関数を定義しましょう",
+	itext 4 "% vim functions.hs",
+	itext 4 "double x = x * 2",
+	text "関数doubleを使ってみましょう",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load functions.hs",
+	itext 4 "*Main> double 8",
+	itext 4 "16"
+	]
+
+typeDeclaration :: Page
+typeDeclaration = pageTitle "型宣言" :| [
+	text "変数luckyを定義します",
+	itext 4 "% vim functions.hs",
+	itext 4 "lucky :: Integer",
+	itext 4 "lucky = 7",
+	text "変数luckyの値をInteger型として明示的に宣言しました",
+	text "関数douleにも型宣言をつけてみましょう",
+	itext 4 "% vim functions.hs",
+	itext 4 "double :: Integer -> Integer",
+	itext 4 "double x = x * 2" ]
+
+typeDeclaration2 :: Page
+typeDeclaration2 = pageTitle "型宣言" :| [
+	text "対話環境に読みこみます",
+	itext 4 "*Main> :reload",
+	itext 4 "*Main> lucky",
+	itext 4 "7",
+	itext 4 "*Main> :type lucky",
+	itext 4 "lucky :: Integer",
+	itext 4 "*Main> double lucky",
+	itext 4 "14",
+	itext 4 "*Main> :type double",
+	itext 4 "double :: Integer -> Integer"
 	]
