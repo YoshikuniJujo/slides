@@ -9,7 +9,7 @@ main :: IO ()
 main = runLecture version $ titlePage :| [
 	repetition, repetitionProcedure,
 	repetitionList, repetitionList2, repetitionList3,
-	wakugumi
+	wakugumi, montecarlo, montecarlo2
 	]
 
 titlePage :: Page
@@ -92,4 +92,29 @@ wakugumi = pageTitle "わくぐみ" :| [
 	itext 4 "集計: 全要素からひとつの値をつくる(sum)",
 	text "単純な「くりかえし」は、だいたい",
 	itext 4 "この「わくぐみ」で表現できる"
+	]
+
+montecarlo :: Page
+montecarlo = pageTitle "モンテカルロ法" :| [
+	text "ここでは、くわしくは、あつかわないが",
+	itext 4 "モンテカルロ法というアルゴリズムがある",
+	text "たとえば、(効率的ではないが)モンテカルロ法で",
+	itext 4 "円の面積の近似値をもとめるアルゴリズムがある",
+	text "それは、つぎのようなものだ",
+	itext 4 "1. 正方形のなかに円を描く",
+	itext 4 "2. ランダムな点を打つ",
+	itext 4 "3. 正方形のなかの点と円のなかの点を数える",
+	itext 4 "4. その数の比が、面積の比にだいたい等しい",
+	itext 4 "5. 正方形の面積を計算すれば",
+	itext 8 "円の面積の近似値がもとまる"
+	]
+
+montecarlo2 :: Page
+montecarlo2 = pageTitle "モンテカルロ法" :| [
+	text "これを、さっきの「わくぐみ」にあてはめると",
+	itext 4 "正方形のなかのランダムな点のリストを作る(列挙)",
+	itext 4 "点のうち円のなかの点だけを取り出す(ろ過)",
+	itext 4 "点の数を数える(集計)",
+	text "のようになり、これで円内の点の数がもとまる",
+	text "それと、はじめの点のすべての数との比をとればいい"
 	]
