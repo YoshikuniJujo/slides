@@ -9,7 +9,7 @@ version = [0, 1, 0, 0]
 main :: IO ()
 main = runLecture version $ titlePage :| [
 	greeting, selfIntroduction, installStack, startup, input,
-	calc, useIt, history, forcedTermination
+	calc, useIt, history, forcedTermination, fruits, reload
 	]
 
 titlePage :: Page
@@ -145,4 +145,33 @@ forcedTermination = pageTitle "強制終了" :| [
 	itext 4 "Prelude> x",
 	text "「...おいっ...どうした...死んでる?」",
 	text "大丈夫、Ctrl-Cで意識を取りもどします"
+	]
+
+fruits :: Page
+fruits = pageTitle "ファイルからの読み込み" :| [
+	text "ファイルに保存した定義を読み込んでみます",
+	text "まずは、お好きなエディタでファイルを作成",
+	itext 4 "% vim fruits.hs",
+	itext 4 "myFavoriteFruit = \"apple\"",
+	text "対話環境に読み込みましょう",
+	itext 4 "Prelude> :load fruits.hs",
+	itext 4 "*Main>",
+	text "値を表示してみます",
+	itext 4 "*Main> myFavoriteFruit",
+	itext 4 "\"apple\""
+	]
+
+reload :: Page
+reload = pageTitle "再読み込み" :| [
+	text "対話環境は、そのままにして",
+	itext 4 "別のターミナルでファイルを編集",
+	itext 4 "% vim fruits.hs",
+	itext 4 "myFavoriteFruit = \"banana\"",
+	text "これだけでは、新しい定義は使われない",
+	itext 4 "*Main> myFavoriteFruit",
+	itext 4 "\"apple\"",
+	text "コマンド:reloadが必要",
+	itext 4 "*Main> :reload",
+	itext 4 "*Main> myFavoriteFruit",
+	itext 4 "\"banana\""
 	]
