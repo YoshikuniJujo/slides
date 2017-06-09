@@ -8,7 +8,8 @@ version = [0, 1, 0, 0]
 main :: IO ()
 main = runLecture version $ titlePage :| [
 	repetition, repetitionProcedure,
-	repetitionList, repetitionList2
+	repetitionList, repetitionList2, repetitionList3,
+	wakugumi
 	]
 
 titlePage :: Page
@@ -66,4 +67,29 @@ repetitionList2 = pageTitle "リストによる、くりかえし" :| [
 	text "試してみる",
 	itext 4 "*Main> sumNot3N 10",
 	itext 4 "37"
+	]
+
+repetitionList3 :: Page
+repetitionList3 = pageTitle "リストによる、くりかえし" :| [
+	text "1からNまでの整数を、5で割ったあまりの総和は?",
+	text "関数mapが使える",
+	itext 4 "map :: (a -> b) -> [a] -> [b]",
+	text "コードを書く",
+	itext 4 "% vim repetition.hs",
+	itext 4 "sumMod5N :: Integer -> Integer",
+	itext 4 "sumMod5N n = sum $ map (`mod` 5) [1 .. n]",
+	text "試してみる",
+	itext 4 "*Main> sumMod5N 10",
+	itext 4 "20"
+	]
+
+wakugumi :: Page
+wakugumi = pageTitle "わくぐみ" :| [
+	text "それぞれの段階は、つぎのように呼ぶ",
+	itext 4 "列挙: 要素を数え上げてリストにする([1 .. n])",
+	itext 4 "ろ過: 条件を満たすものだけを残す(filter)",
+	itext 4 "写像: 関数で、すべての要素を変換する(map)",
+	itext 4 "集計: 全要素からひとつの値をつくる(sum)",
+	text "単純な「くりかえし」は、だいたい",
+	itext 4 "この「わくぐみ」で表現できる"
 	]
