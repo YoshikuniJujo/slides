@@ -7,7 +7,8 @@ version = [0, 1, 0, 0]
 
 main :: IO ()
 main = runLecture version $ titlePage :| [
-	whatsRecursion, sumN, listVsRecursion, amount
+	whatsRecursion, sumN, listVsRecursion,
+	amount, amount2, amount3
 	]
 
 titlePage :: Page
@@ -59,5 +60,36 @@ amount = pageTitle "お金のはらいかた" :| [
 	itext 4 "1円玉から50円玉を使って200円はらう",
 	text "ということ",
 	text "それぞれについて、さらに分類していくことができる",
-	text "コードにしてみましょう"
+	text "コードにしてみましょう。まず、型シノニムを定義する",
+	itext 4 "% vim recursion.hs",
+	itext 4 "type Coin = Integer",
+	itext 4 "type Amount = Integer",
+	itext 4 "type Count = Integer"
+	]
+
+amount2 :: Page
+amount2 = pageTitle "お金のはらいかた" :| [
+	text "関数の本体を書きます",
+	itext 4 "% vim recursion.hs",
+	itext 4 "cases :: [Coin] -> Amount -> Count",
+	itext 4 "cases _ am | am < 0 = 0",
+	itext 4 "cases _ 0 = 1",
+	itext 4 "cases ca@(c : cs) am =",
+	itext 8 "cases ca (am - c) + cases cs am",
+	text "100円玉から1円玉までのコインを定義します",
+	itext 4 "% vim recursion.hs",
+	itext 4 "coins :: [Coin]",
+	itext 4 "coins = [100, 50, 10, 5, 1]"
+	]
+
+amount3 :: Page
+amount3 = pageTitle "お金のはらいかた" :| [
+	text "試してみましょう",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load recursion.hs",
+	itext 4 "*Main> cases coins 200",
+	itext 4 "1014",
+	text "1円玉から100円玉で200円を作る作りかたは1014通り",
+	text "この関数は、処理の流れが直線ではなく、樹構造",
+	text "リストではなく、直接、再帰を使うほうが書きやすい"
 	]
