@@ -9,7 +9,8 @@ main :: IO ()
 main = runLecture version $ titlePage :| [
 	whatsRecursion, sumN, listVsRecursion,
 	amount, amount2, amount3,
-	structureOfList, structureOfList2
+	structureOfList, structureOfList2, repetition,
+	enumeration, enumeration2
 	]
 
 titlePage :: Page
@@ -120,4 +121,38 @@ structureOfList2 = pageTitle "リストの構造" :| [
 	text "なので、このリストから5を取り出そうとすると",
 	itext 4 "3, 2, 8を、つぎつぎに削っていく必要がある",
 	text "リストは、要素を前から順に使っていくのに向いている"
+	]
+
+repetition :: Page
+repetition = pageTitle "リストによる「くりかえし」" :| [
+	text "リストによる「くりかえし」に使われる4つの段階",
+	itext 4 "1. 列挙",
+	itext 4 "2. ろ過",
+	itext 4 "3. 転写",
+	itext 4 "4. 集計",
+	text "「2. ろ過」と「3. 転写」は順不同で、複数あってもいい",
+	text "これらの操作自体が再帰的に定義される"
+	]
+
+enumeration :: Page
+enumeration = pageTitle "列挙" :| [
+	text "1からNまでの整数を要素とするリストの作成",
+	text "これは、「列挙」のひとつ",
+	text "これを再帰を使って定義してみよう",
+	itext 4 "% vim recursion.hs",
+	itext 4 "enumerateFromTo ::",
+	itext 8 "Integer -> Integer -> [Integer]",
+	itext 4 "enumerateFromTo f t",
+	itext 8 "| f > t = []",
+	itext 8 "| otherwise =",
+	itext 12 "f : enumerateFromTo (f + 1) t"
+	]
+
+enumeration2 :: Page
+enumeration2 = pageTitle "列挙" :| [
+	text "試してみる",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load recursion.hs",
+	itext 4 "*Main> enumerateFromTo 1 10",
+	itext 4 "[1,2,3,4,5,6,7,8,9,10]"
 	]

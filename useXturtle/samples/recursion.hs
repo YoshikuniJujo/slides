@@ -10,3 +10,8 @@ cases ca@(c : cs) am = cases ca (am - c) + cases cs am
 
 coins :: [Coin]
 coins = [100, 50, 10, 5, 1]
+
+enumerateFromTo :: Integer -> Integer -> [Integer]
+enumerateFromTo f t
+	| f > t = []
+	| otherwise = f : enumerateFromTo (f + 1) t
