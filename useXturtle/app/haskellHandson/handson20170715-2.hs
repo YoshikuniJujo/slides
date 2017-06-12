@@ -10,7 +10,7 @@ main = runLecture version $ titlePage :| [
 	whatsRecursion, sumN, listVsRecursion,
 	amount, amount2, amount3,
 	structureOfList, structureOfList2, repetition,
-	enumeration, enumeration2, filterRec, mapRec
+	enumeration, enumeration2, filterRec, mapRec, aggregate
 	]
 
 titlePage :: Page
@@ -184,4 +184,18 @@ mapRec = pageTitle "転写" :| [
 	itext 4 "Prelude> :load recursion.hs",
 	itext 4 "*Main> myMap (`mod` 5) [1 .. 10]",
 	itext 4 "[1,2,3,4,0,1,2,3,4,0]"
+	]
+
+aggregate :: Page
+aggregate = pageTitle "集計" :| [
+	text "集計関数のひとつである関数sumを定義する",
+	itext 4 "% vim recursion.hs",
+	itext 4 "mySum :: [Integer] -> Integer",
+	itext 4 "mySum [] = 0",
+	itext 4 "mySum (x : xs) = x + mySum xs",
+	text "試してみる",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load recursion.hs",
+	itext 4 "*Main> mySum [1 .. 10]",
+	itext 4 "55"
 	]
