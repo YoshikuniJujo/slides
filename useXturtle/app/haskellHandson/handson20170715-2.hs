@@ -8,7 +8,8 @@ version = [0, 1, 0, 0]
 main :: IO ()
 main = runLecture version $ titlePage :| [
 	whatsRecursion, sumN, listVsRecursion,
-	amount, amount2, amount3
+	amount, amount2, amount3,
+	structureOfList, structureOfList2
 	]
 
 titlePage :: Page
@@ -92,4 +93,31 @@ amount3 = pageTitle "お金のはらいかた" :| [
 	text "1円玉から100円玉で200円を作る作りかたは1014通り",
 	text "この関数は、処理の流れが直線ではなく、樹構造",
 	text "リストではなく、直接、再帰を使うほうが書きやすい"
+	]
+
+structureOfList :: Page
+structureOfList = pageTitle "リストの構造" :| [
+	text "ここで、話はすこし変わって、リストの構造について",
+	text "リストは、つぎのように作ることができる",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> 3 : 2 : 8 : 5 : 1 : []",
+	itext 4 "[3,2,8,5,1]",
+	text "「空リスト」と「先頭への要素の追加」だけで",
+	itext 4 "リストは作成できる",
+	text "そのように見える",
+	text "しかし、本当は、そのように「作成されている」のではなく",
+	text "リストは本質的に、空リストに値が追加されていったもの",
+	text "[3,2,8,5,1]のような表示は、「読みやすく表示」しただけ"
+	]
+
+structureOfList2 :: Page
+structureOfList2 = pageTitle "リストの構造" :| [
+	text "リストは、つぎのような形で保存されていると考えていい",
+	itext 4 "3 : 2 : 8 : 5 : 1 : []",
+	text "演算子(:)は右結合",
+	text "丸括弧を明示するなら、つぎのようになるだろう",
+	itext 4 "3 : (2 : (8 : (5 : (1 : []))))",
+	text "なので、このリストから5を取り出そうとすると",
+	itext 4 "3, 2, 8を、つぎつぎに削っていく必要がある",
+	text "リストは、要素を前から順に使っていくのに向いている"
 	]
