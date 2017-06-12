@@ -10,7 +10,7 @@ main = runLecture version $ titlePage :| [
 	whatsRecursion, sumN, listVsRecursion,
 	amount, amount2, amount3,
 	structureOfList, structureOfList2, repetition,
-	enumeration, enumeration2
+	enumeration, enumeration2, filterRec, mapRec
 	]
 
 titlePage :: Page
@@ -155,4 +155,33 @@ enumeration2 = pageTitle "列挙" :| [
 	itext 4 "Prelude> :load recursion.hs",
 	itext 4 "*Main> enumerateFromTo 1 10",
 	itext 4 "[1,2,3,4,5,6,7,8,9,10]"
+	]
+
+filterRec :: Page
+filterRec = pageTitle "ろ過" :| [
+	text "ろ過関数filterも定義してみる",
+	itext 4 "% vim recursion.hs",
+	itext 4 "myFilter :: (a -> Bool) -> [a] -> [a]",
+	itext 4 "myFilter p (x : xs)",
+	itext 8 "| p x = x : myFilter p xs",
+	itext 8 "| otherwise = myFilter p xs",
+	text "試してみる",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load recursion.hs",
+	itext 4 "*Main> myFilter ((/= 0) . (`mod` 3)) [1 .. 10]",
+	itext 4 "[1,2,4,5,7,8,10]"
+	]
+
+mapRec :: Page
+mapRec = pageTitle "転写" :| [
+	text "転写関数mapも定義してみる",
+	itext 4 "% vim recursion.hs",
+	itext 4 "myMap :: (a -> b) -> [a] -> [b]",
+	itext 4 "myMap _ [] = []",
+	itext 4 "myMap f (x : xs) = f x : myMap f xs",
+	text "試してみる",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load recursion.hs",
+	itext 4 "*Main> myMap (`mod` 5) [1 .. 10]",
+	itext 4 "[1,2,3,4,0,1,2,3,4,0]"
 	]
