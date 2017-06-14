@@ -8,7 +8,8 @@ version = [0, 1, 0, 0]
 main :: IO ()
 main = runLecture version $ titlePage :| [
 	otherLanguage, separate, replFunction, replFunction2,
-	putStrFunction, putStrFunction2
+	putStrFunction, putStrFunction2, oneAfterAnother, inputMachine,
+	getLineFunction, inputToOutput, inputToOutput2
 	]
 
 titlePage :: Page
@@ -92,4 +93,79 @@ putStrFunction2 = pageTitle "文字列を表示する機械" :| [
 	itext 4 "hello",
 	text "関数putStrLnに文字列\"hello\"が、あたえられ",
 	itext 4 "かえされたIO ()型の機械を、対話環境が実行する"
+	]
+
+oneAfterAnother :: Page
+oneAfterAnother = pageTitle "順に出力する" :| [
+	text "部品となる入出力を組み合わせることができる",
+	text "「これをして、つぎにそれをして」という組み合わせには",
+	itext 4 "演算子(>>)を使う",
+	text "試してみよう",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> putStrLn \"hello\" >> putStrLn \"world\"",
+	itext 4 "hello",
+	itext 4 "world",
+	text "入出力のうち、「出力」を組み合わせることができた",
+	text "それでは、入力した値を出力するには、どうすればいい?"
+	]
+
+inputMachine :: Page
+inputMachine = pageTitle "つぎの機械に値をわたす機械" :| [
+	text "文字列を出力する機械の型を思い出してみよう",
+	itext 4 "putStrLn \"hello\" :: IO ()",
+	text "()型の値は情報を持たない",
+	text "IO ()型の値は、つぎの機械にわたす値を持たない機械",
+	text "この()型のところに、他の型をいれた型が作れる",
+	itext 4 "IO String",
+	itext 4 "IO Integer",
+	itext 4 "IO Bool",
+	text "つぎの機械に、文字列/整数値/真偽値をわたす機械",
+	text "ここでは、ユーザのキー入力を1行、取得する機械を考える",
+	itext 4 "getLine :: IO String"
+	]
+
+getLineFunction :: Page
+getLineFunction = pageTitle "キー入力を1行、取得する" :| [
+	text "ここで対話環境の機能について補足する",
+	text "評価された値が「機械」だったとき",
+	itext 4 "その機械を実行する",
+	itext 4 "そして、その機械が()ではない値をわたす機械なら",
+	itext 8 "わたされた値を表示する",
+	text "試してみよう",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> getLine",
+	itext 4 "(fooと打ち込む)foo",
+	itext 4 "\"foo\""
+	]
+
+inputToOutput :: Page
+inputToOutput = pageTitle "打ち込んだ文字列をコンソールに書き出す" :| [
+	text "ある機械から別の機械に値をわたすには",
+	itext 4 "演算子(>>=)を使う",
+	text "つぎの型を、みてみよう",
+	itext 4 "String -> IO ()",
+	text "これを「文字列をとって、機械をかえす関数」と考えた",
+	text "ここでは、これ全体を「ひとつの機械」と考えよう",
+	text "これは「文字列をわたされて、何もわたさない機械」",
+	text "演算子(>>)と(>>=)の型を、みてみよう",
+	itext 4 "(>>) :: IO a -> IO b -> IO b",
+	itext 4 "(>>=) :: IO a -> (a -> IO b) -> IO b",
+	text "のようになる(すこし、うそがあるが)"
+	]
+
+inputToOutput2 :: Page
+inputToOutput2 = pageTitle "打ち込んだ文字列をコンソールに書き出す" :| [
+	text "演算子(>>=)の型は、つぎのようになっている",
+	itext 4 "(>>=) :: IO a -> (a -> IO b) -> IO b",
+	text "型変数aに型Stringを、bに()をいれると",
+	itext 4 "(>>=) ::",
+	itext 8 "IO String -> (String -> IO ()) -> IO ()",
+	text "関数getLineと関数putStrLnの型は、それぞれ",
+	itext 4 "getLine :: IO String",
+	itext 4 "putStrLn :: String -> IO ()",
+	text "これらは、演算子(>>=)でつなげられる",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> getLine >>= putStrLn",
+	itext 4 "(foo)と入力",
+	itext 4 "foo"
 	]
