@@ -9,7 +9,7 @@ main :: IO ()
 main = runLecture version $ titlePage :| [
 	otherLanguage, separate, replFunction, replFunction2,
 	putStrFunction, putStrFunction2, oneAfterAnother, inputMachine,
-	getLineFunction, inputToOutput, inputToOutput2
+	getLineFunction, inputToOutput, inputToOutput2, preDo, doNotation
 	]
 
 titlePage :: Page
@@ -168,4 +168,33 @@ inputToOutput2 = pageTitle "打ち込んだ文字列をコンソールに書き�
 	itext 4 "Prelude> getLine >>= putStrLn",
 	itext 4 "(foo)と入力",
 	itext 4 "foo"
+	]
+
+preDo :: Page
+preDo = pageTitle "読みやすい書きかた" :| [
+	text "たとえば、入力してもらった数値を足し算するとき",
+	text "つぎのような書きかたをすると、わかりやすい",
+	itext 4 "% vim addition.hs",
+	itext 4 "addition :: IO ()",
+	itext 4 "addition =",
+	itext 8 "putStrLn \"Please input two numbers:\" >>",
+	itext 8 "getLine >>= \\x ->",
+	itext 8 "getLine >>= \\y ->",
+	itext 8 "putStrLn (show (read x + read y))",
+	text "これは、getLineがわたす値でxを束縛して",
+	itext 4 "ふたつめのgetLineがわたす値でyを束縛して...",
+	text "のように読むことができる"
+	]
+
+doNotation :: Page
+doNotation = pageTitle "構文糖" :| [
+	text "Haskellには、さらに読みやすくする構文糖がある",
+	text "do記法と呼ばれる",
+	itext 4 "addition = do",
+	itext 8 "putStrLn \"Please input two numbers:\"",
+	itext 8 "x <- getLine",
+	itext 8 "y <- getLine",
+	itext 8 "putStrLn (show (read x + read y))",
+	text "do記法は予約語doではじまり、演算子(>>)や(>>=)や",
+	itext 4 "関数リテラルを機械的に置き換えている"
 	]
