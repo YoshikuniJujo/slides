@@ -10,7 +10,8 @@ main = runLecture version $ titlePage :| [
 	otherLanguage, separate, replFunction, replFunction2,
 	putStrFunction, putStrFunction2, oneAfterAnother, inputMachine,
 	getLineFunction, inputToOutput, inputToOutput2, preDo, doNotation,
-	tryAddition, standalone, standalone2
+	tryAddition, standalone, standalone2, returnFunction,
+	typing, typing2, typing3, typing4, typing5
 	]
 
 titlePage :: Page
@@ -236,7 +237,88 @@ standalone2 = pageTitle "実行可能ファイル" :| [
 	itext 4 "..."
 	]
 
+returnFunction :: Page
+returnFunction = pageTitle "関数return" :| [
+	text "打ち込んだ文字列を確認するメッセージを表示する",
+	itext 4 "機械getLineWithMsgを考える",
+	itext 4 "% vim withMsg.hs",
+	itext 4 "getLineWithMsg :: IO String",
+	itext 4 "getLineWithMsg = do",
+	itext 8 "l <- getLine",
+	itext 8 "putStrLn $ \"Your input: \" ++ l",
+	itext 8 "return l",
+	text "do記法で、つなげていけるのはIO ...型の機械だけ",
+	itext 4 "(すこし、うそだけど...)",
+	text "関数returnは、X型の値をIO X型の機械にする"
+	]
+
 typing :: Page
-typing = pageTitle "タイピングソフト" :| [
-	text "タイピングソフトの例を見ていこう"
+typing = pageTitle "タイピングの練習" :| [
+	text "タイピングの練習用のアプリケーションを作る",
+	itext 4 "* ファイルから1行ずつ表示する",
+	itext 4 "* その文字列をタイプする",
+	itext 4 "* まちがっていたら再度タイプ",
+	text "機械getArgs, 関数openFile, hIsEOF, hGetLineを使う",
+	itext 4 "getArgs :: IO [String]",
+	itext 4 "openFile :: String -> IO Handle",
+	itext 4 "hIsEOF :: Handle -> IO Bool",
+	itext 4 "hGetLine :: Handle -> IO String"
+	]
+
+typing2 :: Page
+typing2 = pageTitle "タイピングの練習" :| [
+	text "必要なモジュールを導入する",
+	itext 4 "% vim typing.hs",
+	itext 4 "import System.Environment (getArgs)",
+	itext 4 "import System.IO (",
+	itext 8 "Handle, IOMode(..),",
+	itext 8 "openFile, hIsEOF, hGetLine )"
+	]
+
+typing3 :: Page
+typing3 = pageTitle "タイピングの練習" :| [
+	text "ここで関数をひとつ定義する",
+	itext 4 "% vim typing.hs",
+	itext 4 "doWhile_ :: IO Bool -> IO ()",
+	itext 4 "doWhile_ act = do",
+	itext 8 "b <- act",
+	itext 8 "if b then doWhile_ act else return ()",
+	text "機械actを引数としてとり、それを実行して",
+	itext 4 "結果としてわたされる値がTrueならdoWhile_ actを",
+	itext 4 "そうでなければreturn ()を実行する",
+	text "そういう機械を作る関数",
+	text "引数としてとった機械のわたす値がFalseになるまで",
+	itext 4 "その機械の実行をくりかえす機械となる"
+	]
+
+typing4 :: Page
+typing4 = pageTitle "タイピングの練習" :| [
+	text "1行について実行する機械を定義する",
+	itext 4 "% vim typing.hs",
+	itext 4 "runLine :: Handle -> IO ()",
+	itext 4 "runLine h = do",
+	itext 8 "l0 <- hGetLine h",
+	itext 8 "putStrLn l0",
+	itext 8 "doWhile_ $ do",
+	itext 12 "l1 <- getLine",
+	itext 12 "return $ l1 /= l0",
+	text "これは1行を表示して、そのあと",
+	itext 4 "おなじ文字列が打ち込まれるまで、くりかえす機械"
+	]
+
+typing5 :: Page
+typing5 = pageTitle "タイピングの練習" :| [
+	text "機械mainを定義する",
+	itext 4 "% vim typing.hs",
+	itext 4 "main :: IO ()",
+	itext 4 "main = do",
+	itext 8 "fp : _ <- getArgs",
+	itext 8 "h <- openFile fp ReadMode",
+	itext 8 "doWhile_ $ do",
+	itext 12 "e <- hIsEOF h",
+	itext 12 "if e then return False else",
+	itext 16 "runLine h >> return True",
+	text "コマンドライン引数のひとつめで、変数fpを束縛し",
+	itext 4 "それを開いて、ファイルの終わりになるまで",
+	itext 4 "機械runLine hをくりかえす機械となる"
 	]

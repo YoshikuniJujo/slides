@@ -1,5 +1,5 @@
 import System.Environment (getArgs)
-import System.IO (openFile, hIsEOF, hGetLine, IOMode(..))
+import System.IO (Handle, IOMode(..), openFile, hIsEOF, hGetLine)
 
 main :: IO ()
 main = do
@@ -7,13 +7,15 @@ main = do
 	h <- openFile fp ReadMode
 	doWhile_ $ do
 		e <- hIsEOF h
-		if e then return False else do
-			l0 <- hGetLine h
-			putStrLn l0
-			doWhile_ $ do
-				l1 <- getLine
-				return $ l1 /= l0
-			return True
+		if e then return False else runLine h >> return True
+
+runLine :: Handle -> IO ()
+runLine h = do
+	l0 <- hGetLine h
+	putStrLn l0
+	doWhile_ $ do
+		l1 <- getLine
+		return $ l1 /= l0
 
 doWhile_ :: IO Bool -> IO ()
 doWhile_ act = do
