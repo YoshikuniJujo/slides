@@ -9,7 +9,8 @@ main :: IO ()
 main = runLecture version $ titlePage :| [
 	otherLanguage, separate, replFunction, replFunction2,
 	putStrFunction, putStrFunction2, oneAfterAnother, inputMachine,
-	getLineFunction, inputToOutput, inputToOutput2, preDo, doNotation
+	getLineFunction, inputToOutput, inputToOutput2, preDo, doNotation,
+	tryAddition, standalone, standalone2
 	]
 
 titlePage :: Page
@@ -197,4 +198,45 @@ doNotation = pageTitle "構文糖" :| [
 	itext 8 "putStrLn (show (read x + read y))",
 	text "do記法は予約語doではじまり、演算子(>>)や(>>=)や",
 	itext 4 "関数リテラルを機械的に置き換えている"
+	]
+
+tryAddition :: Page
+tryAddition = pageTitle "加算を試してみる" :| [
+	text "ここで定義した機械additionを試してみよう",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load addition.hs",
+	itext 4 "Please input two numbers:",
+	itext 4 "(好きな数値を入力)35",
+	itext 4 "(好きな数値を入力)42",
+	itext 4 "77"
+	]
+
+standalone :: Page
+standalone = pageTitle "実行可能ファイル" :| [
+	text "そろそろ「対話環境で」ではなく独立した",
+	itext 4 "実行可能ファイルを作りたくなってきたはず",
+	text "実行可能ファイルにするためには",
+	itext 4 "まず、変数mainを機械で束縛する",
+	text "ここでは、変数additionをmainに置き換える",
+	itext 4 "% vim addition.hs",
+	itext 4 "main :: IO ()",
+	itext 4 "main = do ...",
+	text "このように置き換えよう"
+	]
+
+standalone2 :: Page
+standalone2 = pageTitle "実行可能ファイル" :| [
+	text "そのうえで、つぎのようにする",
+	itext 4 "% stack ghc -- addition.hs -o addition",
+	text "8タブ派の人なら",
+	itext 4 "% stack ghc -- -fno-warn-tabs addition.hs \\",
+	itext 8 "-o addition",
+	text "作られた実行可能ファイルを試す",
+	itext 4 "% ./addition",
+	itext 4 "..."
+	]
+
+typing :: Page
+typing = pageTitle "タイピングソフト" :| [
+	text "タイピングソフトの例を見ていこう"
 	]
