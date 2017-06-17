@@ -11,7 +11,9 @@ main = runLecture version $ titlePage :| [
 	squareAndCircleType, squareAreaType, circleAreaType,
 	squareAndCircleSamplesType, mismatchedType,
 	squareAndCircleData, squareAndCircleSamplesData,
-	squareAreaData, circleAreaData, mismatchedData
+	squareAreaData, circleAreaData, mismatchedData,
+	unify, unifySamples, unifyArea,
+	jankenAgain
 	]
 
 titlePage :: Page
@@ -251,4 +253,62 @@ mismatchedData = pageTitle "正方形なの?円なの?" :| [
 	text "対話環境だとはっきりしないが",
 	itext 4 "型エラーはコンパイル時に起きる",
 	text "コンパイルが通れば、このようなエラーはないということ"
+	]
+
+unify :: Page
+unify = pageTitle "正方形も円も図形だ" :| [
+	text "正方形も円も、どちらも「図形」だ",
+	text "ひとつの型の値にできるはず",
+	itext 4 "% vim squareAndCircleUnion.hs",
+	itext 4 "data Shape",
+	itext 8 "= Square (Double, Double) Double",
+	itext 8 "| Circle (Double, Double) Double",
+	itext 8 "deriving Show"
+	]
+
+unifySamples :: Page
+unifySamples = pageTitle "正方形と円のサンプル" :| [
+	text "正方形と円のサンプルを定義する",
+	itext 4 "% vim squareAndCircleUnion.hs",
+	itext 4 "sampleSquare :: Shape",
+	itext 4 "sampleSquare = Square (10, 20) 15",
+	itext 4 "sampleCircle :: Shape",
+	itext 4 "sampleCircle = Circle (30, 45) 12",
+	text "対話環境で、みてみよう",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load squareAndCircleUnion.hs",
+	itext 4 "*Main> sampleSquare",
+	itext 4 "Square (10,20) 15",
+	itext 4 "*Main> sampleCircle",
+	itext 4 "Circle (30,45) 12"
+	]
+
+unifyArea :: Page
+unifyArea = pageTitle "正方形と円の面積" :| [
+	text "正方形と円の面積の両方をもとめる関数を定義する",
+	itext 4 "% vim squareAndCircleUnion.hs",
+	itext 4 "area :: Shape -> Double",
+	itext 4 "area (Square _ x) = x ^ 2",
+	itext 4 "area (Circle _ r) = r ^ 2 * pi",
+	text "試してみる",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load squareAndCircleUnion.hs",
+	itext 4 "*Main> area sampleSquare",
+	itext 4 "225.0",
+	itext 4 "*Main> area sampleCircle",
+	itext 4 "452.3893421169302"
+	]
+
+jankenAgain :: Page
+jankenAgain = pageTitle "じゃんけんの例との比較" :| [
+	text "型Jankenと型Shapeの、ふたつの定義を比較する",
+	itext 4 "data Janken = Rock | Paper | Scissors",
+	itext 4 "data Shape",
+	itext 8 "= Square (Double, Double) Double",
+	itext 8 "| Circle (Double, Double) Double",
+	text "値構築子SquareやCircleは、引数をふたつとる",
+	itext 4 "(ひとつめはタプル、ふたつめはDouble型の値)",
+	text "おなじように",
+	itext 4 "値構築子Rock, Paper, Scissorsは",
+	itext 4 "「引数を0個とる」と考えることができる"
 	]
