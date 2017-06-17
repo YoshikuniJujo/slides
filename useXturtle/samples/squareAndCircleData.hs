@@ -9,3 +9,6 @@ sampleCircle = Circle (30, 45) 12
 
 squareArea :: Square -> Double
 squareArea (Square _ x) = x ^ 2
+
+circleArea :: Circle -> Double
+circleArea (Circle _ r) = r ^ 2 * pi

@@ -11,7 +11,7 @@ main = runLecture version $ titlePage :| [
 	squareAndCircleType, squareAreaType, circleAreaType,
 	squareAndCircleSamplesType, mismatchedType,
 	squareAndCircleData, squareAndCircleSamplesData,
-	squareAreaData
+	squareAreaData, circleAreaData, mismatchedData
 	]
 
 titlePage :: Page
@@ -224,4 +224,31 @@ squareAreaData = pageTitle "正方形の面積" :| [
 	itext 4 "Prelude> :load squareAndCircleData.hs",
 	itext 4 "*Main> squareArea sampleSquare",
 	itext 4 "225.0"
+	]
+
+circleAreaData :: Page
+circleAreaData = pageTitle "円の面積" :| [
+	text "円の面積をもとめる関数を定義する",
+	itext 4 "% vim squareAndCircleData.hs",
+	itext 4 "circleArea :: Circle -> Double",
+	itext 4 "circleArea (Circle _ r) = r ^ 2 * pi",
+	text "試してみる",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load squareAndCircleData.hs",
+	itext 4 "*Main> circleArea sampleCircle",
+	itext 4 "452.3893421169302"
+	]
+
+mismatchedData :: Page
+mismatchedData = pageTitle "正方形なの?円なの?" :| [
+	text "つぎのように試してみよう",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load squareAndCircleData.hs",
+	itext 4 "*Main> squareArea sampleCircle",
+	itext 4 "(型エラーが生じる)",
+	itext 4 "*Main> circleArea sampleSquare",
+	itext 4 "(型エラーが生じる)",
+	text "対話環境だとはっきりしないが",
+	itext 4 "型エラーはコンパイル時に起きる",
+	text "コンパイルが通れば、このようなエラーはないということ"
 	]
