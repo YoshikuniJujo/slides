@@ -9,7 +9,9 @@ main :: IO ()
 main = runLecture version $ titlePage :| [
 	janken, janken2, janken3, janken4, janken5, janken6,
 	squareAndCircleType, squareAreaType, circleAreaType,
-	squareAndCircleSamplesType, mismatchedType
+	squareAndCircleSamplesType, mismatchedType,
+	squareAndCircleData, squareAndCircleSamplesData,
+	squareAreaData
 	]
 
 titlePage :: Page
@@ -179,4 +181,47 @@ mismatchedType = pageTitle "正方形なの?円なの?" :| [
 	text "これは問題だ",
 	text "type構文で作られる型シノニムは、ただの型の別名",
 	text "ここでの型SquareとCircleとは、おなじ型"
+	]
+
+squareAndCircleData :: Page
+squareAndCircleData = pageTitle "正方形と円を代数的データ型で" :| [
+	text "型の別名ではなく「新しい型」を定義する",
+	itext 4 "% vim squareAndCircleData.hs",
+	itext 4 "data Square = Square (Double, Double) Double",
+	itext 4 "data Circle = Circle (Double, Double) Double",
+	text "このままだと、対話環境で表示できないので",
+	itext 4 "deriving Showをつける",
+	itext 4 "% vim squareAndCircleData.hs",
+	itext 4 "data Square = ... deriving Show",
+	itext 4 "data Circle = ... deriving Show"
+	]
+
+squareAndCircleSamplesData :: Page
+squareAndCircleSamplesData = pageTitle "正方形と円のサンプル" :| [
+	text "正方形と円のサンプルを定義する",
+	itext 4 "% vim squareAndCircleData.hs",
+	itext 4 "sampleSquare :: Square",
+	itext 4 "sampleSquare = Square (10, 20) 15",
+	itext 4 "sampleCircle :: Circle",
+	itext 4 "sampleCircle = Circle (30, 45) 12",
+	text "対話環境でみてみよう",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load squareAndCircleData.hs",
+	itext 4 "*Main> sampleSquare",
+	itext 4 "Square (10.0,20.0) 15.0",
+	itext 4 "*Main> sampleCircle",
+	itext 4 "Circle (30.0,45.0) 12.0"
+	]
+
+squareAreaData :: Page
+squareAreaData = pageTitle "正方形の面積" :| [
+	text "正方形の面積をもとめる関数を定義する",
+	itext 4 "% vim squareAndCircleData.hs",
+	itext 4 "squareArea :: Square -> Double",
+	itext 4 "squareArea (Square _ x) = x ^ 2",
+	text "試してみる",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load squareAndCircleData.hs",
+	itext 4 "*Main> squareArea sampleSquare",
+	itext 4 "225.0"
 	]
