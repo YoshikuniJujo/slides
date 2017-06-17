@@ -8,7 +8,7 @@ version = [0, 1, 0, 0]
 main :: IO ()
 main = runLecture version $ titlePage :| [
 	janken, janken2, janken3, janken4, janken5, janken6,
-	squareAndCircleType, squareAreaType
+	squareAndCircleType, squareAreaType, circleAreaType
 	]
 
 titlePage :: Page
@@ -133,4 +133,17 @@ squareAreaType = pageTitle "正方形の面積" :| [
 	itext 4 "Prelude> :load squareAndCircleType.hs",
 	itext 4 "*Main> squareArea ((10, 20), 15)",
 	itext 4 "225.0"
+	]
+
+circleAreaType :: Page
+circleAreaType = pageTitle "円の面積" :| [
+	text "円の面積をもとめる関数",
+	itext 4 "% vim squareAndCircleType.hs",
+	itext 4 "circleArea :: Circle -> Double",
+	itext 4 "circleArea (_, r) = r ^ 2 * pi",
+	text "試してみよう",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load squareAndCircleType.hs",
+	itext 4 "*Main> circleArea ((30, 45), 12)",
+	itext 4 "452.3893421169302"
 	]
