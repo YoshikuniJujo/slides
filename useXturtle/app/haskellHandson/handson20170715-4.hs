@@ -8,7 +8,8 @@ version = [0, 1, 0, 0]
 main :: IO ()
 main = runLecture version $ titlePage :| [
 	janken, janken2, janken3, janken4, janken5, janken6,
-	squareAndCircleType, squareAreaType, circleAreaType
+	squareAndCircleType, squareAreaType, circleAreaType,
+	squareAndCircleSamplesType, mismatchedType
 	]
 
 titlePage :: Page
@@ -146,4 +147,36 @@ circleAreaType = pageTitle "円の面積" :| [
 	itext 4 "Prelude> :load squareAndCircleType.hs",
 	itext 4 "*Main> circleArea ((30, 45), 12)",
 	itext 4 "452.3893421169302"
+	]
+
+squareAndCircleSamplesType :: Page
+squareAndCircleSamplesType = pageTitle "正方形と円のサンプル" :| [
+	text "正方形と円の例を定義する",
+	itext 4 "% vim squareAndCircleType.hs",
+	itext 4 "sampleSquare :: Square",
+	itext 4 "sampleSquare = ((10, 20), 15)",
+	itext 4 "sampleCircle :: Circle",
+	itext 4 "sampleCircle = ((30, 45), 12)",
+	text "試してみよう",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load squareAndCircleType.hs",
+	itext 4 "*Main> squareArea sampleSquare",
+	itext 4 "225.0",
+	itext 4 "*Main> circleArea sampleCircle",
+	itext 4 "452.3893421169302"
+	]
+
+mismatchedType :: Page
+mismatchedType = pageTitle "正方形なの?円なの?" :| [
+	text "ところで、つぎのようなことを試してみる",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load squareAndCircleType.hs",
+	itext 4 "*Main> squareArea sampleCircle",
+	itext 4 "144.0",
+	itext 4 "*Main> circleArea sampleSquare",
+	itext 4 "706.8583470577034",
+	text "何事もなかったように、まちがった答えが計算される",
+	text "これは問題だ",
+	text "type構文で作られる型シノニムは、ただの型の別名",
+	text "ここでの型SquareとCircleとは、おなじ型"
 	]
