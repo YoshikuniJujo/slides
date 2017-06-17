@@ -7,7 +7,8 @@ version = [0, 1, 0, 0]
 
 main :: IO ()
 main = runLecture version $ titlePage :| [
-	janken, janken2, janken3, janken4, janken5, janken6
+	janken, janken2, janken3, janken4, janken5, janken6,
+	squareAndCircleType, squareAreaType
 	]
 
 titlePage :: Page
@@ -104,4 +105,32 @@ janken6 = pageTitle "じゃんけん" :| [
 	itext 4 "Lose",
 	itext 4 "*Main> Rock `xxxAgainst` Scissors",
 	itext 4 "Win"
+	]
+
+squareAndCircleType :: Page
+squareAndCircleType = pageTitle "正方形と円" :| [
+	text "直交座標上の正方形は",
+	itext 4 "左上の点と1辺の長さで表現できる",
+	text "これを、タプルで表現すると",
+	itext 4 "% vim squareAndCircleType.hs",
+	itext 4 "type Square = ((Double, Double), Double)",
+	text "このように表すことができる",
+	text "おなじように円は、中心と半径とで表現できる",
+	itext 4 "% vim squareAndCircleType.hs",
+	itext 4 "type Circle = ((Double, Double), Double)"
+--	text "型シノニムは型の「別名」",
+--	text "型SquareとCircleとは「おなじ型」となる"
+	]
+
+squareAreaType :: Page
+squareAreaType = pageTitle "正方形の面積" :| [
+	text "正方形の面積をもとめる関数",
+	itext 4 "% vim squareAndCircleType.hs",
+	itext 4 "squareArea :: Square -> Double",
+	itext 4 "squareArea (_, x) = x ^ 2",
+	text "試してみよう",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load squareAndCircleType.hs",
+	itext 4 "*Main> squareArea ((10, 20), 15)",
+	itext 4 "225.0"
 	]
