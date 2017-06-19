@@ -12,7 +12,8 @@ main = runLecture version $ titlePage :| [
 	parser, parser2, parser3, parser4,
 	parser5, parser6, parser7, parser8,
 	parser9, parser10, parser11, parser12, parser13,
-	calculator, calculator2, calculator3, calculator4
+	calculator, calculator2, calculator3, calculator4,
+	calculator5, calculator6
 	]
 
 titlePage :: Page
@@ -284,4 +285,33 @@ calculator4 = pageTitle "式のパーサ" :| [
 	itext 4 "Prelude> :load calculator.hs",
 	itext 4 "*Main> parse number \"123\"",
 	itext 4 "Just 123"
+	]
+
+calculator5 :: Page
+calculator5 = pageTitle "式のパーサ" :| [
+	text "演算子をパースするパーサを作る",
+	text "まずは「演算子」の型を定義する",
+	itext 4 "% vim calculator.hs",
+	itext 4 "type Op = Integer -> Integer -> Integer",
+	text "演算子をパースする関数を定義する",
+	itext 4 "% vim calculator.hs",
+	itext 4 "op, ad, sb, ml, dv :: Parse Op",
+	itext 4 "op = ad `alt` sb `alt` ml `alt` dv",
+	itext 4 "ad = char '+' `build` const (+)",
+	itext 4 "sb = char '-' `build` const (-)",
+	itext 4 "ml = char '*' `build` const (*)",
+	itext 4 "dv = char '/' `build` const div"
+	]
+
+calculator6 :: Page
+calculator6 = pageTitle "式のパーサ" :| [
+	text "試してみる",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load calculator.hs",
+	itext 4 "*Main> Just o = parse op \"+\"",
+	itext 4 "*Main> o 3 4",
+	itext 4 "7",
+	itext 4 "*Main> Just o = parse op \"/\"",
+	itext 4 "*Main> o 125 4",
+	itext 4 "31"
 	]

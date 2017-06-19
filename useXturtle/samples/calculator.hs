@@ -44,3 +44,12 @@ number = list1 (check isDigit) `build` read
 
 parse :: Parse a -> String -> Maybe a
 parse p = listToMaybe . map fst . (p >@ eof)
+
+type Op = Integer -> Integer -> Integer
+
+op, ad, sb, ml, dv :: Parse Op
+op = ad `alt` sb `alt` ml `alt` dv
+ad = char '+' `build` const (+)
+sb = char '-' `build` const (-)
+ml = char '*' `build` const (*)
+dv = char '/' `build` const div
