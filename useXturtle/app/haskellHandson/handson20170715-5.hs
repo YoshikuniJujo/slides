@@ -9,7 +9,7 @@ main :: IO ()
 main = runLecture version $ titlePage :| [
 	prelude,
 	calculator,
-	parser, parser2, parser3, parser4, parser5, parser6
+	parser, parser2, parser3, parser4, parser5, parser6, parser7
 	]
 
 titlePage :: Page
@@ -115,7 +115,7 @@ parser5 = pageTitle "パーサ" :| [
 
 parser6 :: Page
 parser6 = pageTitle "パーサ" :| [
-	text "複数の解析候補をもつパーサをつくる関数",
+	text "ふたつのパーサの、それぞれを候補とするパーサを作成",
 	itext 4 "% vim calculator.hs",
 	itext 4 "alt :: Parse a -> Parse a -> Parse a",
 	itext 4 "(p1 `alt` p2) inp = p1 inp ++ p2 inp",
@@ -127,4 +127,20 @@ parser6 = pageTitle "パーサ" :| [
 	itext 4 "[('1',\"23\")]",
 	itext 4 "*Main> (check isDigit `alt` char 'a') \"abc\"",
 	itext 4 "[('a',\"bc\")]"
+	]
+
+parser7 :: Page
+parser7 = pageTitle "パーサ" :| [
+	text "解析の結果に関数を適用する関数",
+	itext 4 "% vim calculator.hs",
+	itext 4 "build :: Parse a -> (a -> b) -> Parse b",
+	itext 4 "build p f inp =",
+	itext 8 "[ (f x, r) | (x, r) <- p inp ]",
+	text "試してみる",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load calculator.hs",
+	itext 4 "*Main> :module + Data.Char",
+	itext 4 "*Main Data.Char>",
+	itext 4 "(check isDigit `build` digitToInt) \"123\"",
+	itext 4 "[(1,\"23\")]"
 	]
