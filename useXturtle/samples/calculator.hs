@@ -1,3 +1,4 @@
+import Data.Maybe (listToMaybe)
 import Data.Char (isDigit)
 
 type Parse a = String -> [(a, String)]
@@ -40,3 +41,6 @@ list1 p = (p >@> list p) `build`
 
 number :: Parse Integer
 number = list1 (check isDigit) `build` read
+
+parse :: Parse a -> String -> Maybe a
+parse p = listToMaybe . map fst . (p >@ eof)

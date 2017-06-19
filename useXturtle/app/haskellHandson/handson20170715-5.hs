@@ -12,7 +12,7 @@ main = runLecture version $ titlePage :| [
 	parser, parser2, parser3, parser4,
 	parser5, parser6, parser7, parser8,
 	parser9, parser10, parser11, parser12, parser13,
-	calculator, calculator2
+	calculator, calculator2, calculator3, calculator4
 	]
 
 titlePage :: Page
@@ -257,7 +257,31 @@ calculator2 = pageTitle "式のパーサ" :| [
 	itext 4 "*Main> map fst . (number >@ eof) $ \"123\"",
 	itext 4 "[123]",
 	itext 4 "*Main> :load + Data.Maybe",
-	itext 4 "*Main>",
+	itext 4 "*Main Data.Maybe>",
 	itext 4 "listToMaybe . map fst . (number >@ eof) $ \"123\"",
+	itext 4 "Just 123"
+	]
+
+calculator3 :: Page
+calculator3 = pageTitle "式のパーサ" :| [
+	text "対話環境で、みたように",
+	itext 4 "パーサをそのまま適用するよりも",
+	itext 4 "あるていど、結果を整理したほうがわかりやすい",
+	text "結果を整理された形で取得する関数",
+	itext 4 "% vim calculator.hs",
+	itext 4 "parse :: Parse a -> Streing -> Maybe a",
+	itext 4 "parse p = listToMaybe . map fst . (p >@ eof)",
+	text "モジュールData.Maybeの関数listToMaybeが必要なので",
+	itext 4 "ファイルの先頭に、つぎのように追加する",
+	itext 4 "% vim calculator.hs",
+	itext 4 "import Data.Maybe (listToMaybe)"
+	]
+
+calculator4 :: Page
+calculator4 = pageTitle "式のパーサ" :| [
+	text "試してみる",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load calculator.hs",
+	itext 4 "*Main> parse number \"123\"",
 	itext 4 "Just 123"
 	]
