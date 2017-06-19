@@ -8,10 +8,11 @@ version = [0, 1, 0, 0]
 main :: IO ()
 main = runLecture version $ titlePage :| [
 	prelude,
-	calculator,
+	calculatorSpecification,
 	parser, parser2, parser3, parser4,
 	parser5, parser6, parser7, parser8,
-	parser9, parser10, parser11, parser12, parser13
+	parser9, parser10, parser11, parser12, parser13,
+	calculator, calculator2
 	]
 
 titlePage :: Page
@@ -24,8 +25,8 @@ prelude = pageTitle "はじめに" :| [
 	itext 4 "もうひとつは、数当てゲーム"
 	]
 
-calculator :: Page
-calculator = pageTitle "電卓" :| [
+calculatorSpecification :: Page
+calculatorSpecification = pageTitle "電卓" :| [
 	text "電卓の仕様はつぎのようにする",
 	itext 4 "* 整数の四則演算をあつかう",
 	itext 4 "* 式を入力すると答えを表示する",
@@ -229,4 +230,34 @@ parser13 = pageTitle "パーサ" :| [
 	itext 4 "[(\"\",\"123\"),(\"1\",\"23\"),(\"12\",\"3\"),(\"123\",\"\")]",
 	itext 4 "*Main Data.Char> list1 (check isDigit) \"123\"",
 	itext 4 "[(\"1\",\"23\"),(\"12\",\"3\"),(\"123\",\"\")]"
+	]
+
+calculator :: Page
+calculator = pageTitle "式のパーサ" :| [
+	text "ここまでで、一般的なパーサを作成する仕組みができた",
+	text "この「仕組み」を使って、式を解析するパーサを作っていく",
+	text "まずは数値を解析するパーサを作る",
+	itext 4 "% vim calculator.hs",
+	itext 4 "number :: Parse Integer",
+	itext 4 "number = list1 (check isDigit) `build` read",
+	text "モジュールData.Charの関数isDigitを使うので、先頭に",
+	itext 4 "% vim calculator.hs",
+	itext 4 "import Data.Char (isDigit)"
+	]
+
+calculator2 :: Page
+calculator2 = pageTitle "式のパーサ" :| [
+	text "試してみよう",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load calculator.hs",
+	itext 4 "*Main> number \"123\"",
+	itext 4 "[(1,\"23\"),(12,\"3\"),(123,\"\")]",
+	itext 4 "*Main> number >@ eof $ \"123\"",
+	itext 4 "[(123,\"\")]",
+	itext 4 "*Main> map fst . (number >@ eof) $ \"123\"",
+	itext 4 "[123]",
+	itext 4 "*Main> :load + Data.Maybe",
+	itext 4 "*Main>",
+	itext 4 "listToMaybe . map fst . (number >@ eof) $ \"123\"",
+	itext 4 "Just 123"
 	]

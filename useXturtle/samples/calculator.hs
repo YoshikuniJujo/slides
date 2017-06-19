@@ -1,3 +1,5 @@
+import Data.Char (isDigit)
+
 type Parse a = String -> [(a, String)]
 
 succeed :: a -> Parse a
@@ -35,3 +37,6 @@ list, list1 :: Parse a -> Parse [a]
 list p = succeed [] `alt` list1 p
 list1 p = (p >@> list p) `build`
 	(\(x, xs) -> x : xs)
+
+number :: Parse Integer
+number = list1 (check isDigit) `build` read

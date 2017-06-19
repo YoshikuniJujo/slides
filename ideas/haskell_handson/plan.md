@@ -253,7 +253,7 @@ Haskellで、しばしばとりあげられるような話題は、一般の開�
 			* [x] リストのパース関数を定義
 				+ [x] 関数listとlist1
 			* [ ] 電卓のパーサを作成
-				+ [ ] 関数number
+				+ [x] 関数number
 				+ [ ] 関数parse
 				+ [ ] 型Op
 				+ [ ] 関数op, ad, sb, ml, dv
