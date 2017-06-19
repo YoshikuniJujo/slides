@@ -10,7 +10,8 @@ main = runLecture version $ titlePage :| [
 	prelude,
 	calculator,
 	parser, parser2, parser3, parser4,
-	parser5, parser6, parser7, parser8
+	parser5, parser6, parser7, parser8,
+	parser9, parser10
 	]
 
 titlePage :: Page
@@ -159,4 +160,30 @@ parser8 = pageTitle "パーサ" :| [
 	itext 4 "*Main> :module + Data.Char",
 	itext 4 "*Main> (char 'a' >@> check isDigit) \"a123\"",
 	itext 4 "[(('a','1'),\"23\")]"
+	]
+
+parser9 :: Page
+parser9 = pageTitle "パーサ" :| [
+	text "後ろのパーサの結果を無視する関数",
+	itext 4 "% vim calculator.hs",
+	itext 4 "(>@) :: Parse a -> Parse b -> Parse a",
+	itext 4 "p1 >@ p2 = (p1 >@> p2) `build` fst",
+	text "前のパーサの結果を無視する関数",
+	itext 4 "% vim calculator.hs",
+	itext 4 "(@>) :: Parse a -> Parse b -> Parse b",
+	itext 4 "p1 @> p2 = (p1 >@> p2) `build` snd"
+	]
+
+parser10 :: Page
+parser10 = pageTitle "パーサ" :| [
+	text "試してみる",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load calculator.hs",
+	itext 4 "*Main> :module + Data.Char",
+	itext 4 "*Main Data.Char>",
+	itext 4 "(char 'a' >@ check isDigit) \"a123\"",
+	itext 4 "[('a',\"23\")]",
+	itext 4 "*Main Data.Char>",
+	itext 4 "(char 'a' @> check isDigit) \"a123\"",
+	itext 4 "[('1',\"23\")]"
 	]
