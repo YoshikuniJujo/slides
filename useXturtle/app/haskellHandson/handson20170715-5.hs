@@ -9,7 +9,7 @@ main :: IO ()
 main = runLecture version $ titlePage :| [
 	prelude,
 	calculator,
-	parser, parser2, parser3
+	parser, parser2, parser3, parser4
 	]
 
 titlePage :: Page
@@ -78,4 +78,21 @@ parser3 = pageTitle "パーサ" :| [
 	itext 4 "文字列\"hello\"を解析したということ",
 	text "結果として整数123がかえり",
 	itext 4 "つぎのパーサにわたすのは文字列\"hello\""
+	]
+
+parser4 :: Page
+parser4 = pageTitle "パーサ" :| [
+	text "条件を満たす1文字をパースする関数",
+	itext 4 "% vim calculator.hs",
+	itext 4 "check :: (Char -> Bool) -> Parse Char",
+	itext 4 "check p (c : cs) | p c = [(c, cs)]",
+	itext 4 "check _ _ = []",
+	text "試してみよう",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load calculator.hs",
+	itext 4 "*Main> :module + Data.Char",
+	itext 4 "*Main Data.Char> check isDigit \"123\"",
+	itext 4 "[('1',\"23\")]",
+	itext 4 "*Main Data.Char> check isDigit \"abc\"",
+	itext 4 "[]"
 	]
