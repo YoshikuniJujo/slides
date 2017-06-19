@@ -11,7 +11,7 @@ main = runLecture version $ titlePage :| [
 	calculator,
 	parser, parser2, parser3, parser4,
 	parser5, parser6, parser7, parser8,
-	parser9, parser10, parser11
+	parser9, parser10, parser11, parser12, parser13
 	]
 
 titlePage :: Page
@@ -202,4 +202,31 @@ parser11 = pageTitle "パーサ" :| [
 	itext 4 "*Main> []",
 	itext 4 "*Main> (char 'a' >@ eof) \"a\"",
 	itext 4 "*Main> [('a',\"\")]"
+	]
+
+parser12 :: Page
+parser12 = pageTitle "パーサ" :| [
+	text "おなじパーサを何回も適用してリストを作る",
+	itext 4 "% vim calculator.hs",
+	itext 4 "list, list1 :: Parse a -> Parse [a]",
+	itext 4 "list p = succeed [] `alt` list1 p",
+	itext 4 "list1 p = (p >@> list p) `build`",
+	itext 8 "(\\(x, xs) -> x : xs)",
+	text "考えかたは、つぎのようになる",
+	text "0回をゆるすリストをかえすには",
+	itext 4 "1回以上のリストに0回のくりかえしの候補を追加",
+	text "1回以上のリストについては",
+	itext 4 "0回をゆるすリストの前に、1回ぶん追加する"
+	]
+
+parser13 :: Page
+parser13 = pageTitle "パーサ" :| [
+	text "試してみる",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load calculator.hs",
+	itext 4 "*Main> :module + Data.Char",
+	itext 4 "*Main Data.Char> list (check isDigit) \"123\"",
+	itext 4 "[(\"\",\"123\"),(\"1\",\"23\"),(\"12\",\"3\"),(\"123\",\"\")]",
+	itext 4 "*Main Data.Char> list1 (check isDigit) \"123\"",
+	itext 4 "[(\"1\",\"23\"),(\"12\",\"3\"),(\"123\",\"\")]"
 	]
