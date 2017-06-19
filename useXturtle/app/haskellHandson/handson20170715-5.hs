@@ -11,7 +11,7 @@ main = runLecture version $ titlePage :| [
 	calculator,
 	parser, parser2, parser3, parser4,
 	parser5, parser6, parser7, parser8,
-	parser9, parser10
+	parser9, parser10, parser11
 	]
 
 titlePage :: Page
@@ -186,4 +186,20 @@ parser10 = pageTitle "パーサ" :| [
 	itext 4 "*Main Data.Char>",
 	itext 4 "(char 'a' @> check isDigit) \"a123\"",
 	itext 4 "[('1',\"23\")]"
+	]
+
+parser11 :: Page
+parser11 = pageTitle "パーサ" :| [
+	text "入力の終わりを検出する",
+	itext 4 "% vim calculator.hs",
+	itext 4 "eof :: Parse ()",
+	itext 4 "eof \"\" = [((), \"\")]",
+	itext 4 "eof _ = []",
+	text "試してみる",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load calculator.hs",
+	itext 4 "*Main> (char 'a' >@ eof) \"a123\"",
+	itext 4 "*Main> []",
+	itext 4 "*Main> (char 'a' >@ eof) \"a\"",
+	itext 4 "*Main> [('a',\"\")]"
 	]
