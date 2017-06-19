@@ -9,7 +9,8 @@ main :: IO ()
 main = runLecture version $ titlePage :| [
 	prelude,
 	calculator,
-	parser, parser2, parser3, parser4, parser5, parser6, parser7
+	parser, parser2, parser3, parser4,
+	parser5, parser6, parser7, parser8
 	]
 
 titlePage :: Page
@@ -143,4 +144,19 @@ parser7 = pageTitle "パーサ" :| [
 	itext 4 "*Main Data.Char>",
 	itext 4 "(check isDigit `build` digitToInt) \"123\"",
 	itext 4 "[(1,\"23\")]"
+	]
+
+parser8 :: Page
+parser8 = pageTitle "パーサ" :| [
+	text "「...のつぎに...」のようにパーサをつなげる",
+	itext 4 "% vim calculator.hs",
+	itext 4 "(>@>) :: Parse a -> Parse b -> Parse (a, b)",
+	itext 4 "(p1 >@> p2) inp = [ ((x, y), r') |",
+	itext 8 "(x, r) <- p1 inp, (y, r') <- p2 r ]",
+	text "試してみる",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load calculator.hs",
+	itext 4 "*Main> :module + Data.Char",
+	itext 4 "*Main> (char 'a' >@> check isDigit) \"a123\"",
+	itext 4 "[(('a','1'),\"23\")]"
 	]
