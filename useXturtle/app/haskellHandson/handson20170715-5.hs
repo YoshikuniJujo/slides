@@ -13,7 +13,9 @@ main = runLecture version $ titlePage :| [
 	parser5, parser6, parser7, parser8,
 	parser9, parser10, parser11, parser12, parser13,
 	calculator, calculator2, calculator3, calculator4,
-	calculator5, calculator6, calculator7, calculator8
+	calculator5, calculator6, calculator7, calculator8,
+	doWhileFunction, calculatorMain, systemIOModule,
+	tryCalculator
 	]
 
 titlePage :: Page
@@ -341,4 +343,56 @@ calculator8 = pageTitle "式のパーサ" :| [
 	itext 4 "Just 13",
 	itext 4 "*Main> parse expr \"(3+2)*(4+5)\"",
 	itext 4 "Just 45"
+	]
+
+doWhileFunction :: Page
+doWhileFunction = pageTitle "入出力のくりかえし" :| [
+	text "「入出力をくりかえす」という「わくぐみ」",
+	itext 4 "% vim calculator.hs",
+	itext 4 "doWhile_ :: IO Bool -> IO ()",
+	itext 4 "doWhile_ act = do",
+	itext 8 "c <- act",
+	itext 8 "if c then doWhile_ act else return ()",
+	text "つぎに、関数mainを定義する"
+	]
+
+calculatorMain :: Page
+calculatorMain = ((>>) <$> backLine <*> itext (- 4)  "main :: IO ()") :| [
+--	(>>) <$> backLine <*> itext 4 "main :: IO ()",
+	itext (- 4) "main = doWhile_ $ do",
+	itext 0 "putStr \"> \"",
+	itext 0 "hFlush stdout",
+	itext 0 "l <- getLine",
+	itext 0 "case l of",
+	itext 4 "\"quit\" -> return False" ,
+	itext 4 "\"exit\" -> return False" ,
+	itext 4 "_ -> do",
+	itext 8 "let",
+	(>>) <$> backLine <*> itext 12 "me = parse expr l",
+	itext 12 "rslt = case me of",
+	itext 16 "Just n -> show n",
+	itext 16 "Nothing -> \"parse error\"",
+	itext 8 "putStrLn rslt",
+	itext 8 "return True"
+	]
+
+systemIOModule :: Page
+systemIOModule = pageTitle "関数hFlush" :| [
+	text "関数hFlushとファイルハンドルstdoutが必要なので",
+	itext 4 "ファイルの先頭に、つぎのように追加",
+	itext 4 "% vim calculator.hs",
+	itext 4 "import System.IO (hFlush, stdout)"
+	]
+
+tryCalculator :: Page
+tryCalculator = pageTitle "コンパイル、実行" :| [
+	text "コンパイルする",
+	itext (- 4) "% stack ghc -- -fno-warn-tabs calculator.hs -o calculator",
+	text "これで実行可能ファイルcalculatorができた",
+	itext 4 "% ./calculator",
+	itext 4 "> (3+4)*2",
+	itext 4 "14",
+	itext 4 "> oops!",
+	itext 4 "parse error",
+	itext 4 "> exit"
 	]

@@ -1,3 +1,4 @@
+import System.IO (hFlush, stdout)
 import Data.Maybe (listToMaybe)
 import Data.Char (isDigit)
 
@@ -59,3 +60,24 @@ expr = (term >@> op >@> term) `build`
 	\((x, o), y) -> x `o` y
 term = number `alt`
 	(char '(' @> expr >@ char ')')
+
+doWhile_ :: IO Bool -> IO ()
+doWhile_ act = do
+	c <- act
+	if c then doWhile_ act else return ()
+
+main :: IO ()
+main = doWhile_ $ do
+	putStr "> "
+	hFlush stdout
+	l <- getLine
+	case l of
+		"quit" -> return False
+		"exit" -> return False
+		_ -> do
+			let	me = parse expr l
+				rslt = case me of
+					Just n -> show n
+					Nothing -> "parse error"
+			putStrLn rslt
+			return True
