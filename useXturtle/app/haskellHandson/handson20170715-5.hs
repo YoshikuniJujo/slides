@@ -9,7 +9,7 @@ main :: IO ()
 main = runLecture version $ titlePage :| [
 	prelude,
 	calculator,
-	parser, parser2, parser3, parser4
+	parser, parser2, parser3, parser4, parser5
 	]
 
 titlePage :: Page
@@ -94,5 +94,21 @@ parser4 = pageTitle "パーサ" :| [
 	itext 4 "*Main Data.Char> check isDigit \"123\"",
 	itext 4 "[('1',\"23\")]",
 	itext 4 "*Main Data.Char> check isDigit \"abc\"",
+	itext 4 "[]"
+	]
+
+parser5 :: Page
+parser5 = pageTitle "パーサ" :| [
+	text "特定の1文字をパースする関数",
+	text "これは、関数checkの条件を「その文字と等しい」とする",
+	itext 4 "% vim calculator.hs",
+	itext 4 "char :: Char -> Parse Char",
+	itext 4 "char c0 = check $ \\c1 -> c1 == c0",
+	text "試してみよう",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load calculator.hs",
+	itext 4 "*Main> char 'a' \"abc\"",
+	itext 4 "[('a',\"bc\")]",
+	itext 4 "*Main> char 'a' \"123\"",
 	itext 4 "[]"
 	]
