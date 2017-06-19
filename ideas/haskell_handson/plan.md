@@ -252,12 +252,12 @@ Haskellで、しばしばとりあげられるような話題は、一般の開�
 				+ [x] 関数eof
 			* [x] リストのパース関数を定義
 				+ [x] 関数listとlist1
-			* [ ] 電卓のパーサを作成
+			* [x] 電卓のパーサを作成
 				+ [x] 関数number
 				+ [x] 関数parse
 				+ [x] 型Op
 				+ [x] 関数op, ad, sb, ml, dv
-				+ [ ] 関数expr, term
+				+ [x] 関数expr, term
 			* [ ] 電卓の全体を作成
 				+ [ ] 関数doWhile_
 				+ [ ] 関数main

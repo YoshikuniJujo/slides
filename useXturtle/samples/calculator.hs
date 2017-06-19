@@ -53,3 +53,9 @@ ad = char '+' `build` const (+)
 sb = char '-' `build` const (-)
 ml = char '*' `build` const (*)
 dv = char '/' `build` const div
+
+expr, term :: Parse Integer
+expr = (term >@> op >@> term) `build`
+	\((x, o), y) -> x `o` y
+term = number `alt`
+	(char '(' @> expr >@ char ')')

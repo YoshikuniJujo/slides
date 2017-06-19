@@ -13,7 +13,7 @@ main = runLecture version $ titlePage :| [
 	parser5, parser6, parser7, parser8,
 	parser9, parser10, parser11, parser12, parser13,
 	calculator, calculator2, calculator3, calculator4,
-	calculator5, calculator6
+	calculator5, calculator6, calculator7, calculator8
 	]
 
 titlePage :: Page
@@ -314,4 +314,31 @@ calculator6 = pageTitle "式のパーサ" :| [
 	itext 4 "*Main> Just o = parse op \"/\"",
 	itext 4 "*Main> o 125 4",
 	itext 4 "31"
+	]
+
+calculator7 :: Page
+calculator7 = pageTitle "式のパーサ" :| [
+	text "数値のパーサと演算子のパーサとを作った",
+	text "いよいよ「式」のパーサを作る",
+	text "ここで「項」という単位を導入する",
+	itext 4 "式は、ふたつの項を演算子でつないだもの",
+	itext 4 "項は、整数値または式を丸括弧でかこったもの",
+	text "このように定義すれば良い",
+	itext 4 "% vim calculator.hs",
+	itext 4 "expr, term :: Parse Integer",
+	itext 4 "expr = (term >@> op >@> term) `build`",
+	itext 8 "\\((x, o), y) -> x `o` y",
+	itext 4 "term = number `alt`",
+	itext 8 "(char '(' @> expr >@ char ')')"
+	]
+
+calculator8 :: Page
+calculator8 = pageTitle "式のパーサ" :| [
+	text "試してみる",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :load calculator.hs",
+	itext 4 "*Main> parse expr \"3+(2*5)\"",
+	itext 4 "Just 13",
+	itext 4 "*Main> parse expr \"(3+2)*(4+5)\"",
+	itext 4 "Just 45"
 	]
