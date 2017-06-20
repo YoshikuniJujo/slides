@@ -15,7 +15,8 @@ main = runLecture version $ titlePage :| [
 	calculator, calculator2, calculator3, calculator4,
 	calculator5, calculator6, calculator7, calculator8,
 	doWhileFunction, calculatorMain, systemIOModule,
-	tryCalculator
+	tryCalculator,
+	guess, doWhileFunctionGuess
 	]
 
 titlePage :: Page
@@ -395,4 +396,26 @@ tryCalculator = pageTitle "コンパイル、実行" :| [
 	itext 4 "> oops!",
 	itext 4 "parse error",
 	itext 4 "> exit"
+	]
+
+guess :: Page
+guess = pageTitle "数当て" :| [
+	text "もうひとつ、コードの例を挙げる",
+	text "こんどは、もうすこし短い例",
+	text "定番の数当てゲームの例だ",
+	itext 4 "コンピュータが1から100までの数と選ぶ",
+	itext 4 "ユーザはどの数かを予想して打ち込む",
+	itext 4 "予想した数が当たれば、ユーザの勝ち",
+	itext 4 "当たらなければ",
+	itext 8 "「小さすぎる」や「大きすぎる」を知らせる"
+	]
+
+doWhileFunctionGuess :: Page
+doWhileFunctionGuess = pageTitle "入出力をくりかえす" :| [
+	text "まずは、さっきと、おなじ関数doWhile_を定義する",
+	itext 4 "% vim kazuate.hs",
+	itext 4 "doWhile_ :: IO Bool -> IO ()",
+	itext 4 "doWhile_ act = do",
+	itext 8 "c <- act",
+	itext 8 "if c then doWhile_ act else return ()"
 	]
