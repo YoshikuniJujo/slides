@@ -16,7 +16,9 @@ main = runLecture version $ titlePage :| [
 	calculator5, calculator6, calculator7, calculator8,
 	doWhileFunction, calculatorMain, systemIOModule,
 	tryCalculator,
-	guess, doWhileFunctionGuess
+	guess, doWhileFunctionGuess,
+	getRandomFunction, hFlushFunction, readMaybeFunction,
+	guessImports
 	]
 
 titlePage :: Page
@@ -418,4 +420,63 @@ doWhileFunctionGuess = pageTitle "入出力をくりかえす" :| [
 	itext 4 "doWhile_ act = do",
 	itext 8 "c <- act",
 	itext 8 "if c then doWhile_ act else return ()"
+	]
+
+getRandomFunction :: Page
+getRandomFunction = pageTitle "乱数を取得する" :| [
+	text "乱数を取得するのも、わりと奥が深いのだけど",
+	text "ここでは、ひとつの関数を紹介するだけ",
+	text "つぎのような型をもつ(と考える)",
+	itext 4 "randomRIO :: (Integer, Integer) -> IO Integer",
+	text "試してみよう",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :module System.Random",
+	itext 4 "Prelude System.Random> randomRIO (1, 100)",
+	itext 4 "91",
+	itext 4 "Prelude System.Random> randomRIO (1, 100)",
+	itext 4 "22",
+	itext 4 "Prelude System.Random> randomRIO (1, 100)",
+	itext 4 "17"
+	]
+
+hFlushFunction :: Page
+hFlushFunction = pageTitle "出力をフラッシュする" :| [
+	text "多くのシステムで出力は行単位",
+	text "つまり、プロンプトを表示しようとしても",
+	itext 4 "改行がくるまで表示されない",
+	text "改行なしで表示したいときは",
+	itext 4 "hFlush stdoutのようにする",
+	text "試してみよう",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :module System.IO",
+	itext 4 "(省略)> putStr \"hello\" >> hFlush stdout",
+	itext 4 "helloPrelude System.IO>",
+	text "改行なしで表示される",
+	text "ただし、対話環境ではフラッシュしなくても、おなじこと"
+	]
+
+readMaybeFunction :: Page
+readMaybeFunction = pageTitle "文字列を値に変換" :| [
+	text "文字列を値に変換する関数readを使ってきた",
+	text "しかし、この関数readは「危険な関数」だ",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> read \"hoge\" :: Integer",
+	itext 4 "*** Exception: Prelude.read: no parse",
+	text "関数readMaybeを使おう",
+	itext 4 "% stack ghci",
+	itext 4 "Prelude> :module Text.Read",
+	itext 4 "(省略)> readMaybe \"hoge\" :: Maybe Integer",
+	itext 4 "Nothing",
+	itext 4 "(省略)> readMaybe \"123\" :: Maybe Integer",
+	itext 4 "Just 123"
+	]
+
+guessImports :: Page
+guessImports = pageTitle "モジュールの導入" :| [
+	text "必要な関数を導入する",
+	text "ファイルの先頭に、つぎのように追加する",
+	itext 4 "% vim kazuate.hs",
+	itext 4 "import System.IO (stdout, hFlush)",
+	itext 4 "import System.Random (randomRIO)",
+	itext 4 "import Text.Read (readMaybe)"
 	]
