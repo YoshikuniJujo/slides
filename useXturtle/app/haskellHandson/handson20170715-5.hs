@@ -18,7 +18,7 @@ main = runLecture version $ titlePage :| [
 	tryCalculator,
 	guess, doWhileFunctionGuess,
 	getRandomFunction, hFlushFunction, readMaybeFunction,
-	guessImports
+	guessImports, guessMain, guessMain2, compileTryGuess, tryGuess
 	]
 
 titlePage :: Page
@@ -478,5 +478,63 @@ guessImports = pageTitle "モジュールの導入" :| [
 	itext 4 "% vim kazuate.hs",
 	itext 4 "import System.IO (stdout, hFlush)",
 	itext 4 "import System.Random (randomRIO)",
-	itext 4 "import Text.Read (readMaybe)"
+	itext 4 "import Text.Read (readMaybe)",
+	text "つぎのように、関数mainを定義する",
+	itext 4 "% vim kazuate.hs"
+	]
+
+guessMain :: Page
+guessMain = ((>>) <$> backLine <*> itext (- 4) "main :: IO ()") :| [
+	itext (- 4) "main = do",
+	text "n0 <- randomRIO (1, 100 :: Integer)",
+	text "putStr \"Guess! (1..100): \"",
+	text "hFlush stdout",
+	text "doWhile_ $ do",
+	itext 4 "l <- getLine",
+	itext 4 "case readMaybe l of",
+	itext 8 "Just n",
+	(>>) <$> backLine <*> itext 12 "| n == n0 -> do",
+	itext 16 "putStrLn \"You Win!\"",
+	itext 16 "return False",
+	itext 12 "| n < n0 -> do",
+	itext 16 "putStrLn $ \"Your guess, \" ++",
+	itext 20 "show n ++ \", is too low.\"",
+	itext 16 "return True",
+	itext 8 "(しばらく待つ、それから説明)"
+	]
+
+guessMain2 :: Page
+guessMain2 = ((>>) <$> backLine <*> itext 12 "| n > n0 -> do") :| [
+	itext 16 "putStrLn $ \"Your guess, \" ++",
+	itext 20 "show n ++ \", is too high.\"",
+	itext 16 "return True",
+	itext 8 "Nothing -> do",
+	itext 12 "putStr \"Oops! Guess again! (1..100): \"",
+	itext 12 "hFlush stdout",
+	itext 12 "return True"
+	]
+
+compileTryGuess :: Page
+compileTryGuess = pageTitle "コンパイルして試す" :| [
+	text "コンパイルする",
+	itext 0 "% stack ghc -- -fno-warn-tabs kazuate.hs -o kazuate",
+	text "試してみよう",
+	itext 4 "% ./kazuate",
+	itext 4 "Guess! (1..100): (数値を入力)50",
+	itext 4 "Your guess, 50, is too low.",
+	itext 4 "(数値を入力)75",
+	itext 4 "Your guess, 75, is too high.",
+	itext 4 "(数値を入力)62",
+	itext 4 "Your guess, 62, is too low.",
+	itext 4 "(数値を入力)68",
+	itext 4 "Your guess, 68, is too low." ]
+
+tryGuess :: Page
+tryGuess = pageTitle "試す (続き)" :| [
+	itext 4 "(数値を入力)71",
+	itext 4 "Your guess, 71, is too high.",
+	itext 4 "(数値を入力)69",
+	itext 4 "Your guess, 69, is too low.",
+	itext 4 "(数値を入力)70",
+	itext 4 "You Win!"
 	]
