@@ -10,8 +10,12 @@ main :: IO ()
 main = runLecture version $ titlePage :| [
 	greeting, selfIntroduction, installStack, startup, input,
 	calc, useIt, history, forcedTermination, fruits, reload,
-	simpleFunction, typeDeclaration, typeDeclaration2, maybeValue,
-	tuple, patternMatch, patternMatch2, patternMatch3, generics,
+	simpleFunction, typeDeclaration, typeDeclaration2,
+	typeAnnotation,
+	boolValue, maybeValue,
+	tuple, patternMatch, patternMatch2, patternMatch3,
+	guardSyntax, guardSyntax2, ifFormula,
+	generics, typeSynonym, typeSynonym2,
 	comment, comment2, epilogue
 	]
 
@@ -217,15 +221,38 @@ typeDeclaration2 = pageTitle "型宣言" :| [
 	itext 4 "double :: Integer -> Integer"
 	]
 
+typeAnnotation :: Page
+typeAnnotation = pageTitle "型注釈" :| [
+	text "さまざまな型の値に解釈される、多相的な式がある",
+	text "数値リテラルもそのような多相的な式のひとつ",
+	text "変数に束縛されない式では、型宣言はつけられない",
+	text "式に対して直接、型を明示する書きかたがある",
+	itext 4 "*Main> 123 :: Integer",
+	itext 4 "123",
+	itext 4 "*Main> 123 :: Double",
+	itext 4 "123.0"
+	]
+
+boolValue :: Page
+boolValue = pageTitle "Bool値" :| [
+	text "Bool値は偽(そうでない)と真(そうである)をあらわす",
+	text "FalseとTrueの、ふたつの値",
+	itext 4 "*Main> False",
+	itext 4 "False",
+	itext 4 "*Main> True",
+	itext 4 "True"
+	]
+
 maybeValue :: Page
 maybeValue = pageTitle "Maybe値" :| [
 	text "Maybe値とは、値がないかもしれない値",
-	text "値がある: Just 値",
-	text "値がない: Nothing",
-	itext 4 "*Main> Just 8",
-	itext 4 "Just 8",
+	itext 4 "値がない: Nothing",
+	itext 4 "値がある: Just 値",
+	text "試してみる",
 	itext 4 "*Main> Nothing",
-	itext 4 "Nothing"
+	itext 4 "Nothing",
+	itext 4 "*Main> Just 8",
+	itext 4 "Just 8"
 	]
 
 tuple :: Page
@@ -282,6 +309,42 @@ patternMatch3 = pageTitle "パターンマッチ" :| [
 	itext 4 "Nothing"
 	]
 
+guardSyntax :: Page
+guardSyntax = pageTitle "ガード構文" :| [
+	text "Bool値に対するパターンマッチは頻出なので",
+	itext 4 "特別な構文がある",
+	itext 4 "% vim functions.hs",
+	itext 4 "safeSqrt :: Double -> Maybe Double",
+	itext 4 "safeSqrt x",
+	itext 8 "| x < 0 = Nothing",
+	itext 8 "| otherwise = Just (sqrt x)"
+	]
+
+guardSyntax2 :: Page
+guardSyntax2 = pageTitle "ガード構文" :| [
+	text "試してみる",
+	itext 4 "% stack ghci",
+	itext 4 "*Main> :reload",
+	itext 4 "*Main> safeSqrt 9",
+	itext 4 "Just 3.0",
+	itext 4 "*Main> safeSqrt 2",
+	itext 4 "Just 1.142135623730951",
+	itext 4 "*Main> safeSqrt (- 5)",
+	itext 4 "Nothing"
+	]
+
+ifFormula :: Page
+ifFormula = pageTitle "if式" :| [
+	text "おなじく、Bool値に対する特別な構文として",
+	itext 4 "if式もある",
+	text "ガード構文で、みたのと、おなじものをif式で定義する",
+	itext 4 "% vim functions.hs",
+	itext 4 "safeSqrt' :: Double -> Double",
+	itext 4 "safeSqrt' x = if x < 0",
+	itext 8 "then Nothing",
+	itext 8 "else Just (sqrt x)"
+	]
+
 generics :: Page
 generics = pageTitle "多相" :| [
 	text "多相性のある関数を定義する",
@@ -297,6 +360,35 @@ generics = pageTitle "多相" :| [
 	itext 4 "False",
 	itext 4 "*Main> :type ignoreSecond",
 	itext 4 "ignoreSecond :: a -> b -> a"
+	]
+
+typeSynonym :: Page
+typeSynonym = pageTitle "型シノニム" :| [
+	text "予約語typeによる構文で、型の別名が定義できる",
+	itext 4 "% vim functions.hs",
+	itext 4 "type Human = (String, Integer)",
+	itext 4 "showHuman :: Human -> String",
+	itext 4 "showHuman (n, a) = n ++ \"(\" ++ show a ++ \")\"",
+	text "試してみる",
+	itext 4 "*Main> :reload",
+	itext 4 "*Main> showHuman (\"Taro\", 39)",
+	itext 4 "\"Taro(39)\""
+	]
+
+typeSynonym2 :: Page
+typeSynonym2 = pageTitle "型シノニム" :| [
+	text "型シノニムの定義には、型引数が使える",
+	itext 4 "% vim functions.hs",
+	itext 4 "type Check a = (Bool, a)",
+	itext 4 "tasks :: [Check String]",
+	itext 4 "tasks =",
+	itext 8 "[(False, \"Shopping\"), (True, \"Walking\")]",
+	text "対話環境で、みてみる",
+	itext 4 "*Main> :reload",
+	itext 4 "*Main> tasks",
+	itext 4 "[(False,\"Shopping\"),(True,\"Walking\")]",
+	itext 4 "*Main> :type tasks",
+	itext 4 "tasks :: [Check String]"
 	]
 
 comment :: Page
