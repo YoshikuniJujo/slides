@@ -10,13 +10,14 @@ main :: IO ()
 main = runLecture version $ titlePage :| [
 	greeting, selfIntroduction, installStack, startup, input,
 	calc, useIt, history, forcedTermination, fruits, reload,
-	simpleFunction, typeDeclaration, typeDeclaration2,
+	simpleFunction, functionLiteral, typeDeclaration, typeDeclaration2,
 	typeAnnotation,
 	boolValue, maybeValue,
 	tuple, patternMatch, patternMatch2, patternMatch3,
+	wildCard, atPattern,
 	guardSyntax, guardSyntax2, ifFormula,
 	generics, typeSynonym, typeSynonym2,
-	comment, comment2, epilogue
+	importSyntax, comment, comment2, epilogue
 	]
 
 titlePage :: Page
@@ -195,6 +196,19 @@ simpleFunction = pageTitle "関数の定義と使用" :| [
 	itext 4 "16"
 	]
 
+functionLiteral :: Page
+functionLiteral = pageTitle "関数リテラル" :| [
+	text "関数リテラルを使うと、名前のない関数が作れる",
+	itext 4 "*Main> :reload",
+	itext 4 "*Main> (\\x -> x * 2) 8",
+	itext 4 "16",
+	text "\\x -> x * 2という関数を作って",
+	itext 4 "すぐに整数8に適用している",
+	text "関数定義は、ふたつのことをしている",
+	itext 4 "1. 関数を作成(関数リテラルの機能)",
+	itext 4 "2. できた関数で変数を束縛"
+	]
+
 typeDeclaration :: Page
 typeDeclaration = pageTitle "型宣言" :| [
 	text "変数luckyを定義します",
@@ -309,6 +323,37 @@ patternMatch3 = pageTitle "パターンマッチ" :| [
 	itext 4 "Nothing"
 	]
 
+wildCard :: Page
+wildCard = pageTitle "ワイルドカード" :| [
+	text "値に束縛された変数を使わないとき",
+	text "パターンに、変数を使うかわりに、ワイルドカードを使う",
+	itext 4 "% vim functions.hs",
+	itext 4 "isNothing Nothing = True",
+	itext 4 "isNothing (Just _) = False",
+	text "試してみよう",
+	itext 4 "*Main> :reload",
+	itext 4 "*Main> isNothing Nothing",
+	itext 4 "True",
+	itext 4 "*Main> isNothing (Just 8)",
+	itext 4 "False"
+	]
+
+atPattern :: Page
+atPattern = pageTitle "@パターン" :| [
+	text "@パターンを使うと、変数束縛したうえで",
+	itext 4 "さらに細かいパターンにマッチさせられる",
+	itext 4 "atPattern :: Maybe Integer -> String",
+	itext 4 "atPattern jx@(Just x) =",
+	itext 8 "show jx ++ \": \" ++ show x",
+	itext 4 "atPattern Nothing = \"\"",
+	text "試してみよう",
+	itext 4 "*Main> :reload",
+	itext 4 "*Main> atPattern (Just 8)",
+	itext 4 "\"Just 8: 8\"",
+	itext 4 "*Main> atPattern Nothing",
+	itext 4 "\"\""
+	]
+
 guardSyntax :: Page
 guardSyntax = pageTitle "ガード構文" :| [
 	text "Bool値に対するパターンマッチは頻出なので",
@@ -389,6 +434,21 @@ typeSynonym2 = pageTitle "型シノニム" :| [
 	itext 4 "[(False,\"Shopping\"),(True,\"Walking\")]",
 	itext 4 "*Main> :type tasks",
 	itext 4 "tasks :: [Check String]"
+	]
+
+importSyntax :: Page
+importSyntax = pageTitle "モジュールの導入" :| [
+	text "モジュールの導入には、予約語importを使う",
+	itext 4 "% vim useMaybe.hs",
+	itext 4 "import Data.Maybe (fromMaybe)",
+	itext 4 "maybe0 :: Maybe Integer -> Integer",
+	itext 4 "maybe0 = fromMaybe0",
+	text "試してみる",
+	itext 4 "*Main> :load useMaybe.hs",
+	itext 4 "*Main> maybe0 (Just 8)",
+	itext 4 "8",
+	itext 4 "*Main> maybe0 Nothing",
+	itext 4 "0"
 	]
 
 comment :: Page
