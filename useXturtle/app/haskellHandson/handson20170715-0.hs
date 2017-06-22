@@ -10,6 +10,7 @@ main :: IO ()
 main = runLecture version $ titlePage :| [
 	greeting, selfIntroduction, installStack, startup, input,
 	calc, useIt, history, forcedTermination, showType,
+	getSamples, getSamples2, getSamples3, notEdit,
 	fruits, reload,
 	simpleFunction, functionLiteral, operatorFunction,
 	typeDeclaration, typeDeclaration2, numberTypes,
@@ -163,17 +164,79 @@ showType = pageTitle "対話環境で型を確認" :| [
 	itext 4 "Prelude> :type 'c'",
 	itext 4 "'c' :: Char",
 	itext 4 "Prelude> :type False",
-	itext 4 "False :: Bool"
+	itext 4 "False :: Bool",
+	text "対話環境からぬけておく",
+	itext 4 "Prelude> :quit"
+	]
+
+getSamples :: Page
+getSamples = pageTitle "サンプルコードの入手" :| [
+	text "本当はコードを手打ちしたほうが勉強になる",
+	text "しかし、時間に限りがあるので",
+	itext 4 "サンプルコードをダウンロードしてもらう",
+	text "ハンズオンのあいだは、サンプルコードを使うが",
+	itext 4 "自分で打ち込んだつもりで、みていってほしい",
+	text "システムにgitが入っている人は",
+	itext (- 4) "git clone \\",
+	itext (- 2) "https://github.com/YoshikuniJujo/haskell-nyumon-handson",
+	text "作られたディレクトリ下のディレクトリsamplesに移動",
+	itext 4 "% cd haskell-nyumon-handson/samples"
+	]
+
+getSamples2 :: Page
+getSamples2 = pageTitle "サンプルコードの入手" :| [
+	text "「gitって何?」という人は圧縮ファイルをダウンロード",
+	text "ブラウザに、つぎのアドレスを入力",
+	itext 4 "https://git.io/vQIKd",
+	text "つぎのファイルがダウンロードされる",
+	itext 4 "haskell-nyumon-handson-master.zip",
+	text "これを解凍する",
+	text "できたディレトリ下のディレクトリsamplesに移動"
+	]
+
+getSamples3 :: Page
+getSamples3 = pageTitle "サンプルコードの入手" :| [
+	text "どちらの方法でダウンロードしたかたも",
+	text "Unix系のOSのかたは",
+	itext 4 "% pwd",
+	itext 4 ".../samples",
+	text "Windowsのかたは",
+	itext 4 "% cd",
+	itext 4 ".../samples",
+	text "どちらのOSのかたも",
+	itext 4 "% stack ghci",
+	itext 4 "*Main Hndsn>",
+	text "つぎのことを確認する",
+	itext 4 "ディレクトリsamplesにいること",
+	itext 4 "プロンプトが\"*Main Hndsn\"になっている"
+	]
+
+notEdit :: Page
+notEdit = pageTitle "ファイルを編集" :| [
+	text "サンプルコードは用意してある",
+	text "しかし、スライドでは、つぎのように表現する",
+	itext 4 "「ファイルを作成する」",
+	itext 4 "「ファイルに書き込む」など",
+	text "そのようなときは、ファイルの該当する部分を",
+	itext 4 "お好きなエディタで参照してほしい",
+	text "ただし、1ヶ所だけ、本当に編集してもらうところがある",
+	text "ソースファイルの再読み込みを試すところだ",
+	text "そのときは「本当に」と書くので、そのつもりで",
+	text "また、スライドで\"% vim\"のように書くのは",
+	itext 4 "エディタで編集を示す標識",
+	text "好きなエディタを使ってほしい"
 	]
 
 fruits :: Page
 fruits = pageTitle "ファイルからの読み込み" :| [
 	text "ファイルに保存した定義を読み込んでみます",
 	text "まずは、お好きなエディタでファイルを作成",
+	itext 4 "(実際には、該当する部分を参照)",
+	text "エディタは対話環境とは別のターミナルで開こう",
 	itext 4 "% vim fruits.hs",
 	itext 4 "myFavoriteFruit = \"apple\"",
 	text "対話環境に読み込みましょう",
-	itext 4 "Prelude> :load fruits.hs",
+	itext 4 "*Main Hndsn> :load fruits.hs",
 	itext 4 "*Main>",
 	text "値を表示してみます",
 	itext 4 "*Main> myFavoriteFruit",
@@ -183,7 +246,8 @@ fruits = pageTitle "ファイルからの読み込み" :| [
 reload :: Page
 reload = pageTitle "再読み込み" :| [
 	text "対話環境は、そのままにして",
-	itext 4 "別のターミナルでファイルを編集",
+	itext 4 "エディタ用のターミナルでファイルを「本当に」編集",
+	itext 4 "(エディタを開きっぱなしにしておいても良い)",
 	itext 4 "% vim fruits.hs",
 	itext 4 "myFavoriteFruit = \"banana\"",
 	text "これだけでは、新しい定義は使われない",
@@ -201,8 +265,7 @@ simpleFunction = pageTitle "関数の定義と使用" :| [
 	itext 4 "% vim functions.hs",
 	itext 4 "double x = x * 2",
 	text "関数doubleを使ってみましょう",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load functions.hs",
+	itext 4 "*Main> :load functions.hs",
 	itext 4 "*Main> double 8",
 	itext 4 "16"
 	]
@@ -231,9 +294,9 @@ operatorFunction = pageTitle "演算子と関数" :| [
 	itext 4 "8",
 	itext 4 "*Main> (+) 3 5",
 	itext 4 "8",
-	itext 4 "*Main> mod 128 5",
+	itext 4 "*Main> div 128 5",
 	itext 4 "25",
-	itext 4 "*Main> 123 `mod` 5",
+	itext 4 "*Main> 128 `div` 5",
 	itext 4 "25"
 	]
 
@@ -313,8 +376,7 @@ tuple = pageTitle "タプル" :| [
 	itext 4 "taro :: (String, Integer)",
 	itext 4 "taro = (\"Taro Yamada\", 35)",
 	text "対話環境で、みてみましょう",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load functions.hs",
+	itext 4 "*Main> :reload",
 	itext 4 "*Main> taro",
 	itext 4 "(\"Taro Yamada\",35)",
 	itext 4 "*Main> :type taro",
@@ -345,8 +407,7 @@ patternMatch2 = pageTitle "パターンマッチ" :| [
 patternMatch3 :: Page
 patternMatch3 = pageTitle "パターンマッチ" :| [
 	text "定義した関数を試してみる",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load functions.hs",
+	itext 4 "*Main> :reload",
 	itext 4 "*Main> helloTo (Just \"Yoshikuni\")",
 	itext 4 "\"Hello, Yoshikuni!\"",
 	itext 4 "*Main> helloTo Nothing",
@@ -404,7 +465,6 @@ guardSyntax = pageTitle "ガード構文" :| [
 guardSyntax2 :: Page
 guardSyntax2 = pageTitle "ガード構文" :| [
 	text "試してみる",
-	itext 4 "% stack ghci",
 	itext 4 "*Main> :reload",
 	itext 4 "*Main> safeSqrt 9",
 	itext 4 "Just 3.0",
@@ -445,8 +505,7 @@ generics = pageTitle "多相" :| [
 	itext 4 "ignoreSecond :: a -> b -> a",
 	itext 4 "ignoreSecond x y = x",
 	text "試してみよう",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load functions.hs",
+	itext 4 "*Main> :reload",
 	itext 4 "*Main> ignoreSecond 8 \"hello\"",
 	itext 4 "8",
 	itext 4 "*Main> ignoreSecond False 123.45",
@@ -519,8 +578,7 @@ comment = pageTitle "コメント" :| [
 comment2 :: Page
 comment2 = pageTitle "コメント" :| [
 	text "試してみよう",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load functions.hs",
+	itext 4 "*Main> :load functions.hs",
 	itext 4 "*Main> some",
 	itext 4 "8",
 	itext 4 "*Main> hoge 5",
