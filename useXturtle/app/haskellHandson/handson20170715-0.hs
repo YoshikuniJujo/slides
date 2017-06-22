@@ -9,13 +9,15 @@ version = [0, 1, 0, 0]
 main :: IO ()
 main = runLecture version $ titlePage :| [
 	greeting, selfIntroduction, installStack, startup, input,
-	calc, useIt, history, forcedTermination, fruits, reload,
-	simpleFunction, functionLiteral, typeDeclaration, typeDeclaration2,
+	calc, useIt, history, forcedTermination, showType,
+	fruits, reload,
+	simpleFunction, functionLiteral, operatorFunction,
+	typeDeclaration, typeDeclaration2, numberTypes,
 	typeAnnotation,
 	boolValue, maybeValue,
 	tuple, patternMatch, patternMatch2, patternMatch3,
 	wildCard, atPattern,
-	guardSyntax, guardSyntax2, ifFormula,
+	guardSyntax, guardSyntax2, ifFormula, caseFormula,
 	generics, typeSynonym, typeSynonym2,
 	importSyntax, comment, comment2, epilogue
 	]
@@ -58,7 +60,7 @@ installStack = pageTitle "Stackある?" :| [
 	text "まにあうかはわかりませんが、つぎのアドレスを参考に",
 	itext 4 "がんばってインストールしてみてください",
 	itext 4 "「ハンズオン!」事前資料 - 2/3",
-	itext 4 "http://qiita.com/hogehoge <- あとでURIを書く",
+	itext 4 "https://goo.gl/kqh2TB",
 	text "さきに進ませていただきます",
 	text "まずは、Stackのバージョンを確認してみましょう",
 	itext 4 "% stack --version",
@@ -155,6 +157,15 @@ forcedTermination = pageTitle "強制終了" :| [
 	text "大丈夫、Ctrl-Cで意識を取りもどします"
 	]
 
+showType :: Page
+showType = pageTitle "対話環境で型を確認" :| [
+	text "対話環境は、コマンド:typeで型を表示してくれる",
+	itext 4 "Prelude> :type 'c'",
+	itext 4 "'c' :: Char",
+	itext 4 "Prelude> :type False",
+	itext 4 "False :: Bool"
+	]
+
 fruits :: Page
 fruits = pageTitle "ファイルからの読み込み" :| [
 	text "ファイルに保存した定義を読み込んでみます",
@@ -209,6 +220,23 @@ functionLiteral = pageTitle "関数リテラル" :| [
 	itext 4 "2. できた関数で変数を束縛"
 	]
 
+operatorFunction :: Page
+operatorFunction = pageTitle "演算子と関数" :| [
+	text "演算子と関数とには、見た目のちがいだけしかない",
+	text "演算子は",
+	itext 4 "記号列を使う",
+	itext 4 "中置記法である",
+	text "演算子と関数とは、``や()でたがいに変換できる",
+	itext 4 "*Main> 3 + 5",
+	itext 4 "8",
+	itext 4 "*Main> (+) 3 5",
+	itext 4 "8",
+	itext 4 "*Main> mod 128 5",
+	itext 4 "25",
+	itext 4 "*Main> 123 `mod` 5",
+	itext 4 "25"
+	]
+
 typeDeclaration :: Page
 typeDeclaration = pageTitle "型宣言" :| [
 	text "変数luckyを定義します",
@@ -233,6 +261,14 @@ typeDeclaration2 = pageTitle "型宣言" :| [
 	itext 4 "14",
 	itext 4 "*Main> :type double",
 	itext 4 "double :: Integer -> Integer"
+	]
+
+numberTypes :: Page
+numberTypes = pageTitle "数値型" :| [
+	text "数値をあらわす値の型は、数値の種類に応じて、さまざま",
+	text "たとえば、つぎのようなものがある",
+	itext 4 "多倍長整数: Integer",
+	itext 4 "浮動小数点数: Double"
 	]
 
 typeAnnotation :: Page
@@ -390,6 +426,18 @@ ifFormula = pageTitle "if式" :| [
 	itext 8 "else Just (sqrt x)"
 	]
 
+caseFormula :: Page
+caseFormula = pageTitle "case式" :| [
+	text "case式を使うと、関数定義ではなく",
+	itext 4 "式のなかでパターンマッチができる",
+	itext 4 "% vim functions.hs",
+	itext 4 "yesNo :: Char -> Maybe Bool",
+	itext 4 "yesNo c = case c of",
+	itext 8 "'n' -> Just False",
+	itext 8 "'y' -> Just True",
+	itext 8 "_ -> Nothing"
+	]
+
 generics :: Page
 generics = pageTitle "多相" :| [
 	text "多相性のある関数を定義する",
@@ -442,7 +490,7 @@ importSyntax = pageTitle "モジュールの導入" :| [
 	itext 4 "% vim useMaybe.hs",
 	itext 4 "import Data.Maybe (fromMaybe)",
 	itext 4 "maybe0 :: Maybe Integer -> Integer",
-	itext 4 "maybe0 = fromMaybe0",
+	itext 4 "maybe0 = fromMaybe 0",
 	text "試してみる",
 	itext 4 "*Main> :load useMaybe.hs",
 	itext 4 "*Main> maybe0 (Just 8)",
