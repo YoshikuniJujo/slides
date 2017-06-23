@@ -12,8 +12,8 @@ main = runLecture version $ titlePage :| [
 	application5,
 	partialApplicationFun, partialApplicationFun2,
 	partialApplicationFun3, partialApplicationFun4,
-	partialApplicationOp, partialApplicationOp2
---	composition
+	partialApplicationOp, partialApplicationOp2,
+	composition, composition2, composition3, composition4
 	]
 
 titlePage :: Page
@@ -217,10 +217,57 @@ partialApplicationOp2 = pageTitle "演算子の部分適用" :| [
 	itext 4 "11.0"
 	]
 
-{-
 composition :: Page
 composition = pageTitle "関数合成演算子" :| [
-	text "つぎの計算をしてみよう",
-	itext
+	text "つぎのような関数を定義する",
+	itext 4 "% vim polymorphic.hs",
+	itext 4 "fun :: Integer -> Integer",
+	itext 4 "fun n = (n + 3) * 2",
+	text "試してみる",
+	itext 4 "*Main> :reload",
+	itext 4 "*Main> fun 8",
+	itext 4 "11",
+	text "関数funは、整数に「3を足して、2をかける」関数",
+	text "「Xして、それからYする」は、もっと直接的に書ける"
 	]
-	-}
+
+composition2 :: Page
+composition2 = pageTitle "関数合成演算子" :| [
+	text "演算子の部分適用で",
+	itext 4 "3を足す関数: (+ 3)",
+	itext 4 "2をかける関数: (* 2)",
+	text "これらを使うと、つぎのように定義できる",
+	itext 4 "% vim polymorphic.hs",
+	itext 4 "fun2 :: Integer -> Integer",
+	itext 4 "fun2 n = (* 2) ((+ 3) n)",
+	text "試してみる",
+	itext 4 "*Main> :reload",
+	itext 4 "*Main> fun2 8",
+	itext 4 "11"
+	]
+
+composition3 :: Page
+composition3 = pageTitle "関数合成演算子" :| [
+	text "つぎのような定義を考える",
+	itext 4 "fg x = f (g x)",
+	text "これを「関数fとgとを合成して関数fgをつくる」という",
+	text "「関数fとgとを合成する」とは",
+	itext 4 "「gをして、それからfをする関数を作る」こと",
+	text "関数合成をする演算子(.)が定義されている",
+	text "この演算子を使うと、つぎのように書ける",
+	itext 4 "fg = f . g"
+	]
+
+composition4 :: Page
+composition4 = pageTitle "関数合成演算子" :| [
+	text "おなじように、「3をたして、2をかける」は",
+	itext 4 "(* 2) . (+ 3)",
+	text "となる",
+	text "定義してみよう",
+	itext 4 "% polymorphic.hs",
+	itext 4 "fun3 = (* 2) . (+ 3)",
+	text "試してみる",
+	itext 4 "*Main> :reload",
+	itext 4 "*Main> fun3 8",
+	itext 4 "11"
+	]
