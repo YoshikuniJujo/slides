@@ -10,7 +10,9 @@ main = runLecture version $ titlePage :| [
 	repetition, repetitionProcedure,
 	repetitionList, repetitionList2, repetitionList3,
 	wakugumi, montecarlo, montecarlo2,
-	infiniteList, infiniteList2, infiniteList3
+	infiniteList, infiniteList2, infiniteList3,
+	consUncons, consUncons2, consUncons3,
+	concatFunction
 	]
 
 titlePage :: Page
@@ -157,4 +159,55 @@ infiniteList3 = pageTitle "無限リスト" :| [
 	itext 4 "すべての素数のリストを生成",
 	itext 4 "そこから100個、取り出す",
 	text "のように、書くことができる"
+	]
+
+consUncons :: Page
+consUncons = pageTitle "リストの先頭と残り" :| [
+	text "リストの先頭に値を追加するには、つぎのようにする",
+	itext 4 "*Main> 5 : [3, 2, 9]",
+	itext 4 "[5,3,2,9]",
+	text "空リストは[]で表される",
+	itext 4 "*Main> []",
+	itext 4 "[]",
+	itext 4 "*Main> 2 : it",
+	itext 4 "[2]",
+	itext 4 "*Main> 8 : it",
+	itext 4 "[8,2]",
+	itext 4 "*Main> 3 : it",
+	itext 4 "[3,8,2]"
+	]
+
+consUncons2 :: Page
+consUncons2 = pageTitle "リストの先頭と残り" :| [
+	text "逆にリストを先頭と残りとに、わけるには",
+	itext 4 "パターンマッチを使う",
+	itext 4 "% vim repetition.hs",
+	itext 4 "headTail :: [a] -> Maybe (a, [a])",
+	itext 4 "headTail (x : xs) = Just (x, xs)",
+	itext 4 "headTail [] = Nothing",
+	text "演算子(:)がパターンマッチに使われている",
+	text "「値を先頭に追加」と逆の処理になっている",
+	text "空リストは、先頭と残りにわけられない",
+	text "なので、Nothing値をかえす"
+	]
+
+consUncons3 :: Page
+consUncons3 = pageTitle "リストの先頭と残り" :| [
+	text "試してみる",
+	itext 4 "*Main> :reload",
+	itext 4 "*Main> headTail [3, 2, 8, 5]",
+	itext 4 "Just (3,[2,8,5])",
+	itext 4 "*Main> headTail []",
+	itext 4 "Nothing"
+	]
+
+concatFunction :: Page
+concatFunction = pageTitle "2段のリストを1段にする" :| [
+	text "「リストのリスト」のように2段になっているリストを",
+	itext 4 "1段にする関数がある",
+	itext 4 "*Main> concat [[1, 2, 3], [4, 5], [6, 7]]",
+	itext 4 "[1,2,3,4,5,6,7]",
+	text "リスト[1, 2, 3]とリスト[4, 5, 6]の",
+	itext 4 "すべての組み合わせで、かけ算をしたいとする",
+	itext 4 "(ここから、書き始める)"
 	]
