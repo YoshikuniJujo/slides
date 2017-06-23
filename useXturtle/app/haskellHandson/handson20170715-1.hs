@@ -11,7 +11,8 @@ main = runLecture version $ titlePage :| [
 	application, application2, application3, application4,
 	application5,
 	partialApplicationFun, partialApplicationFun2,
-	partialApplicationFun3, partialApplicationFun4
+	partialApplicationFun3, partialApplicationFun4,
+	partialApplicationOp, partialApplicationOp2
 --	composition
 	]
 
@@ -189,6 +190,31 @@ partialApplicationFun4 = pageTitle "関数の部分適用" :| [
 	itext 4 "19.031141868512112",
 	itext 4 "*Main> bmiTaro' 75",
 	itext 4 "25.95155709342561"
+	]
+
+partialApplicationOp :: Page
+partialApplicationOp = pageTitle "演算子の部分適用" :| [
+	text "関数だけでなく演算子にも部分適用がある",
+	text "関数の部分適用にはできないことが、できる",
+	itext 4 "第1引数にたいする部分適用は、おなじ",
+	itext 4 "第2引数にたいしても部分適用ができる",
+	text "試してみよう",
+	itext 4 "*Main> f1 = (125 /)",
+	itext 4 "*Main> f1 5",
+	itext 4 "25.0",
+	itext 4 "*Main> f1 10",
+	itext 4 "12.5",
+	text "これが「第1引数にたいする部分適用」だ"
+	]
+
+partialApplicationOp2 :: Page
+partialApplicationOp2 = pageTitle "演算子の部分適用" :| [
+	text "「第2引数にたいする部分適用」は、つぎのようになる",
+	itext 4 "*Main> f2 = (/ 5)",
+	itext 4 "*Main> f2 125",
+	itext 4 "25.0",
+	itext 4 "*Main> f2 55",
+	itext 4 "11.0"
 	]
 
 {-
