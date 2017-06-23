@@ -9,7 +9,10 @@ main :: IO ()
 main = runLecture version $ titlePage :| [
 	prelude, constFunction, constFunction2, constFunction3,
 	application, application2, application3, application4,
-	application5
+	application5,
+	partialApplicationFun, partialApplicationFun2,
+	partialApplicationFun3, partialApplicationFun4
+--	composition
 	]
 
 titlePage :: Page
@@ -136,3 +139,62 @@ application5 = pageTitle "関数適用演算子" :| [
 	text "関数適用演算子($)は、コードをきれいに書くのに",
 	itext 4 "役に立つ演算子のひとつ"
 	]
+
+partialApplicationFun :: Page
+partialApplicationFun = pageTitle "関数の部分適用" :| [
+	text "つぎのような関数を考える",
+	itext 4 "% vim polymorphic.hs",
+	itext 4 "bmi :: Double -> Double -> Double",
+	itext 4 "bmi h w = w / (h / 100) ^ 2",
+	text "試してみよう",
+	itext 4 "*Main> :reload",
+	itext 4 "*Main> bmi 170 65",
+	itext 4 "22.49134948096886"
+	]
+
+partialApplicationFun2 :: Page
+partialApplicationFun2 = pageTitle "関数の部分適用" :| [
+	text "身長が170cmの太郎君について",
+	itext 4 "体重をいろいろと変化させてBMIをもとめたい",
+	text "つぎのような関数を考える",
+	itext 4 "% vim polymorphic.hs",
+	itext 4 "bmiTaro :: Double -> Double",
+	itext 4 "bmiTaro w = bmi 170 w",
+	text "試してみよう",
+	itext 4 "*Main> :reload",
+	itext 4 "*Main> bmiTaro 55",
+	itext 4 "19.031141868512112",
+	itext 4 "*Main> bmiTaro 75",
+	itext 4 "25.95155709342561"
+	]
+
+partialApplicationFun3 :: Page
+partialApplicationFun3 = pageTitle "関数の部分適用" :| [
+	text "関数bmiTaroは関数bmiの第1引数について",
+	itext 4 "値170に固定したものと考えられる",
+	text "全部で、ふたつある引数のうち、ひとつだけをあたえた",
+	text "これは、「部分適用」という概念で考えられる",
+	text "Haskellでは、つぎのように書ける",
+	itext 4 "% vim polymorphic.hs",
+	itext 4 "bmiTaro' = bmi 170",
+	text "関数bmiTaro'は",
+	itext 4 "関数bmiに、第1引数の値170だけをあたえたもの"
+	]
+
+partialApplicationFun4 :: Page
+partialApplicationFun4 = pageTitle "関数の部分適用" :| [
+	text "試してみる",
+	itext 4 "*Main> :reload",
+	itext 4 "*Main> bmiTaro' 55",
+	itext 4 "19.031141868512112",
+	itext 4 "*Main> bmiTaro' 75",
+	itext 4 "25.95155709342561"
+	]
+
+{-
+composition :: Page
+composition = pageTitle "関数合成演算子" :| [
+	text "つぎの計算をしてみよう",
+	itext
+	]
+	-}
