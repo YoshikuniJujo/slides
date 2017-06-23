@@ -9,7 +9,8 @@ main :: IO ()
 main = runLecture version $ titlePage :| [
 	repetition, repetitionProcedure,
 	repetitionList, repetitionList2, repetitionList3,
-	wakugumi, montecarlo, montecarlo2
+	wakugumi, montecarlo, montecarlo2,
+	infiniteList, infiniteList2, infiniteList3
 	]
 
 titlePage :: Page
@@ -117,4 +118,43 @@ montecarlo2 = pageTitle "モンテカルロ法" :| [
 	itext 4 "点の数を数える(集計)",
 	text "のようになり、これで円内の点の数がもとまる",
 	text "それと、はじめの点のすべての数との比をとればいい"
+	]
+
+infiniteList :: Page
+infiniteList = pageTitle "無限リスト" :| [
+	text "Haskellのリストは遅延リストである",
+	text "つまり、リストの要素は必要になるまで作られない",
+	itext 4 "と、いうことは?",
+	text "要素が無限個あってもいい!",
+	text "たとえば、平方数のうち5の倍数であるもの",
+	text "それを、はじめから10個取り出すことを考える"
+	]
+
+infiniteList2 :: Page
+infiniteList2 = pageTitle "無限リスト" :| [
+	text "まず、条件を満たす値のリストを定義する",
+	itext 4 "% vim repetition.hs",
+	itext 4 "nums :: [Integer]",
+	itext 4 "nums = filter ((== 0) . (`mopd` 5))",
+	itext 8 "$ map (^ 2) [1 ..]",
+	text "[1 ..]は1, 2, 3, ...と続く無限リスト",
+	text "リストnumsも、無限リストになる",
+	text "このリストから先頭の10個を取り出せばいい",
+	itext 4 "*Main> take 10 nums",
+	itext 4 "[25,100,225,400,625,900,1225,2600,2025,2500]"
+	]
+
+infiniteList3 :: Page
+infiniteList3 = pageTitle "無限リスト" :| [
+	text "「無限リストが使える」ということは",
+	itext 4 "「本質的な処理と、終了条件とが分離できる」こと",
+	text "たとえば「小さいほうかは100個の素数をもとめる」",
+	text "この問題は、無限リストが使えなければ",
+	itext 4 "素数を生成する",
+	itext 4 "100個で終わりにする",
+	text "のような、ふたつの処理は、からみ合い、わけられない",
+	text "無限リストが使えれば",
+	itext 4 "すべての素数のリストを生成",
+	itext 4 "そこから100個、取り出す",
+	text "のように、書くことができる"
 	]
