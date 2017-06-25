@@ -12,7 +12,8 @@ main = runLecture version $ titlePage :| [
 	wakugumi, montecarlo, montecarlo2,
 	infiniteList, infiniteList2, infiniteList3,
 	consUncons, consUncons2, consUncons3,
-	concatFunction
+	concatFunction,
+	concatMapFunction, concatMapFunction2, concatMapFunction3
 	]
 
 titlePage :: Page
@@ -209,5 +210,53 @@ concatFunction = pageTitle "2段のリストを1段にする" :| [
 	itext 4 "[1,2,3,4,5,6,7]",
 	text "リスト[1, 2, 3]とリスト[4, 5, 6]の",
 	itext 4 "すべての組み合わせで、かけ算をしたいとする",
-	itext 4 "(ここから、書き始める)"
+	itext 4 "つぎのようにしてみよう",
+	itext 4 "*Main>",
+	itext 4 "map (\\x -> map (x *) [4, 5, 6]) [1, 2, 3]",
+	itext 4 "[[4,5,6],[8,10,12],[12,15,18]]",
+	itext 4 "*Main> concat it",
+	itext 4 "[4,5,6,8,10,12,12,15,18]"
+	]
+
+concatMapFunction :: Page
+concatMapFunction = pageTitle "すべての組み合わせで" :| [
+	text "「すべての組み合わせで...」という処理は",
+	itext 4 "関数concatとmapのはたらきを、あわせたもの",
+	text "この処理は頻出なので、関数concatMapが定義してある",
+	itext 4 "*Main>",
+	itext 0 "concatMap (\\x -> map (x *) [4, 5, 6]) [1, 2, 3]",
+	itext 4 "[4,5,6,8,10,12,12,15,18]",
+	text "おなじことを、よりわかりやすく書ける",
+	itext 4 "*Main> :{",
+	itext 4 "*Main| (`concatMap` [1, 2, 3]) $ \\x ->",
+	itext 4 "*Main| (`map` [4, 5, 6]) \\y -> x * y",
+	itext 4 "*Main| :}",
+	itext 4 "[4,5,6,8,10,12,12,15,18]"
+	]
+
+concatMapFunction2 :: Page
+concatMapFunction2 = pageTitle "すべての組み合わせで" :| [
+	text "さらに、すこし工夫すると関数concatMapでそろえられる",
+	itext 4 "*Main> :{",
+	itext 4 "*Main| (`concatMap` [1, 2, 3]) $ \\x ->",
+	itext 4 "*Main| (`concatMap` [4, 5, 6]) $ \\y -> [x * y]",
+	itext 4 "*Main| :}",
+	itext 4 "[4,5,6,8,10,12,12,15,18]",
+	text "これは、いくつでも重ねられる"
+	]
+
+concatMapFunction3 :: Page
+concatMapFunction3 = pageTitle "すべての組み合わせで" :| [
+	text "[1, 2, 3]と[4, 5, 6]と[7, 8]の",
+	itext 4 "それぞれ、すべての組み合わてでのかけ算を考える",
+	itext 4 "% vim repetition.hs",
+	itext 4 "multiplied :: [Integer]",
+	itext 4 "multiplied =",
+	itext 8 "(`concatMap` [1, 2, 3]) $ \\x ->",
+	itext 8 "(`concatMap` [4, 5, 6]) $ \\y ->",
+	itext 8 "(`concatMap` [7, 8]) $ \\z -> [x * y * z]",
+	text "結果をみてみよう",
+	itext 4 "*Main> :reload",
+	itext 4 "*Main> multiplied",
+	itext 4 "[28,32,35,40,42,48,56,64,70,80,84,96,84,96,..."
 	]
