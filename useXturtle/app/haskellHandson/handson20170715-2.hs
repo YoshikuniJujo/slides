@@ -13,7 +13,8 @@ main = runLecture version $ titlePage :| [
 	infiniteList, infiniteList2, infiniteList3,
 	consUncons, consUncons2, consUncons3,
 	concatFunction,
-	concatMapFunction, concatMapFunction2, concatMapFunction3
+	concatMapFunction, concatMapFunction2, concatMapFunction3,
+	listComprehensions, listComprehensions2
 	]
 
 titlePage :: Page
@@ -259,4 +260,29 @@ concatMapFunction3 = pageTitle "すべての組み合わせで" :| [
 	itext 4 "*Main> :reload",
 	itext 4 "*Main> multiplied",
 	itext 4 "[28,32,35,40,42,48,56,64,70,80,84,96,84,96,..."
+	]
+
+listComprehensions :: Page
+listComprehensions = pageTitle "リスト内包表記" :| [
+	text "関数concatMapによる表記は、なかなか、わるくない",
+	text "でも、もっとわかりやすい書きかたが用意されている",
+	text "「リスト内包表記」という構文糖だ",
+	text "リストmultipliedを別のかたちで定義する",
+	itext 4 "% vim repetition.hs",
+	itext 4 "multipliedCmp :: [Integer]",
+	itext 4 "multipliedCmp = [ x * y * z |",
+	itext 8 "x <- [1, 2, 3],",
+	itext 8 "y <- [4, 5, 6], ",
+	itext 8 "z <- [7, 8] ]",
+	text "結果をみてみよう",
+	itext 4 "*Main> multipliedCmp",
+	itext 4 "[28,32,35,40,42,48,56,64,70,80,84,96,84,96,..."
+	]
+
+listComprehensions2 :: Page
+listComprehensions2 = pageTitle "リスト内包表記" :| [
+	text "リスト内包表記の構文は、つぎのようになる",
+	itext 4 "[ 結果の式 |",
+	itext 8 "変数1 <- リスト1,",
+	itext 8 "変数2 <- リスト2, ... ]"
 	]
