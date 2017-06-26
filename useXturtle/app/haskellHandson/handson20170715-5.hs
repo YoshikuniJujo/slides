@@ -56,7 +56,7 @@ janken3 :: Page
 janken3 = pageTitle "じゃんけん" :| [
 	text "定義を読みこんで、試してみよう",
 	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load janken.hs",
+	itext 4 "*Main Hndsn> :load janken.hs",
 	itext 4 "*Main> Rock",
 	itext 4 "Rock",
 	itext 4 "*Main> Win",
@@ -75,8 +75,7 @@ janken4 = pageTitle "じゃんけん" :| [
 	itext 4 "% vim janken.hs",
 	itext 4 "data Janken = ... deriving (Show, Eq)",
 	text "これで、等値演算が可能になる",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load janken.hs",
+	itext 4 "*Main> :reload",
 	itext 4 "*Main> Rock == Rock",
 	itext 4 "True",
 	itext 4 "*Main> Paper == Scissors",
@@ -103,8 +102,7 @@ janken5 = pageTitle "じゃんけん" :| [
 janken6 :: Page
 janken6 = pageTitle "じゃんけん" :| [
 	text "試してみよう",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load janken.hs",
+	itext 4 "*Main> :reload",
 	itext 4 "*Main> Rock `xxxAgainst` Rock",
 	itext 4 "Draw",
 	itext 4 "*Main> Paper `xxxAgainst` Scissors",
@@ -135,8 +133,7 @@ squareAreaType = pageTitle "正方形の面積" :| [
 	itext 4 "squareArea :: Square -> Double",
 	itext 4 "squareArea (_, x) = x ^ 2",
 	text "試してみよう",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load squareAndCircleType.hs",
+	itext 4 "*Main> :load squareAndCircleType.hs",
 	itext 4 "*Main> squareArea ((10, 20), 15)",
 	itext 4 "225.0"
 	]
@@ -148,8 +145,7 @@ circleAreaType = pageTitle "円の面積" :| [
 	itext 4 "circleArea :: Circle -> Double",
 	itext 4 "circleArea (_, r) = r ^ 2 * pi",
 	text "試してみよう",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load squareAndCircleType.hs",
+	itext 4 "*Main> :reload",
 	itext 4 "*Main> circleArea ((30, 45), 12)",
 	itext 4 "452.3893421169302"
 	]
@@ -163,8 +159,7 @@ squareAndCircleSamplesType = pageTitle "正方形と円のサンプル" :| [
 	itext 4 "sampleCircle :: Circle",
 	itext 4 "sampleCircle = ((30, 45), 12)",
 	text "試してみよう",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load squareAndCircleType.hs",
+	itext 4 "*Main> :reload",
 	itext 4 "*Main> squareArea sampleSquare",
 	itext 4 "225.0",
 	itext 4 "*Main> circleArea sampleCircle",
@@ -174,8 +169,6 @@ squareAndCircleSamplesType = pageTitle "正方形と円のサンプル" :| [
 mismatchedType :: Page
 mismatchedType = pageTitle "正方形なの?円なの?" :| [
 	text "ところで、つぎのようなことを試してみる",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load squareAndCircleType.hs",
 	itext 4 "*Main> squareArea sampleCircle",
 	itext 4 "144.0",
 	itext 4 "*Main> circleArea sampleSquare",
@@ -208,8 +201,7 @@ squareAndCircleSamplesData = pageTitle "正方形と円のサンプル" :| [
 	itext 4 "sampleCircle :: Circle",
 	itext 4 "sampleCircle = Circle (30, 45) 12",
 	text "対話環境でみてみよう",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load squareAndCircleData.hs",
+	itext 4 "*Main> :load squareAndCircleData.hs",
 	itext 4 "*Main> sampleSquare",
 	itext 4 "Square (10.0,20.0) 15.0",
 	itext 4 "*Main> sampleCircle",
@@ -223,8 +215,7 @@ squareAreaData = pageTitle "正方形の面積" :| [
 	itext 4 "squareArea :: Square -> Double",
 	itext 4 "squareArea (Square _ x) = x ^ 2",
 	text "試してみる",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load squareAndCircleData.hs",
+	itext 4 "*Main> :reload",
 	itext 4 "*Main> squareArea sampleSquare",
 	itext 4 "225.0"
 	]
@@ -236,8 +227,7 @@ circleAreaData = pageTitle "円の面積" :| [
 	itext 4 "circleArea :: Circle -> Double",
 	itext 4 "circleArea (Circle _ r) = r ^ 2 * pi",
 	text "試してみる",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load squareAndCircleData.hs",
+	itext 4 "*Main> :reload",
 	itext 4 "*Main> circleArea sampleCircle",
 	itext 4 "452.3893421169302"
 	]
@@ -245,8 +235,6 @@ circleAreaData = pageTitle "円の面積" :| [
 mismatchedData :: Page
 mismatchedData = pageTitle "正方形なの?円なの?" :| [
 	text "つぎのように試してみよう",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load squareAndCircleData.hs",
 	itext 4 "*Main> squareArea sampleCircle",
 	itext 4 "(型エラーが生じる)",
 	itext 4 "*Main> circleArea sampleSquare",
@@ -276,8 +264,7 @@ unifySamples = pageTitle "正方形と円のサンプル" :| [
 	itext 4 "sampleCircle :: Shape",
 	itext 4 "sampleCircle = Circle (30, 45) 12",
 	text "対話環境で、みてみよう",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load squareAndCircleUnion.hs",
+	itext 4 "*Main> :load squareAndCircleUnion.hs",
 	itext 4 "*Main> sampleSquare",
 	itext 4 "Square (10,20) 15",
 	itext 4 "*Main> sampleCircle",
@@ -292,8 +279,7 @@ unifyArea = pageTitle "正方形と円の面積" :| [
 	itext 4 "area (Square _ x) = x ^ 2",
 	itext 4 "area (Circle _ r) = r ^ 2 * pi",
 	text "試してみる",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load squareAndCircleUnion.hs",
+	itext 4 "*Main> :reload",
 	itext 4 "*Main> area sampleSquare",
 	itext 4 "225.0",
 	itext 4 "*Main> area sampleCircle",
