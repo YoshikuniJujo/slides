@@ -13,7 +13,8 @@ main = runLecture version $ titlePage :| [
 	preDo, preDo2, doNotation,
 	tryAddition, standalone, standalone2,
 	returnFunction, returnFunction2,
-	typing, typing2, typing3, typing4, typing5, typing6
+	typing, typing2, typing3, typing4, typing5, typing6,
+	doLet, doLet2
 	]
 
 titlePage :: Page
@@ -355,4 +356,32 @@ typing6 = pageTitle "タイピングの練習" :| [
 	itext 0 "I love functional programming!",
 	itext 0 "(入力する)I love procedural programming!",
 	itext 0 "(入力する)I love functional programming!"
+	]
+
+doLet :: Page
+doLet = pageTitle "do-let構文" :| [
+	text "便利な構文として「do記法のなかのlet構文」がある",
+	text "do記法のなかで、ローカルな変数が定義できる",
+	itext 4 "% vim doLet.hs",
+	itext 4 "helloTo :: IO ()",
+	itext 4 "helloTo = do",
+	itext 8 "putStrLn \"May I ask your name?\"",
+	itext 8 "n <- getLine",
+	itext 8 "let",
+	(>>) <$> backLine <*> itext 12 "name = \"Mr./Ms. \" ++ n",
+	itext 8 "putStrLn $ \"Hello, \" ++ name ++ \"!\"",
+	itext 8 "putStrLn",
+	itext 12 "$ name ++ \", please be my friend.\""
+	]
+
+doLet2 :: Page
+doLet2 = pageTitle "do-let構文" :| [
+	text "試してみる",
+	itext 4 "% stack ghci",
+	itext 4 "*Main Hndsn> :load doLet.hs",
+	itext 4 "*Main> helloTo",
+	itext 4 "May I ask your name?",
+	itext 4 "(名前を入力)Yoshikuni Jujo",
+	itext 4 "Hello, Mr./Ms. Yoshikuni Jujo!",
+	itext 4 "Mr./Ms. Yoshikuni Jujo, please be my friend."
 	]
