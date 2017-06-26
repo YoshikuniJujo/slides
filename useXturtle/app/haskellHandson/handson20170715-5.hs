@@ -13,7 +13,8 @@ main = runLecture version $ titlePage :| [
 	squareAndCircleData, squareAndCircleSamplesData,
 	squareAreaData, circleAreaData, mismatchedData,
 	unify, unifySamples, unifyArea,
-	jankenAgain
+	jankenAgain,
+	polymorphic, recursive
 	]
 
 titlePage :: Page
@@ -311,4 +312,34 @@ jankenAgain = pageTitle "じゃんけんの例との比較" :| [
 	text "おなじように",
 	itext 4 "値構築子Rock, Paper, Scissorsは",
 	itext 4 "「引数を0個とる」と考えることができる"
+	]
+
+polymorphic :: Page
+polymorphic = pageTitle "多相的な型" :| [
+	text "代数的データ型の定義には、型引数が使える",
+	itext 4 "% vim polyData.hs",
+	itext 4 "data Twice a = Twice a a",
+	text "試してみる",
+	itext 4 "*Main> :load polyData.hs",
+	itext 4 "*Main> Twice 'c' 'd'",
+	itext 4 "Twice 'c' 'd'",
+	itext 4 "*Main> :type it",
+	itext 4 "it :: Twice Char",
+	itext 4 "*Main> Twic False True",
+	itext 4 "Twice False True",
+	itext 4 "*Main> :type it",
+	itext 4 "it :: Twice Bool"
+	]
+
+recursive :: Page
+recursive = pageTitle "再帰的な型" :| [
+	text "代数的データ型は再帰的に定義することができる",
+	text "つぎのような型を定義する",
+	itext 4 "% vim recData.hs",
+	itext 4 "data List a = Cons a (List a) | Nil",
+	text "試してみる",
+	itext 4 "*Main> :load recData.hs",
+	itext 4 "*Main> Cons 8 (Cons 5 (Cons 3 Nil))",
+	itext 4 "Cons 8 (Cons 5 (Cons 3 Nil))",
+	text "これは実質的に、リストとおなじ意味の型だ"
 	]
