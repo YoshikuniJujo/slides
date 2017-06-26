@@ -35,7 +35,7 @@ sumN = pageTitle "1からNまでの和" :| [
 	itext 4 "sumN n = sumN (n - 1) + n",
 	text "試してみる",
 	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load recursion.hs",
+	itext 4 "*Main Hndsn> :load recursion.hs",
 	itext 4 "*Main> sumN 10",
 	itext 4 "55"
 	]
@@ -75,6 +75,7 @@ amount2 = pageTitle "お金のはらいかた" :| [
 	itext 4 "% vim recursion.hs",
 	itext 4 "cases :: [Coin] -> Amount -> Count",
 	itext 4 "cases _ am | am < 0 = 0",
+	itext 4 "cases [] am | am /= 0 = 0",
 	itext 4 "cases _ 0 = 1",
 	itext 4 "cases ca@(c : cs) am =",
 	itext 8 "cases ca (am - c) + cases cs am",
@@ -87,8 +88,7 @@ amount2 = pageTitle "お金のはらいかた" :| [
 amount3 :: Page
 amount3 = pageTitle "お金のはらいかた" :| [
 	text "試してみましょう",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load recursion.hs",
+	itext 4 "*Main> :reload",
 	itext 4 "*Main> cases coins 200",
 	itext 4 "1014",
 	text "1円玉から100円玉で200円を作る作りかたは1014通り",
@@ -100,8 +100,7 @@ structureOfList :: Page
 structureOfList = pageTitle "リストの構造" :| [
 	text "ここで、話はすこし変わって、リストの構造について",
 	text "リストは、つぎのように作ることができる",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> 3 : 2 : 8 : 5 : 1 : []",
+	itext 4 "*Main> 3 : 2 : 8 : 5 : 1 : []",
 	itext 4 "[3,2,8,5,1]",
 	text "「空リスト」と「先頭への要素の追加」だけで",
 	itext 4 "リストは作成できる",
@@ -151,8 +150,7 @@ enumeration = pageTitle "列挙" :| [
 enumeration2 :: Page
 enumeration2 = pageTitle "列挙" :| [
 	text "試してみる",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load recursion.hs",
+	itext 4 "*Main> :reload",
 	itext 4 "*Main> enumerateFromTo 1 10",
 	itext 4 "[1,2,3,4,5,6,7,8,9,10]"
 	]
@@ -162,12 +160,12 @@ filterRec = pageTitle "ろ過" :| [
 	text "ろ過関数filterも定義してみる",
 	itext 4 "% vim recursion.hs",
 	itext 4 "myFilter :: (a -> Bool) -> [a] -> [a]",
+	itext 4 "myFilter _ [] = []",
 	itext 4 "myFilter p (x : xs)",
 	itext 8 "| p x = x : myFilter p xs",
 	itext 8 "| otherwise = myFilter p xs",
 	text "試してみる",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load recursion.hs",
+	itext 4 "*Main> :reload",
 	itext 4 "*Main> myFilter ((/= 0) . (`mod` 3)) [1 .. 10]",
 	itext 4 "[1,2,4,5,7,8,10]"
 	]
@@ -180,8 +178,7 @@ mapRec = pageTitle "転写" :| [
 	itext 4 "myMap _ [] = []",
 	itext 4 "myMap f (x : xs) = f x : myMap f xs",
 	text "試してみる",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load recursion.hs",
+	itext 4 "*Main> :reload",
 	itext 4 "*Main> myMap (`mod` 5) [1 .. 10]",
 	itext 4 "[1,2,3,4,0,1,2,3,4,0]"
 	]
@@ -194,8 +191,7 @@ aggregate = pageTitle "集計" :| [
 	itext 4 "mySum [] = 0",
 	itext 4 "mySum (x : xs) = x + mySum xs",
 	text "試してみる",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load recursion.hs",
+	itext 4 "*Main> :reload",
 	itext 4 "*Main> mySum [1 .. 10]",
 	itext 4 "55"
 	]
