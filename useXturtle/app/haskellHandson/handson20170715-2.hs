@@ -70,6 +70,7 @@ repetitionList2 = pageTitle "リストによる、くりかえし" :| [
 	itext 4 "sumNot3N n = sum",
 	itext 8 "$ filter ((/= 0) . (`mod` 3)) [1 .. n]",
 	text "試してみる",
+	itext 4 "*Main> :reload",
 	itext 4 "*Main> sumNot3N 10",
 	itext 4 "37"
 	]
@@ -84,6 +85,7 @@ repetitionList3 = pageTitle "リストによる、くりかえし" :| [
 	itext 4 "sumMod5N :: Integer -> Integer",
 	itext 4 "sumMod5N n = sum $ map (`mod` 5) [1 .. n]",
 	text "試してみる",
+	itext 4 "*Main> :reload",
 	itext 4 "*Main> sumMod5N 10",
 	itext 4 "20"
 	]
