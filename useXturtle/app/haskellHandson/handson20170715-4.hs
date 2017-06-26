@@ -9,9 +9,11 @@ main :: IO ()
 main = runLecture version $ titlePage :| [
 	otherLanguage, separate, replFunction, replFunction2,
 	putStrFunction, putStrFunction2, oneAfterAnother, inputMachine,
-	getLineFunction, inputToOutput, inputToOutput2, preDo, doNotation,
-	tryAddition, standalone, standalone2, returnFunction,
-	typing, typing2, typing3, typing4, typing5
+	getLineFunction, inputToOutput, inputToOutput2,
+	preDo, preDo2, doNotation,
+	tryAddition, standalone, standalone2,
+	returnFunction, returnFunction2,
+	typing, typing2, typing3, typing4, typing5, typing6
 	]
 
 titlePage :: Page
@@ -63,9 +65,9 @@ replFunction2 = pageTitle "対話環境の機能" :| [
 	itext 4 "その値の表示を「実行」する",
 	text "試してみよう",
 	itext 4 "% stack ghci",
-	itext 4 "Prelude> 123",
+	itext 4 "*Main Hndsn> 123",
 	itext 4 "123",
-	itext 4 "Prelude> putStrLn (show 123)",
+	itext 4 "*Main Hndsn> putStrLn (show 123)",
 	itext 4 "123",
 	text "前者のように機械でない値に評価されたとき",
 	itext 4 "対話環境は後者のような機械を作って実行する"
@@ -82,7 +84,7 @@ putStrFunction = pageTitle "文字列を表示する機械" :| [
 	text "ユニット型はユニット値という",
 	itext 4 "これも()で表される値を持つ",
 	text "Bool型はFalseとTrueのどちらかの値を持つ",
-	itext 4 "FalseまたはTrueのどったかという情報を持つ",
+	itext 4 "FalseまたはTrueのどっちかという情報を持つ",
 	text "ユニット型はユニット値ひとつしか値を持たない",
 	itext 4 "つまり、この型の値は情報を持たない"
 	]
@@ -90,8 +92,7 @@ putStrFunction = pageTitle "文字列を表示する機械" :| [
 putStrFunction2 :: Page
 putStrFunction2 = pageTitle "文字列を表示する機械" :| [
 	text "文字列の表示を試してみよう",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> putStrLn \"hello\"",
+	itext 4 "*Main Hndsn> putStrLn \"hello\"",
 	itext 4 "hello",
 	text "関数putStrLnに文字列\"hello\"が、あたえられ",
 	itext 4 "かえされたIO ()型の機械を、対話環境が実行する"
@@ -100,11 +101,11 @@ putStrFunction2 = pageTitle "文字列を表示する機械" :| [
 oneAfterAnother :: Page
 oneAfterAnother = pageTitle "順に出力する" :| [
 	text "部品となる入出力を組み合わせることができる",
-	text "「これをして、つぎにそれをして」という組み合わせには",
-	itext 4 "演算子(>>)を使う",
+	text "「これをして、つぎにそれをして」という",
+	itext 4 "組み合わせには、演算子(>>)を使う",
 	text "試してみよう",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> putStrLn \"hello\" >> putStrLn \"world\"",
+	itext 4 "*Main Hndsn>",
+	itext 4 "putStrLn \"hello\" >> putStrLn \"world\"",
 	itext 4 "hello",
 	itext 4 "world",
 	text "入出力のうち、「出力」を組み合わせることができた",
@@ -134,8 +135,7 @@ getLineFunction = pageTitle "キー入力を1行、取得する" :| [
 	itext 4 "そして、その機械が()ではない値をわたす機械なら",
 	itext 8 "わたされた値を表示する",
 	text "試してみよう",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> getLine",
+	itext 4 "*Main Hndsn> getLine",
 	itext 4 "(fooと打ち込む)foo",
 	itext 4 "\"foo\""
 	]
@@ -188,11 +188,22 @@ preDo = pageTitle "読みやすい書きかた" :| [
 	text "のように読むことができる"
 	]
 
+preDo2 :: Page
+preDo2 = pageTitle "読みやすい書きかた" :| [
+	text "試してみよう",
+	itext 4 "*Main Hndsn> :load addition.hs",
+	itext 4 "*Main> addition",
+	itext 4 "Please input two numbers:",
+	itext 4 "(15と入力)15",
+	itext 4 "(24と入力)24",
+	itext 4 "39"
+	]
+
 doNotation :: Page
 doNotation = pageTitle "構文糖" :| [
 	text "Haskellには、さらに読みやすくする構文糖がある",
 	text "do記法と呼ばれる",
-	itext 4 "addition = do",
+	itext 4 "additionDo = do",
 	itext 8 "putStrLn \"Please input two numbers:\"",
 	itext 8 "x <- getLine",
 	itext 8 "y <- getLine",
@@ -203,9 +214,9 @@ doNotation = pageTitle "構文糖" :| [
 
 tryAddition :: Page
 tryAddition = pageTitle "加算を試してみる" :| [
-	text "ここで定義した機械additionを試してみよう",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load addition.hs",
+	text "ここで定義した機械additionDoを試してみよう",
+	itext 4 "*Main> :reload",
+	itext 4 "*Main> additionDo",
 	itext 4 "Please input two numbers:",
 	itext 4 "(好きな数値を入力)35",
 	itext 4 "(好きな数値を入力)42",
@@ -218,8 +229,8 @@ standalone = pageTitle "実行可能ファイル" :| [
 	itext 4 "実行可能ファイルを作りたくなってきたはず",
 	text "実行可能ファイルにするためには",
 	itext 4 "まず、変数mainを機械で束縛する",
-	text "ここでは、変数additionをmainに置き換える",
-	itext 4 "% vim addition.hs",
+	text "ここでは、変数additionDoをmainに置き換える",
+	itext 4 "% vim additionMain.hs",
 	itext 4 "main :: IO ()",
 	itext 4 "main = do ...",
 	text "このように置き換えよう"
@@ -228,9 +239,9 @@ standalone = pageTitle "実行可能ファイル" :| [
 standalone2 :: Page
 standalone2 = pageTitle "実行可能ファイル" :| [
 	text "そのうえで、つぎのようにする",
-	itext 4 "% stack ghc -- addition.hs -o addition",
+	itext 4 "% stack ghc -- additionMain.hs -o addition",
 	text "8タブ派の人なら",
-	itext 4 "% stack ghc -- -fno-warn-tabs addition.hs \\",
+	itext 4 "% stack ghc -- -fno-warn-tabs additionMain.hs \\",
 	itext 8 "-o addition",
 	text "作られた実行可能ファイルを試す",
 	itext 4 "% ./addition",
@@ -250,6 +261,17 @@ returnFunction = pageTitle "関数return" :| [
 	text "do記法で、つなげていけるのはIO ...型の機械だけ",
 	itext 4 "(すこし、うそだけど...)",
 	text "関数returnは、X型の値をIO X型の機械にする"
+	]
+
+returnFunction2 :: Page
+returnFunction2 = pageTitle "関数return" :| [
+	text "試してみる",
+	itext 4 "% stack ghci",
+	itext 4 "*Main Hndsn> :load withMsg.hs",
+	itext 4 "*Main> getLineWithMsg",
+	itext 4 "(helloと入力)hello",
+	itext 4 "Your input: hello",
+	itext 4 "\"hello\""
 	]
 
 typing :: Page
@@ -321,4 +343,16 @@ typing5 = pageTitle "タイピングの練習" :| [
 	text "コマンドライン引数のひとつめで、変数fpを束縛し",
 	itext 4 "それを開いて、ファイルの終わりになるまで",
 	itext 4 "機械runLine hをくりかえす機械となる"
+	]
+
+typing6 :: Page
+typing6 = pageTitle "タイピングの練習" :| [
+	text "コンパイルして、試してみる",
+	itext (- 0) "% stack ghc -- -fno-warn-tabs typing.hs -o typing",
+	itext 0 "% ./typing some.txt",
+	itext 0 "I love Haskell!",
+	itext 0 "(入力する)I love Haskell!",
+	itext 0 "I love functional programming!",
+	itext 0 "(入力する)I love procedural programming!",
+	itext 0 "(入力する)I love functional programming!"
 	]
