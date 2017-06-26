@@ -80,8 +80,8 @@ parser3 = pageTitle "パーサ" :| [
 	itext 4 "「引数をひとつとり、関数をかえす関数」",
 	text "関数succeedを試してみよう",
 	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load calculator.hs",
-	itext 4 "Prelude> succeed 123 \"hello\"",
+	itext 4 "*Main Hndsn> :load calculator.hs",
+	itext 4 "*Main> succeed 123 \"hello\"",
 	itext 4 "(123,\"hello\")",
 	text "これは「文字列を消費せず整数123をかえすパーサ」で",
 	itext 4 "文字列\"hello\"を解析したということ",
@@ -97,8 +97,7 @@ parser4 = pageTitle "パーサ" :| [
 	itext 4 "check p (c : cs) | p c = [(c, cs)]",
 	itext 4 "check _ _ = []",
 	text "試してみよう",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load calculator.hs",
+	itext 4 "*Main> :reload",
 	itext 4 "*Main> :module + Data.Char",
 	itext 4 "*Main Data.Char> check isDigit \"123\"",
 	itext 4 "[('1',\"23\")]",
@@ -112,10 +111,9 @@ parser5 = pageTitle "パーサ" :| [
 	text "これは、関数checkの条件を「その文字と等しい」とする",
 	itext 4 "% vim calculator.hs",
 	itext 4 "char :: Char -> Parse Char",
-	itext 4 "char c0 = check $ \\c1 -> c1 == c0",
+	itext 4 "char c0 = check (== c0)",
 	text "試してみよう",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load calculator.hs",
+	itext 4 "*Main> :reload",
 	itext 4 "*Main> char 'a' \"abc\"",
 	itext 4 "[('a',\"bc\")]",
 	itext 4 "*Main> char 'a' \"123\"",
@@ -129,12 +127,10 @@ parser6 = pageTitle "パーサ" :| [
 	itext 4 "alt :: Parse a -> Parse a -> Parse a",
 	itext 4 "(p1 `alt` p2) inp = p1 inp ++ p2 inp",
 	text "試してみる",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load calculator.hs",
-	itext 4 "*Main> :module + Data.char",
-	itext 4 "*Main> (check isDigit `alt` char 'a') \"123\"",
+	itext 4 "*Main Data.Char> :reload",
+	itext 4 "*Main Data.Char> (check isDigit `alt` char 'a') \"123\"",
 	itext 4 "[('1',\"23\")]",
-	itext 4 "*Main> (check isDigit `alt` char 'a') \"abc\"",
+	itext 4 "*Main Data.Char> (check isDigit `alt` char 'a') \"abc\"",
 	itext 4 "[('a',\"bc\")]"
 	]
 
@@ -146,9 +142,7 @@ parser7 = pageTitle "パーサ" :| [
 	itext 4 "build p f inp =",
 	itext 8 "[ (f x, r) | (x, r) <- p inp ]",
 	text "試してみる",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load calculator.hs",
-	itext 4 "*Main> :module + Data.Char",
+	itext 4 "*Main Data.Char> :reload",
 	itext 4 "*Main Data.Char>",
 	itext 4 "(check isDigit `build` digitToInt) \"123\"",
 	itext 4 "[(1,\"23\")]"
@@ -163,9 +157,9 @@ parser8 = pageTitle "パーサ" :| [
 	itext 8 "(x, r) <- p1 inp, (y, r') <- p2 r ]",
 	text "試してみる",
 	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load calculator.hs",
-	itext 4 "*Main> :module + Data.Char",
-	itext 4 "*Main> (char 'a' >@> check isDigit) \"a123\"",
+	itext 4 "*Main Data.Char> :reload",
+	itext 4 "*Main Data.Char>",
+	itext 4 "(char 'a' >@> check isDigit) \"a123\"",
 	itext 4 "[(('a','1'),\"23\")]"
 	]
 
@@ -184,9 +178,7 @@ parser9 = pageTitle "パーサ" :| [
 parser10 :: Page
 parser10 = pageTitle "パーサ" :| [
 	text "試してみる",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load calculator.hs",
-	itext 4 "*Main> :module + Data.Char",
+	itext 4 "*Main Data.Char> :reload",
 	itext 4 "*Main Data.Char>",
 	itext 4 "(char 'a' >@ check isDigit) \"a123\"",
 	itext 4 "[('a',\"23\")]",
@@ -203,12 +195,11 @@ parser11 = pageTitle "パーサ" :| [
 	itext 4 "eof \"\" = [((), \"\")]",
 	itext 4 "eof _ = []",
 	text "試してみる",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load calculator.hs",
-	itext 4 "*Main> (char 'a' >@ eof) \"a123\"",
-	itext 4 "*Main> []",
-	itext 4 "*Main> (char 'a' >@ eof) \"a\"",
-	itext 4 "*Main> [('a',\"\")]"
+	itext 4 "*Main Data.Char> :reload",
+	itext 4 "*Main Data.Char> (char 'a' >@ eof) \"a123\"",
+	itext 4 "*Main Data.Char> []",
+	itext 4 "*Main Data.Char> (char 'a' >@ eof) \"a\"",
+	itext 4 "*Main Data.Char> [('a',\"\")]"
 	]
 
 parser12 :: Page
@@ -229,9 +220,7 @@ parser12 = pageTitle "パーサ" :| [
 parser13 :: Page
 parser13 = pageTitle "パーサ" :| [
 	text "試してみる",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load calculator.hs",
-	itext 4 "*Main> :module + Data.Char",
+	itext 4 "*Main Data.Char> :reload",
 	itext 4 "*Main Data.Char> list (check isDigit) \"123\"",
 	itext 4 "[(\"\",\"123\"),(\"1\",\"23\"),(\"12\",\"3\"),(\"123\",\"\")]",
 	itext 4 "*Main Data.Char> list1 (check isDigit) \"123\"",
@@ -254,16 +243,16 @@ calculator = pageTitle "式のパーサ" :| [
 calculator2 :: Page
 calculator2 = pageTitle "式のパーサ" :| [
 	text "試してみよう",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load calculator.hs",
-	itext 4 "*Main> number \"123\"",
+	itext 4 "*Main Data.Char> :reload",
+	itext 4 "*Main Data.Char> number \"123\"",
 	itext 4 "[(1,\"23\"),(12,\"3\"),(123,\"\")]",
-	itext 4 "*Main> number >@ eof $ \"123\"",
+	itext 4 "*Main Data.Char> number >@ eof $ \"123\"",
 	itext 4 "[(123,\"\")]",
-	itext 4 "*Main> map fst . (number >@ eof) $ \"123\"",
+	itext 4 "*Main Data.Char>",
+	itext 4 "map fst . (number >@ eof) $ \"123\"",
 	itext 4 "[123]",
-	itext 4 "*Main> :load + Data.Maybe",
-	itext 4 "*Main Data.Maybe>",
+	itext 4 "*Main Data.Char> :module + Data.Maybe",
+	itext 4 "*Main Data.Char Data.Maybe>",
 	itext 4 "listToMaybe . map fst . (number >@ eof) $ \"123\"",
 	itext 4 "Just 123"
 	]
@@ -275,7 +264,7 @@ calculator3 = pageTitle "式のパーサ" :| [
 	itext 4 "あるていど、結果を整理したほうがわかりやすい",
 	text "結果を整理された形で取得する関数",
 	itext 4 "% vim calculator.hs",
-	itext 4 "parse :: Parse a -> Streing -> Maybe a",
+	itext 4 "parse :: Parse a -> String -> Maybe a",
 	itext 4 "parse p = listToMaybe . map fst . (p >@ eof)",
 	text "モジュールData.Maybeの関数listToMaybeが必要なので",
 	itext 4 "ファイルの先頭に、つぎのように追加する",
@@ -286,9 +275,8 @@ calculator3 = pageTitle "式のパーサ" :| [
 calculator4 :: Page
 calculator4 = pageTitle "式のパーサ" :| [
 	text "試してみる",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load calculator.hs",
-	itext 4 "*Main> parse number \"123\"",
+	itext 4 "*Main Data.Char Data.Maybe> :reload",
+	itext 4 "*Main Data.Char Data.Maybe> parse number \"123\"",
 	itext 4 "Just 123"
 	]
 
@@ -311,8 +299,9 @@ calculator5 = pageTitle "式のパーサ" :| [
 calculator6 :: Page
 calculator6 = pageTitle "式のパーサ" :| [
 	text "試してみる",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load calculator.hs",
+	itext 4 "*Main Data.Char Data.Maybe> :module - Data.Char",
+	itext 4 "*Main Data.Maybe> :module - Data.Maybe",
+	itext 4 "*Main> :reload",
 	itext 4 "*Main> Just o = parse op \"+\"",
 	itext 4 "*Main> o 3 4",
 	itext 4 "7",
@@ -340,8 +329,7 @@ calculator7 = pageTitle "式のパーサ" :| [
 calculator8 :: Page
 calculator8 = pageTitle "式のパーサ" :| [
 	text "試してみる",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load calculator.hs",
+	itext 4 "*Main> :reload",
 	itext 4 "*Main> parse expr \"3+(2*5)\"",
 	itext 4 "Just 13",
 	itext 4 "*Main> parse expr \"(3+2)*(4+5)\"",
