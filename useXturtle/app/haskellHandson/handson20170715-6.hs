@@ -418,7 +418,7 @@ getRandomFunction = pageTitle "乱数を取得する" :| [
 	itext 4 "randomRIO :: (Integer, Integer) -> IO Integer",
 	text "試してみよう",
 	itext 4 "% stack ghci",
-	itext 4 "Prelude> :module System.Random",
+	itext 4 "*Main Hndsn> :module System.Random",
 	itext 4 "Prelude System.Random> randomRIO (1, 100)",
 	itext 4 "91",
 	itext 4 "Prelude System.Random> randomRIO (1, 100)",
@@ -435,9 +435,8 @@ hFlushFunction = pageTitle "出力をフラッシュする" :| [
 	text "改行なしで表示したいときは",
 	itext 4 "hFlush stdoutのようにする",
 	text "試してみよう",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> :module System.IO",
-	itext 4 "(省略)> putStr \"hello\" >> hFlush stdout",
+	itext 4 "Prelude System.Random> :module System.IO",
+	itext 4 "Prelude System.IO> putStr \"hello\" >> hFlush stdout",
 	itext 4 "helloPrelude System.IO>",
 	text "改行なしで表示される",
 	text "ただし、対話環境ではフラッシュしなくても、おなじこと"
@@ -445,13 +444,14 @@ hFlushFunction = pageTitle "出力をフラッシュする" :| [
 
 readMaybeFunction :: Page
 readMaybeFunction = pageTitle "文字列を値に変換" :| [
+	text "モジュールSystem.IOをはずす",
+	itext 4 "Prelude System.IO> :module - System.IO",
+	itext 4 "Prelude>",
 	text "文字列を値に変換する関数readを使ってきた",
 	text "しかし、この関数readは「危険な関数」だ",
-	itext 4 "% stack ghci",
 	itext 4 "Prelude> read \"hoge\" :: Integer",
 	itext 4 "*** Exception: Prelude.read: no parse",
 	text "関数readMaybeを使おう",
-	itext 4 "% stack ghci",
 	itext 4 "Prelude> :module Text.Read",
 	itext 4 "(省略)> readMaybe \"hoge\" :: Maybe Integer",
 	itext 4 "Nothing",
@@ -467,6 +467,11 @@ guessImports = pageTitle "モジュールの導入" :| [
 	itext 4 "import System.IO (stdout, hFlush)",
 	itext 4 "import System.Random (randomRIO)",
 	itext 4 "import Text.Read (readMaybe)",
+	text "メッセージ表示用の関数を定義",
+	itext 4 "% vim kazuate.hs",
+	itext 4 "message :: Integer -> String -> IO ()",
+	itext 4 "message n lh = putStrLn $ \"Your guess, \" ++",
+	itext 8 "show n ++ \", is too \" ++ lh",
 	text "つぎのように、関数mainを定義する",
 	itext 4 "% vim kazuate.hs"
 	]
@@ -485,19 +490,18 @@ guessMain = ((>>) <$> backLine <*> itext (- 4) "main :: IO ()") :| [
 	itext 16 "putStrLn \"You Win!\"",
 	itext 16 "return False",
 	itext 12 "| n < n0 -> do",
-	itext 16 "putStrLn $ \"Your guess, \" ++",
-	itext 20 "show n ++ \", is too low.\"",
+	itext 16 "message n \"low\"",
 	itext 16 "return True",
-	itext 8 "(しばらく待つ、それから説明)"
+	itext 8 "(続く)"
 	]
 
 guessMain2 :: Page
 guessMain2 = ((>>) <$> backLine <*> itext 12 "| n > n0 -> do") :| [
-	itext 16 "putStrLn $ \"Your guess, \" ++",
-	itext 20 "show n ++ \", is too high.\"",
+	itext 16 "message n \"high\"",
 	itext 16 "return True",
 	itext 8 "Nothing -> do",
-	itext 12 "putStr \"Oops! Guess again! (1..100): \"",
+	itext 12 "putStrLn \"Oops!\"",
+	itext 12 "putStr \"Guess again! (1..100): \"",
 	itext 12 "hFlush stdout",
 	itext 12 "return True"
 	]
