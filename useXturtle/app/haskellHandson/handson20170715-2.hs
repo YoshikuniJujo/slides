@@ -54,7 +54,7 @@ repetitionList = pageTitle "リストによる、くりかえし" :| [
 	itext 4 "sumN n = sum [1 .. n]",
 	text "試してみる",
 	itext 4 "% stack ghci",
-	itext 4 "Prelude> :load repetition.hs",
+	itext 4 "*Main Hndsn> :load repetition.hs",
 	itext 4 "*Main> sumN 10",
 	itext 4 "55"
 	]
@@ -141,7 +141,7 @@ infiniteList2 = pageTitle "無限リスト" :| [
 	text "まず、条件を満たす値のリストを定義する",
 	itext 4 "% vim repetition.hs",
 	itext 4 "nums :: [Integer]",
-	itext 4 "nums = filter ((== 0) . (`mopd` 5))",
+	itext 4 "nums = filter ((== 0) . (`mod` 5))",
 	itext 8 "$ map (^ 2) [1 ..]",
 	text "[1 ..]は1, 2, 3, ...と続く無限リスト",
 	text "リストnumsも、無限リストになる",
@@ -232,7 +232,7 @@ concatMapFunction = pageTitle "すべての組み合わせで" :| [
 	text "おなじことを、よりわかりやすく書ける",
 	itext 4 "*Main> :{",
 	itext 4 "*Main| (`concatMap` [1, 2, 3]) $ \\x ->",
-	itext 4 "*Main| (`map` [4, 5, 6]) \\y -> x * y",
+	itext 4 "*Main| (`map` [4, 5, 6]) $ \\y -> x * y",
 	itext 4 "*Main| :}",
 	itext 4 "[4,5,6,8,10,12,12,15,18]"
 	]
@@ -251,7 +251,7 @@ concatMapFunction2 = pageTitle "すべての組み合わせで" :| [
 concatMapFunction3 :: Page
 concatMapFunction3 = pageTitle "すべての組み合わせで" :| [
 	text "[1, 2, 3]と[4, 5, 6]と[7, 8]の",
-	itext 4 "それぞれ、すべての組み合わてでのかけ算を考える",
+	itext 4 "それぞれ、すべての組み合わせでのかけ算を考える",
 	itext 4 "% vim repetition.hs",
 	itext 4 "multiplied :: [Integer]",
 	itext 4 "multiplied =",
