@@ -327,5 +327,7 @@ recursive = pageTitle "再帰的な型" :| [
 	itext 4 "*Main> :load recData.hs",
 	itext 4 "*Main> Cons 8 (Cons 5 (Cons 3 Nil))",
 	itext 4 "Cons 8 (Cons 5 (Cons 3 Nil))",
-	text "これは実質的に、リストとおなじ意味の型だ"
+	text "これは実質的に、リストとおなじ意味の型だ",
+	itext 4 "*Main> (:) 8 ((:) 5 ((:) 3 []))",
+	itext 4 "[8,5,3]"
 	]
