@@ -167,8 +167,7 @@ inputToOutput2 = pageTitle "打ち込んだ文字列をコンソールに書き�
 	itext 4 "getLine :: IO String",
 	itext 4 "putStrLn :: String -> IO ()",
 	text "これらは、演算子(>>=)でつなげられる",
-	itext 4 "% stack ghci",
-	itext 4 "Prelude> getLine >>= putStrLn",
+	itext 4 "*Main Hndsn> getLine >>= putStrLn",
 	itext 4 "(foo)と入力",
 	itext 4 "foo"
 	]
@@ -231,6 +230,7 @@ standalone = pageTitle "実行可能ファイル" :| [
 	text "実行可能ファイルにするためには",
 	itext 4 "まず、変数mainを機械で束縛する",
 	text "ここでは、変数additionDoをmainに置き換える",
+	itext 0 "(実際には置き換えずみのファイルadditionMain.hsがある)",
 	itext 4 "% vim additionMain.hs",
 	itext 4 "main :: IO ()",
 	itext 4 "main = do ...",
@@ -240,10 +240,9 @@ standalone = pageTitle "実行可能ファイル" :| [
 standalone2 :: Page
 standalone2 = pageTitle "実行可能ファイル" :| [
 	text "そのうえで、つぎのようにする",
-	itext 4 "% stack ghc -- additionMain.hs -o addition",
-	text "8タブ派の人なら",
 	itext 4 "% stack ghc -- -fno-warn-tabs additionMain.hs \\",
 	itext 8 "-o addition",
+	text "-fno-warn-tabsはタブ文字に対する警告を表示しないため",
 	text "作られた実行可能ファイルを試す",
 	itext 4 "% ./addition",
 	itext 4 "..."
