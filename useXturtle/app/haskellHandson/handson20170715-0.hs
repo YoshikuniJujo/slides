@@ -273,7 +273,6 @@ simpleFunction = pageTitle "関数の定義と使用" :| [
 functionLiteral :: Page
 functionLiteral = pageTitle "関数リテラル" :| [
 	text "関数リテラルを使うと、名前のない関数が作れる",
-	itext 4 "*Main> :reload",
 	itext 4 "*Main> (\\x -> x * 2) 8",
 	itext 4 "16",
 	text "\\x -> x * 2という関数を作って",
