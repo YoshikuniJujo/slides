@@ -226,7 +226,7 @@ composition = pageTitle "関数合成演算子" :| [
 	text "試してみる",
 	itext 4 "*Main> :reload",
 	itext 4 "*Main> fun 8",
-	itext 4 "11",
+	itext 4 "22",
 	text "関数funは、整数に「3を足して、2をかける」関数",
 	text "「Xして、それからYする」は、もっと直接的に書ける"
 	]
@@ -243,7 +243,7 @@ composition2 = pageTitle "関数合成演算子" :| [
 	text "試してみる",
 	itext 4 "*Main> :reload",
 	itext 4 "*Main> fun2 8",
-	itext 4 "11"
+	itext 4 "22"
 	]
 
 composition3 :: Page
@@ -269,5 +269,5 @@ composition4 = pageTitle "関数合成演算子" :| [
 	text "試してみる",
 	itext 4 "*Main> :reload",
 	itext 4 "*Main> fun3 8",
-	itext 4 "11"
+	itext 4 "22"
 	]
