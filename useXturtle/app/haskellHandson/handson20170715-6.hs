@@ -127,11 +127,11 @@ parser6 = pageTitle "パーサ" :| [
 	itext 4 "alt :: Parse a -> Parse a -> Parse a",
 	itext 4 "(p1 `alt` p2) inp = p1 inp ++ p2 inp",
 	text "試してみる",
-	itext 4 "*Main Data.Char> :reload",
-	itext 4 "*Main Data.Char> (check isDigit `alt` char 'a') \"123\"",
-	itext 4 "[('1',\"23\")]",
-	itext 4 "*Main Data.Char> (check isDigit `alt` char 'a') \"abc\"",
-	itext 4 "[('a',\"bc\")]"
+	itext 0 "*Main Data.Char> :reload",
+	itext 0 "*Main Data.Char> (check isDigit `alt` char 'a') \"123\"",
+	itext 0 "[('1',\"23\")]",
+	itext 0 "*Main Data.Char> (check isDigit `alt` char 'a') \"abc\"",
+	itext 0 "[('a',\"bc\")]"
 	]
 
 parser7 :: Page
@@ -156,7 +156,6 @@ parser8 = pageTitle "パーサ" :| [
 	itext 4 "(p1 >@> p2) inp = [ ((x, y), r') |",
 	itext 8 "(x, r) <- p1 inp, (y, r') <- p2 r ]",
 	text "試してみる",
-	itext 4 "% stack ghci",
 	itext 4 "*Main Data.Char> :reload",
 	itext 4 "*Main Data.Char>",
 	itext 4 "(char 'a' >@> check isDigit) \"a123\"",
@@ -435,9 +434,9 @@ hFlushFunction = pageTitle "出力をフラッシュする" :| [
 	text "改行なしで表示したいときは",
 	itext 4 "hFlush stdoutのようにする",
 	text "試してみよう",
-	itext 4 "Prelude System.Random> :module System.IO",
-	itext 4 "Prelude System.IO> putStr \"hello\" >> hFlush stdout",
-	itext 4 "helloPrelude System.IO>",
+	itext 0 "Prelude System.Random> :module System.IO",
+	itext 0 "Prelude System.IO> putStr \"hello\" >> hFlush stdout",
+	itext 0 "helloPrelude System.IO>",
 	text "改行なしで表示される",
 	text "ただし、対話環境ではフラッシュしなくても、おなじこと"
 	]
