@@ -24,7 +24,7 @@ janken :: Page
 janken = pageTitle "じゃんけん" :| [
 	text "じゃんけんゲームに必要な関数を考える",
 	text "引数として、ふたつの手をとり、勝敗をかえす関数",
-	text "関数againstを定義したい",
+	text "関数xxxAgainstを定義したい",
 	text "じゃんけんの手を表す変数youとaiについて",
 	itext 4 "you `xxxAgainst` ai",
 	text "として、結果をかえすような関数を考える",
