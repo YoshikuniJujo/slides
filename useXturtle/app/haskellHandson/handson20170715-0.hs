@@ -72,23 +72,24 @@ installStack = pageTitle "Stackある?" :| [
 
 startup :: Page
 startup = pageTitle "対話環境の起動と終了" :| [
-	text "事前資料の内容を、もういちど、おさらいしましょう",
-	text "まずは、対話環境の起動と終了です",
+	text "それでは始めましょう",
+	text "事前資料の内容のおさらいから",
+	text "まずは、対話環境の起動と終了",
 	itext 4 "% stack ghci",
 	itext 4 "Prelude>",
 	text "新しい言語を学ぶときの",
-	itext 4 "一番はじめの壁は「インストール」かもしれません",
-	text "対話環境は立ち上がったでしょうか",
-	text "ここまで、できれば最初の壁は、こえたことになります",
+	itext 4 "一番はじめの壁は「インストール」かも",
+	text "対話環境は立ち上がったかな",
+	text "ここまで、できれば最初の壁は、こえたということ",
 	text "さて、ソフトを立ち上げたときに、はじめに知りたいのは",
-	itext 4 "僕だったら、その終わらせかたです",
-	text "終わらせかたを知らないと、不安になります",
+	itext 4 "僕だったら、その終わらせかた",
+	text "終わらせかたを知らないと、不安になる",
 	itext 4 "Prelude> :quit"
 	]
 
 input :: Page
 input = pageTitle "値や式の打ちこみ" :| [
-	text "対話環境に、いろいろな値を打ちこんでみます",
+	text "対話環境に、いろいろな値を打ちこんでみる",
 	itext 4 "% stack ghci",
 	itext 4 "Prelude> 4492",
 	itext 4 "4492",
@@ -96,13 +97,13 @@ input = pageTitle "値や式の打ちこみ" :| [
 	itext 4 "'c'",
 	itext 4 "Prelude> pi",
 	itext 4 "3.141592653589793",
-	text "整数や文字はリテラルです。そのまま表示されます",
-	text "piは変数です。それが束縛されている値が表示されます"
+	text "整数や文字はリテラル。そのまま表示される",
+	text "piは変数。それが束縛されている値が表示される"
 	]
 
 calc :: Page
 calc = pageTitle "電卓" :| [
-	text "計算もできます",
+	text "計算もできる",
 	itext 4 "Prelude> 2 + 3",
 	itext 4 "5",
 	itext 4 "Prelude> 3 * 10 + 5 * 7",
@@ -117,45 +118,45 @@ calc = pageTitle "電卓" :| [
 
 useIt :: Page
 useIt = pageTitle "変数it" :| [
-	text "計算の結果を、つぎの計算で使いたいとします",
+	text "計算の結果を、つぎの計算で使いたいとする",
 	itext 4 "Prelude> 123456789 * 123456789",
 	itext 4 "1524159121932621",
-	text "これを、もう1回、打ちこむのはめんどくさいですね",
-	text "変数itを使いましょう",
+	text "これを、もう1回、打ちこむのはめんどくさい",
+	text "変数itを使う",
 	itext 4 "Prelude> it * 123456789",
 	itext 4 "188167791118860863013969",
-	text "対話環境は評価した値を変数itに束縛しておいてくれます"
+	text "対話環境は評価した値を変数itに束縛しておいてくれる"
 	]
 
 history :: Page
 history = pageTitle "履歴" :| [
-	text "対話環境を快適に使うには、履歴機能もかかせません",
-	text "以下を順に打ちこんでください",
+	text "対話環境を快適に使うには、履歴機能もかかせない",
+	text "以下を順に打ちこんでみる",
 	itext 4 "Prelude> 12345 * 6789",
 	itext 4 "Prelude> \"Haskell Language\"",
 	itext 4 "Prelude> pi",
-	text "上矢印キーを3回、下矢印キーを1回、押してください",
+	text "上矢印キーを3回、下矢印キーを1回、押す",
 	itext 4 "Prelude> \"Haskell Language\"",
-	text "左矢印キーを1回、バックスペースキーを8回押します",
-	text "Brooks Curryと打ちこみ、エンターキーを押します",
+	text "左矢印キーを1回、バックスペースキーを8回押す",
+	text "Brooks Curryと打ちこみ、エンターキーを押す",
 	itext 4 "Prelude> \"Haskell Brooks Curry\"",
 	itext 4 "\"Haskell Brooks Curry\""
 	]
 
 forcedTermination :: Page
 forcedTermination = pageTitle "強制終了" :| [
-	text "対話環境に、つぎのように打ち込んでください",
+	text "対話環境に、つぎのように打ち込んでみる",
 	itext 4 "Prelude> repeat \"Haskell\"",
 	itext 4 "[\"Haskell\",\"Haskell\",\"Haskell\",...",
 	text "「うわぁぁぁぁ」",
-	text "大丈夫、何事もなかったようにCtrl-Cを押しましょう",
-	text "強制終了にはCtrl-Cです",
-	text "プロンプトが、かえってきます",
-	text "さらに、つぎのように打ち込んでください",
+	text "大丈夫、何事もなかったようにCtrl-Cを押す",
+	text "強制終了にはCtrl-C",
+	text "プロンプトが、かえってくる",
+	text "さらに、つぎのように打ち込む",
 	itext 4 "Prelude> x = x",
 	itext 4 "Prelude> x",
 	text "「...おいっ...どうした...死んでる?」",
-	text "大丈夫、Ctrl-Cで意識を取りもどします"
+	text "大丈夫、Ctrl-Cで意識を取りもどす"
 	]
 
 showType :: Page
@@ -229,16 +230,16 @@ notEdit = pageTitle "ファイルを編集" :| [
 
 fruits :: Page
 fruits = pageTitle "ファイルからの読み込み" :| [
-	text "ファイルに保存した定義を読み込んでみます",
+	text "ファイルに保存した定義を読み込んでみる",
 	text "まずは、お好きなエディタでファイルを作成",
 	itext 4 "(実際には、該当する部分を参照)",
 	text "エディタは対話環境とは別のターミナルで開こう",
 	itext 4 "% vim fruits.hs",
 	itext 4 "myFavoriteFruit = \"apple\"",
-	text "対話環境に読み込みましょう",
+	text "対話環境に読み込む",
 	itext 4 "*Main Hndsn> :load fruits.hs",
 	itext 4 "*Main>",
-	text "値を表示してみます",
+	text "値を表示してみる",
 	itext 4 "*Main> myFavoriteFruit",
 	itext 4 "\"apple\""
 	]
@@ -261,10 +262,10 @@ reload = pageTitle "再読み込み" :| [
 
 simpleFunction :: Page
 simpleFunction = pageTitle "関数の定義と使用" :| [
-	text "かんたんな関数を定義しましょう",
+	text "かんたんな関数を定義する",
 	itext 4 "% vim functions.hs",
 	itext 4 "double x = x * 2",
-	text "関数doubleを使ってみましょう",
+	text "関数doubleを使ってみる",
 	itext 4 "*Main> :load functions.hs",
 	itext 4 "*Main> double 8",
 	itext 4 "16"
