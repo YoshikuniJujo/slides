@@ -10,7 +10,7 @@ main :: IO ()
 main = runLecture version $ titlePage :| [
 	greeting, selfIntroduction, installStack, startup, input,
 	calc, useIt, history, forcedTermination, showType,
-	getSamples, getSamples2, getSamples3, notEdit,
+	getSamples, getSamples2, getSamples3, notEdit, tab,
 	fruits, reload,
 	simpleFunction, functionLiteral, operatorFunction,
 	typeDeclaration, typeDeclaration2, numberTypes,
@@ -226,6 +226,19 @@ notEdit = pageTitle "ファイルを編集" :| [
 	text "また、スライドで\"% vim\"のように書くのは",
 	itext 4 "エディタで編集を示す標識",
 	text "好きなエディタを使ってほしい"
+	]
+
+tab :: Page
+tab = pageTitle "タブ幅" :| [
+	text "お行儀の良いHaskellerはコードにタブを使わない",
+	text "僕は、そんなにお行儀の良いタイプではないので",
+	itext 4 "「行儀よくまじめなんて出来やしなかった」",
+	itext 4 "校舎の「窓ガラス壊してまわ」りはしませんが",
+	text "タブを使う",
+	text "このハンズオンでは",
+	itext 4 "タブは8文字幅と考えます",
+	text "エディタの設定ができるかたはタブ幅を8文字ぶんに",
+	itext 4 "よろしくおねがいします"
 	]
 
 fruits :: Page
