@@ -186,13 +186,19 @@ getSamples = pageTitle "サンプルコードの入手" :| [
 
 getSamples2 :: Page
 getSamples2 = pageTitle "サンプルコードの入手" :| [
+	text "リポジトリのアドレスを再掲する",
+	itext (- 2) "https://github.com/YoshikuniJujo/haskell-nyumon-handson",
 	text "「gitって何?」という人は圧縮ファイルをダウンロード",
 	text "ブラウザに、つぎのアドレスを入力",
 	itext 4 "https://git.io/vQIKd",
 	text "つぎのファイルがダウンロードされる",
 	itext 4 "haskell-nyumon-handson-master.zip",
 	text "これを解凍する",
-	text "できたディレトリ下のディレクトリsamplesに移動"
+	text "できたディレトリ下のディレクトリsamplesに移動",
+	itext 4 "(2分ほど)",
+	text "何か、問題のあるかたはいらっしゃいますか?",
+	itext 4 "(3分ほど)",
+	text "まだ、ダウンロードできていないかたはいますか?"
 	]
 
 getSamples3 :: Page
@@ -238,7 +244,8 @@ tab = pageTitle "タブ幅" :| [
 	text "このハンズオンでは",
 	itext 4 "タブは8文字幅と考えます",
 	text "エディタの設定ができるかたはタブ幅を8文字ぶんに",
-	itext 4 "よろしくおねがいします"
+	itext 4 "よろしくおねがいします",
+	itext 4 "(1分ほど)"
 	]
 
 fruits :: Page
@@ -254,7 +261,8 @@ fruits = pageTitle "ファイルからの読み込み" :| [
 	itext 4 "*Main>",
 	text "値を表示してみる",
 	itext 4 "*Main> myFavoriteFruit",
-	itext 4 "\"apple\""
+	itext 4 "\"apple\"",
+	text "できたでしょうか?基本、こんな感じで進めていきます"
 	]
 
 reload :: Page
@@ -356,7 +364,9 @@ typeAnnotation = pageTitle "型注釈" :| [
 	itext 4 "*Main> 123 :: Integer",
 	itext 4 "123",
 	itext 4 "*Main> 123 :: Double",
-	itext 4 "123.0"
+	itext 4 "123.0",
+	text "いかがでしょうか?",
+	text "ちゃんと、整数や実数に、評価されたでしょうか"
 	]
 
 boolValue :: Page
