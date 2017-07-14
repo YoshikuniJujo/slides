@@ -8,7 +8,10 @@ version = [0, 1, 0, 0]
 
 main :: IO ()
 main = runLecture version $ titlePage :| [
-	greeting, selfIntroduction, installStack, startup, input,
+	greeting, selfIntroduction, installStack,
+	prelude, mokuji, mokuji2,
+	checkStack,
+	startup, input,
 	calc, useIt, history, forcedTermination, showType,
 	getSamples, getSamples2, getSamples3, notEdit, tab,
 	fruits, reload,
@@ -62,8 +65,45 @@ installStack = pageTitle "Stackある?" :| [
 	itext 4 "がんばってインストールしてみてください",
 	itext 4 "「ハンズオン!」事前資料 - 2/3",
 	itext 4 "https://goo.gl/kqh2TB",
-	text "さきに進ませていただきます",
-	text "まずは、Stackのバージョンを確認してみましょう",
+	text "今回のハンズオンについて、いくつか話します"
+	]
+
+prelude :: Page
+prelude = pageTitle "はじめに" :| [
+	text "Stackのインストールの仕方のアドレスを再掲します",
+	itext 4 "https://goo.gl/kqh2TB",
+	text "今回のハンズオンですが、かなり苦心しました",
+	text "完全な初心者向けと考えて作りました",
+	text "でも、Haskellの面白さをつたえたい",
+	text "どの程度の速度でハンズオンればいいのか、も",
+	text "結果として、きちきちに最適化されたレクチャーです",
+	text "ちゃんと理解したいかたは、ぜひ、拙書を!!!"
+	]
+
+mokuji :: Page
+mokuji = pageTitle "ハンズオンの流れ" :| [
+	text "ハンズオンの項目はつぎのようになります",
+	itext 4 "0. 事前資料のおさらい (このスライド) (47)",
+	itext 4 "1. 便利な多相関数を2, 3紹介 (20)",
+	itext 4 "2. リストを使って「くりかえし」を実装する (21)",
+	itext 4 "3. 再帰関数を定義する (15)",
+	itext 4 "4. IOモナドによる入出力のやりかた (28)",
+	itext 4 "5. 自分で新しい型を定義する (23)",
+	itext 4 "6. 電卓の例と、数当てゲームの例 (38)",
+	itext 4 "I. 対話的アプリ作成用の「わくぐみ」紹介 (14)",
+	text "時間が足りなくなりしだい、つぎの順に省略していきます",
+	itext 4 "5 -> 6 -> 4"
+	]
+
+mokuji2 :: Page
+mokuji2 = pageTitle "ハンズオンの流れ" :| [
+	text "できればIOモナドまでは説明したい",
+	text "最悪、そこまで行かなくても「わくぐみ」を使って",
+	itext 4 "自作アプリが作成できるようにしてありますが"
+	]
+
+checkStack :: Page
+checkStack = pageTitle "Stackある?" :| [
 	itext 4 "% stack --version",
 	itext 4 "Version 1.3.2, Git ...",
 	text "僕の環境では、こうなります。",
@@ -181,7 +221,9 @@ getSamples = pageTitle "サンプルコードの入手" :| [
 	itext (- 4) "git clone \\",
 	itext (- 2) "https://github.com/YoshikuniJujo/haskell-nyumon-handson",
 	text "作られたディレクトリ下のディレクトリsamplesに移動",
-	itext 4 "% cd haskell-nyumon-handson/samples"
+	itext 4 "% cd haskell-nyumon-handson/samples",
+	text "(1分ほど待つ)",
+	text "つぎのスライドにもリポジトリのアドレスはありますので"
 	]
 
 getSamples2 :: Page
