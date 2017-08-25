@@ -8,7 +8,7 @@ version = [0, 1, 0, 0]
 
 main :: IO ()
 main = runLecture version $ titlePage :| [
-	greeting, smallTalk, prelude, prelude2, fileAccess,
+	greeting, smallTalk, prelude, prelude2, fileAccess, fileAccess2,
 	connectToGoogle, makeServer, makeServer2, kinokoTakenoko,
 	ktClient, ktClient2
 	]
@@ -50,25 +50,32 @@ prelude2 = pageTitle "はじめに" :| [
 	text "前回、事前資料の復習とした部分が",
 	itext 4 "意外と評判がよかったので",
 	text "今回はスライドのだいたいの内容を、事前資料にUP",
-	itext 4 "(ここに短縮URLを)",
+	itext 4 "https://goo.gl/cPY8FM",
 	text "また、サンプルコードや学習環境は、つぎのように入手できる",
-	itext 4 "git使える人は",
-	text "git clone (リポジトリのURL)",
-	itext 4 "git使えない人は",
-	itext 4 "(ここに短縮URLを)",
+	itext 2 "git使える人は",
+	itext (- 4) "git clone \\",
+	itext (- 2) "https://github.com/YoshikuniJujo/haskell-nyumon-handson",
+	itext 2 "git使えない人は、以下でダウンロードして展開する",
+	itext 4 "https://git.io/vQIKd",
 	text "新しくできたディレクトリに移動しておこう",
-	itext 4 "% cd haskell-nyumon-handson"
+	itext 4 "% cd haskell-nyumon-handson/beginnerLt"
 	]
 
 fileAccess :: Page
-fileAccess = pageTitle "ファイルの使いかた" :| [
+fileAccess = pageTitle "ファイルの読み書き" :| [
 	text "まずはファイルの読み書きから",
-	itext 4 "% echo 'Hello, world!' > hello.txt",
+	itext 4 "% cat hello.txt",
+	itext 4 "Hello, world!",
 	itext 4 "% stack ghci",
 	itext 4 "> :module System.IO",
 	itext 4 "> h <- openFile \"hello.txt\" ReadMode",
 	itext 4 "> hGetLine h",
 	itext 4 "\"Hello, world!\"",
+	itext 4 "> hClose h"
+	]
+
+fileAccess2 :: Page
+fileAccess2 = pageTitle "ファイルの読み書き" :| [
 	itext 4 "> h <- openFile \"foo.txt\" WriteMode",
 	itext 4 "> hPutStrLn h \"bar\"",
 	itext 4 "> hClose h",
@@ -137,7 +144,7 @@ ktClient = pageTitle "きのこ、たけのこ総選挙" :| [
 	itext 2 "h <- connectTo \"skami.iocikun.jp\" $ PortNumber 4492",
 	itext 2 "hPutStrLn h \"Yoshio\"",
 	itext 2 "hPutStrLn h \"kinoko\"",
-	itext 2 "hGetLine >>= putStrLn",
+	itext 2 "hGetLine h >>= putStrLn",
 	itext 2 "hClose h",
 	text "自分の名前(アルファベット)、kinokoはtakenokoかも"
 	]
