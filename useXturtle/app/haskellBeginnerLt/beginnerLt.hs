@@ -51,7 +51,7 @@ prelude2 = pageTitle "はじめに" :| [
 	itext 4 "意外と評判がよかったので",
 	text "今回はスライドのだいたいの内容を、事前資料にUP",
 	itext 4 "https://goo.gl/cPY8FM",
-	text "また、サンプルコードや学習環境は、つぎのように入手できる",
+	text "また、サンプルコードや学習環境は、つぎのように入手",
 	itext 2 "git使える人は",
 	itext (- 4) "git clone \\",
 	itext (- 2) "https://github.com/YoshikuniJujo/haskell-nyumon-handson",
@@ -87,16 +87,16 @@ fileAccess2 = pageTitle "ファイルの読み書き" :| [
 connectToGoogle :: Page
 connectToGoogle = pageTitle "Webページに接続してみる" :| [
 	text "つぎは、Webページに接続してみる",
-	itext 2 "% stack ghci --package network",
-	itext 2 "> :module Network",
-	itext 2 "> :module + System.IO",
-	itext 2 "> h <- connectTo \"skami.iocikun.jp\" $ PortNumber 80",
-	itext 2 "> hPutStrLn h \"GET / HTTP/1.1\"",
-	itext 2 "> hPutStrLn h \"\"",
-	itext 2 "> hGetLine h",
-	itext 2 "\"HTTP/1.1 200 OK\\r\"",
+	itext 0 "% stack ghci --package network",
+	itext 0 "> :module Network",
+	itext 0 "> :module + System.IO",
+	itext 0 "> h <- connectTo \"skami.iocikun.jp\" $ PortNumber 80",
+	itext 0 "> hPutStrLn h \"GET / HTTP/1.1\"",
+	itext 0 "> hPutStrLn h \"\"",
+	itext 0 "> hGetLine h",
+	itext 0 "\"HTTP/1.1 200 OK\\r\"",
 	text "ファイルの入出力と、おなじように書ける",
-	text "HTTPのGETリクエストを出したら、HTTP 200 OKがかえってきた"
+	text "HTTPのGETリクエストを出すと、HTTP 200 OKがかえる"
 	]
 
 makeServer :: Page
@@ -125,7 +125,7 @@ kinokoTakenoko :: Page
 kinokoTakenoko = pageTitle "きのこ、たけのこ総選挙" :| [
 	text "最後は「きのこ、たけのこ総選挙」でしめようかと",
 	text "(ここでskami.iocikun.jpサーバでサーバを起動する",
-	itext 2 "そのあと10ページから再開する >自分)",
+	itext 2 "そのあと11ページから再開する >自分)",
 	text "きのこ、たけのこ総選挙サーバを以下のアドレスで",
 	itext 4 "立ち上げた",
 	itext 2 "skami.iocikun.jp:4492",
@@ -135,17 +135,17 @@ kinokoTakenoko = pageTitle "きのこ、たけのこ総選挙" :| [
 ktClient :: Page
 ktClient = pageTitle "きのこ、たけのこ総選挙" :| [
 	text "つぎのようにクライアントを書きます",
-	itext (-2) "% kinoko.hs",
-	itext (-2) "import System.IO",
-	itext (-2) "import Network",
-	itext (-2) "",
-	itext (-2) "main :: IO ()",
-	itext (-2) "main = do",
-	itext 2 "h <- connectTo \"skami.iocikun.jp\" $ PortNumber 4492",
-	itext 2 "hPutStrLn h \"Yoshio\"",
-	itext 2 "hPutStrLn h \"kinoko\"",
-	itext 2 "hGetLine h >>= putStrLn",
-	itext 2 "hClose h",
+	itext (-4) "% kinoko.hs",
+	itext (-4) "import System.IO",
+	itext (-4) "import Network",
+	itext (-4) "",
+	itext (-4) "main :: IO ()",
+	itext (-4) "main = do",
+	itext 0 "h <- connectTo \"skami.iocikun.jp\" $ PortNumber 4492",
+	itext 0 "hPutStrLn h \"Yoshio\"",
+	itext 0 "hPutStrLn h \"kinoko\"",
+	itext 0 "hGetLine h >>= putStrLn",
+	itext 0 "hClose h",
 	text "自分の名前(アルファベット)、kinokoはtakenokoかも"
 	]
 
