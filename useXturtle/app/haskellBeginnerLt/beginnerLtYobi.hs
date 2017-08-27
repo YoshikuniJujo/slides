@@ -69,22 +69,22 @@ foobar4 :: Page
 foobar4 = pageTitle "Hello, Concurrent!" :| [
 	text "試してみよう",
 	text "コンパイルせずに試すには-e mainとする",
-	itext 4 "% stack ghc -- -e main helloConcurrent.hs",
-	itext 4 "hello",
-	itext 4 "world",
-	itext 4 "hello",
-	itext 4 "worlhde",
-	itext 4 "llo",
-	itext 4 "hello",
-	itext 4 "world",
+	itext (- 2) "% stack ghc -- -fno-warn-tabs -e main helloConcurrent.hs",
+	itext (- 2) "hello",
+	itext (- 2) "world",
+	itext (- 2) "hello",
+	itext (- 2) "worlhde",
+	itext (- 2) "llo",
+	itext (- 2) "hello",
+	itext (- 2) "world",
 	text "場合によっては、うえの例のようにhelloとworldの出力が",
 	itext 4 "まじりあうこともある"
 	]
 
 sleepSort :: Page
 sleepSort = pageTitle "スリープソート" :| [
-	text "アメリカ版の2ちゃんねるであるプログラミング板で提案された",
-	itext 4 "画期的なソート方法",
+	text "アメリカ版の2ちゃんねるである4chanの",
+	itext 4 "プログラミング板で提案された画期的なソート方法",
 	text "スリープソート",
 	text "数値をソートすることができる",
 	text "やりかたとしては",
