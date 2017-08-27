@@ -8,7 +8,9 @@ version = [0, 1, 0, 0]
 
 main :: IO ()
 main = runLecture version $ titlePage :| [
-	prelude, foobar, foobar2, foobar3
+	prelude, foobar, foobar2, foobar3, foobar4,
+	sleepSort, sleepSort2, sleepSort3, sleepSort4, sleepSort5,
+	sleepSort6, epilogue
 	]
 
 titlePage :: Page
@@ -63,6 +65,22 @@ foobar3 = pageTitle "Hello, Concurrent!" :| [
 	text "親のスレッドが終了すると子のスレッドも終了する"
 	]
 
+foobar4 :: Page
+foobar4 = pageTitle "Hello, Concurrent!" :| [
+	text "試してみよう",
+	text "コンパイルせずに試すには-e mainとする",
+	itext 4 "% stack ghc -- -e main helloConcurrent.hs",
+	itext 4 "hello",
+	itext 4 "world",
+	itext 4 "hello",
+	itext 4 "worlhde",
+	itext 4 "llo",
+	itext 4 "hello",
+	itext 4 "world",
+	text "場合によっては、うえの例のようにhelloとworldの出力が",
+	itext 4 "まじりあうこともある"
+	]
+
 sleepSort :: Page
 sleepSort = pageTitle "スリープソート" :| [
 	text "アメリカ版の2ちゃんねるであるプログラミング板で提案された",
@@ -71,5 +89,85 @@ sleepSort = pageTitle "スリープソート" :| [
 	text "数値をソートすることができる",
 	text "やりかたとしては",
 	itext 4 "あたえられた数値のそれぞれに対して",
-	itext 4 "スレッドを生"
+	itext 4 "スレッドを生成し、数値ぶんだけ休止したあと",
+	itext 4 "その数値を出力する",
+	text "小さい数ほど、はやく出力される",
+	itext 4 "-> ソートされた出力となる"
+	]
+
+sleepSort2 :: Page
+sleepSort2 = pageTitle "スリープソート" :| [
+	text "つぎのコードを試してみよう",
+	text "(サンプルコードとして用意してある)",
+	itext (- 4) "% vim sleepSort.hs",
+	itext (- 4) "import Control.Concurrent",
+	itext (- 4) "",
+	itext (- 4) "sleepSort :: [Int] -> IO ()",
+	itext (- 4) "sleepSort = mapM_ $",
+	itext 0 "\\x -> forkIO $ threadDelay (x * 1000) >> print x",
+	itext 0 "",
+	text "関数mapM_は、リストにのすべての値にたいして、",
+	itext 4 "あたえられた動作を実行する"
+	]
+
+sleepSort3 :: Page
+sleepSort3 = pageTitle "スリープソート" :| [
+	text "対話環境に読みこんで、試してみよう",
+	itext 4 "% stack ghci",
+	itext 4 "> :load sleepSort.hs",
+	itext 4 "> sleepSort [3, 9, 8, 7, 4, 500, 2]",
+	itext 4 "> 2",
+	itext 4 "3",
+	itext 4 "4",
+	itext 4 "8",
+	itext 4 "7",
+	itext 4 "9",
+	itext 4 "500",
+	text "500を出力する前には、すこし時間がかかる",
+	text "また、例のように、ときどき値が前後する"
+	]
+
+sleepSort4 :: Page
+sleepSort4 = pageTitle "スリープソート" :| [
+	text "表示するのではなく結果をリストにまとめたい",
+	text "そのためには、Chanというデータ型が使える",
+	text "go言語を学んだことがあるなら",
+	itext 4 "あの「チャネル」だよと言えばわかる",
+	text "順にいれたデータを順に取り出せるもの",
+	itext 4 "と言っておこう"
+	]
+
+sleepSort5 :: Page
+sleepSort5 = pageTitle "スリープソート" :| [
+	text "つぎのコードを試してみよう",
+	itext (- 4) "% vim sleepSortChan.hs",
+	itext (- 4) "import Control.Concurrent",
+	itext (- 4) "import Control.Concurrent.Chan",
+	itext (- 4) "",
+	itext (- 4) "sleepSort :: [Int] -> IO [Int]",
+	itext (- 4) "sleepSort xs = do",
+	itext 0 "c <- newChan",
+	itext 0 "mapM_ (\\x -> forkIO $ threadDelay (x * 1000)",
+	itext 4 ">> writeChan c x) xs",
+	itext 0 "take (length xs) <$> getChanContents c"
+	]
+
+sleepSort6 :: Page
+sleepSort6 = pageTitle "スリープソート" :| [
+	text "対話環境に読み込んで、試してみよう",
+	itext 4 "> :load sleepSortChan.hs",
+	itext 4 "> sleepSort [3, 9, 8, 7, 4, 500, 2]",
+	itext 4 "[2,3,4,7,8,9,500]"
+	]
+
+epilogue :: Page
+epilogue = pageTitle "おわりに" :| [
+	text "Haskellで並行計算をしてみた",
+	text "forkIOで子スレッドを生成する",
+	text "データの共有に今回はチャネルという仕組みを使った",
+	text "Haskellでは、もっと高機能なSTMという仕組みがある",
+	text "STMはソフトウェアトランザクショナルメモリの略",
+	text "これも非常におもしろい考えかたであり",
+	itext 4 "Haskellの機能をうまく使って作られている",
+	text "いつか、STMも紹介したい"
 	]
