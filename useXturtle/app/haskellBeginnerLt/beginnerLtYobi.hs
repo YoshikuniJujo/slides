@@ -36,25 +36,23 @@ foobar = pageTitle "Hello, Concurrent!" :| [
 	]
 
 foobar2 :: Page
-foobar2 = itext 4 "import Control.Concurrent " :| [
+foobar2 = itext 4 "import Control.Monad " :| [
+	itext 4 "import Control.Concurrent",
 	itext 4 "",
 	itext 4 "main :: IO ()",
 	itext 4 "main = do",
-	itext 8 "forkIO . loop $ do",
+	itext 8 "forkIO . forever $ do",
 	itext 12 "threadDelay $ 1000 * 1000",
 	itext 12 "putStrLn \"hello\"",
-	itext 8 "forkIO . loop $ do",
+	itext 8 "forkIO . forever $ do",
 	itext 12 "threadDelay $ 1500 * 1000",
 	itext 12 "putStrLn \"world\"",
-	itext 8 "threadDelay $ 30 * 1000 * 1000",
-	itext 4 "",
-	itext 4 "loop :: IO a -> IO ()",
-	itext 4 "loop act = act >> loop act"
+	itext 8 "threadDelay $ 30 * 1000 * 1000"
 	]
 
 foobar3 :: Page
 foobar3 = pageTitle "Hello, Concurrent!" :| [
-	text "関数loopは引数にとった動作を永遠にくりかえす",
+	text "関数foreverは引数にとった動作を永遠にくりかえす",
 	text "関数forkIOは新しいスレッドを作成し",
 	itext 4 "あたえられた動作を実行する",
 	text "関数threadDelayは、あたえられたマイクロ秒だけ休止させる",

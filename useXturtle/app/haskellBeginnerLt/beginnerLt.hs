@@ -135,7 +135,7 @@ kinokoTakenoko = pageTitle "きのこ、たけのこ総選挙" :| [
 ktClient :: Page
 ktClient = pageTitle "きのこ、たけのこ総選挙" :| [
 	text "つぎのようにクライアントを書きます",
-	itext (-4) "% kinoko.hs",
+	itext (-4) "% vim kinoko.hs",
 	itext (-4) "import System.IO",
 	itext (-4) "import Network",
 	itext (-4) "",
