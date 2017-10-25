@@ -8,7 +8,7 @@ version = [0, 1, 0, 0]
 
 main :: IO ()
 main = runLecture version $ titlePage :| [
-	greeting, selfIntroduction, kinkyou
+	greeting, selfIntroduction, kinkyou, nerai, dekinai
 	]
 
 titlePage :: Page
@@ -51,4 +51,38 @@ kinkyou = pageTitle "近況" :| [
 	text "(あとでさしかえる、画像の大きさなども調整する)",
 	text "1滴ずつ水をたらしながら何時間もかけて抽出する",
 	text "豆の挽きかた(細かくか、荒くか)など、いろいろ試している"
+	]
+
+nerai :: Page
+nerai = pageTitle "今日のねらい" :| [
+	text "Haskellの魅力を知ってもらう",
+	(>>)
+		<$> nextLine
+		<*> text "そのために",
+	itext 4 "実際にHaskellを動かしてみる",
+	itext 4 "Haskellの特徴がわかる例を示す",
+	itext 4 "Haskellでなにか作ってみる",
+	(>>)
+		<$> nextLine
+		<*> text "しかし",
+	itext 4 "本当の魅力を紹介することは困難",
+	itext 4 "時間の制約がある",
+	itext 4 "今日の「紹介」を入口にして",
+	itext 8 "本当の魅力を知るところまで学んでほしい"
+	]
+
+dekinai :: Page
+dekinai = pageTitle "今日はねらわないこと" :| [
+	text "Haskellの本当の魅力はわからない",
+	(>>)
+		<$> nextLine
+		<*> text "なぜなら",
+	itext 4 "Haskellの魅力のひとつは「複雑さの制御」",
+	itext 8 "-> 短時間で紹介できる例では実感しづらい",
+	itext 4 "保守性の高さ",
+	itext 8 "-> コードを長年保守しないとわからない",
+	itext 4 "構文によって、かくされた意味論の美しさ",
+	itext 8 "-> 短時間では「すっぴん」は紹介できない",
+	itext 4 "深みに、はまる楽しさ",
+	itext 8 "-> マニアになるまでわからない"
 	]
