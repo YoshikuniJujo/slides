@@ -27,7 +27,18 @@ greeting = pageTitle "ごあいさつ" :| [
 
 selfIntroduction :: Page
 selfIntroduction = pageTitle "自己紹介" :| [
-	]
+	text "このひとは、こういうひと",
+	itext 4 "OS: Gentoo on KVM on Gentoo",
+	itext 4 "言語: 日本語、Haskell",
+	itext 4 "エディタ: Vim",
+	itext 4 "日本語入力: TUT-code(漢字直接入力)",
+	itext 4 "GUI: Xmonad",
+	itext 4 "ターミナルエミュレータ: rxvt-unicode",
+	itext 4 "仮想端末: Tmux",
+	itext 4 "シェル: zsh",
+	itext 4 "ブラウザ: Firefox + Vimperator",
+	itext 4 "メールソフト: Mutt",
+	itext 4 "キーボード: HHKB" ]
 
 kinkyou :: Page
 kinkyou = pageTitle "近況" :| [
