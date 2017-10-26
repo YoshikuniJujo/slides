@@ -9,7 +9,7 @@ version = [0, 1, 0, 0]
 main :: IO ()
 main = runLecture version $ titlePage :| [
 	greeting, selfIntroduction, kinkyou, nerai,
-	dekinai, dekinaiN,
+	dekinai, dekinai1_1, dekinai1_2, dekinai1_3, dekinaiN,
 	kousei
 	]
 
@@ -89,9 +89,50 @@ dekinai = pageTitle "今日はねらわないこと" :| [
 	itext 8 "-> マニアになるまでわからない"
 	]
 
+dekinai1_1 :: Page
+dekinai1_1 = pageTitle "複雑さの制御" :| [
+	text "つぎの事実が、Haskellが難しいと誤解される一因だ",
+	itext 4 "* Haskellの売りのひとつは「複雑さの制御」である",
+	text "つまり、Haskellの「よさ」をつたえるためには",
+	itext 4 "「複雑な問題」を用意する必要がある",
+	text "それで、「Haskellは難しい」と誤解される",
+	text "Haskellを使うと",
+	itext 4 "「かんたんなこと」は「かんたん」に",
+	itext 4 "「ふつうのこと」は「ふつう」に",
+	itext 4 "「すごく難しいこと」は「それほど難しくなく」",
+	itext 2 "解決できる",
+	text "(印象としてつぎのことを感じる。最近の多くの言語は",
+	itext 2 "「ふつうのこと」を「かんたん」に解決することに特化?)"
+	]
+
+dekinai1_2 :: Page
+dekinai1_2 = pageTitle "複雑さの制御" :| [
+	text "Haskellの利点は",
+	itext 4 "「難しいこと」が「それほど難しくなく」できること",
+	text "「ふつうのこと」をするだけなら",
+	itext 4 "他の言語のほうがかんたん、かも",
+	text "しかし、「難しいこと」をするなら",
+	itext 4 "Haskellを使ったほうが、かんたんにできる",
+	text "小さいものを作るには、やわらかい粘土のほうが、かんたん",
+	text "大きいものを作るには、かたいレンガのほうが、かんたん"
+	]
+
+dekinai1_3 :: Page
+dekinai1_3 = pageTitle "複雑さの制御" :| [
+	text "抽象度の高いコードが書ける",
+	itext 4 "さきに、わくぐみだけを作り",
+	itext 4 "そのうえに具体的な処理を実装することができる",
+	text "型による表現力の向上",
+	itext 4 "たとえば整数ではなく、年齢をあらわす型を作るなど"
+	]
+
 dekinaiN :: Page
 dekinaiN = pageTitle "(ねらわないことの各論)" :| [
-	text "ここに4枚の「それぞれのねらわないこと」のスライドを置く"
+	text "ここに4枚の「それぞれのねらわないこと」のスライドを置く",
+	text "このあたりに「前回の反省」として",
+	itext 8 "「網羅すること」",
+	itext 8 "「すっぴんを教えること」",
+	itext 4 "にこだわりすぎたという事情を書こうかな?"
 	]
 
 kousei :: Page
