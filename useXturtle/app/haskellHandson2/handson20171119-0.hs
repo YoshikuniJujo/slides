@@ -8,7 +8,9 @@ version = [0, 1, 0, 0]
 
 main :: IO ()
 main = runLecture version $ titlePage :| [
-	greeting, selfIntroduction, kinkyou, nerai, dekinai
+	greeting, selfIntroduction, kinkyou, nerai,
+	dekinai, dekinaiN,
+	kousei
 	]
 
 titlePage :: Page
@@ -85,4 +87,24 @@ dekinai = pageTitle "今日はねらわないこと" :| [
 	itext 8 "-> 短時間では「すっぴん」は紹介できない",
 	itext 4 "深みに、はまる楽しさ",
 	itext 8 "-> マニアになるまでわからない"
+	]
+
+dekinaiN :: Page
+dekinaiN = pageTitle "(ねらわないことの各論)" :| [
+	text "ここに4枚の「それぞれのねらわないこと」のスライドを置く"
+	]
+
+kousei :: Page
+kousei = pageTitle "前半の流れ" :| [
+	text "前半ではハンズオン形式でひととおりの基礎を学ぶ",
+	text "後半ではオリジナルプロダクトを作る",
+	text "前半の流れは、つぎのようになる",
+	itext 4 "0. あいさつ、前置き (このスライド)",
+	itext 4 "1. 関数を学ぶ",
+	itext 4 "2. 再帰関数を学ぶ",
+	itext 4 "3. 多相関数を学ぶ",
+	itext 4 "4. 関数mapを学ぶ",
+	itext 4 "5. 入出力を学ぶ (do記法で)",
+	itext 4 "6. プロダクトの例 ",
+	itext 4 "7. 書籍の宣伝"
 	]
