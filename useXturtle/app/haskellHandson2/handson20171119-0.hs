@@ -43,14 +43,14 @@ selfIntroduction = pageTitle "自己紹介" :| [
 kinkyou :: Page
 kinkyou = pageTitle "近況" :| [
 	text "最近、水出しコーヒーの器具を買った",
-	(>>)
-		<$> writeImageCenter
---			(120, 213, "images/naganeko.png")
-			(120, 195, "images/naganeko.png")
-		<*> replicateM_ 8 . nextLine,
-	text "(あとでさしかえる、画像の大きさなども調整する)",
-	text "1滴ずつ水をたらしながら何時間もかけて抽出する",
-	text "豆の挽きかた(細かくか、荒くか)など、いろいろ試している"
+	(\x y z -> x >> y >> z)
+		<$> writeImageCenterLeft
+			(100, 200, "images/moving_preuse.png")
+		<*> writeImageCenterRight
+			(100, 200, "images/moving_use.png")
+		<*> replicateM_ 10 . nextLine,
+	itext (- 2) "1滴ずつ水をたらしながら何時間もかけて抽出する",
+	itext (- 2) "豆の挽きかた(細かくか、荒くか)など、いろいろ試している"
 	]
 
 nerai :: Page

@@ -4,6 +4,7 @@ module Lecture (
 	Page, Line, Version, State(..),
 	runLecture, writeTitle, pageTitle, text, bigIText, itext,
 	writeImageCenterTop, writeImageCenter,
+	writeImageCenterLeft, writeImageCenterRight,
 	writeImageRight, writeImageMoreRight, writeImageAlmost,
 	nextLine, backLine, width, height, fontName, erase,
 	miniNextLine, miniIText, oneshot, initTurtle
@@ -384,6 +385,12 @@ writeImageCenterTop img = writeImage (1 / 4) (2 / 60) img
 
 writeImageCenter :: (Double, Double, FilePath) -> Line
 writeImageCenter img = writeImage (1 / 4) (15 / 60) img
+
+writeImageCenterLeft :: (Double, Double, FilePath) -> Line
+writeImageCenterLeft img = writeImage (5 / 40) (15 / 60) img
+
+writeImageCenterRight :: (Double, Double, FilePath) -> Line
+writeImageCenterRight img = writeImage (15 / 40) (15 / 60) img
 
 writeImageRight :: (Double, Double, FilePath) -> Line
 writeImageRight img = writeImage (25 / 40) (1 / 6) img
