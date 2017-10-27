@@ -9,7 +9,9 @@ version = [0, 1, 0, 0]
 main :: IO ()
 main = runLecture version $ titlePage :| [
 	greeting, selfIntroduction, kinkyou, nerai,
-	dekinai, dekinai1_1, dekinai1_2, dekinai1_3, dekinaiN,
+	dekinai, dekinai1_1, dekinai1_2, dekinai1_3,
+	dekinai2, dekinai3, dekinai4,
+	dekinaiN,
 	kousei
 	]
 
@@ -123,7 +125,23 @@ dekinai1_3 = pageTitle "複雑さの制御" :| [
 	itext 4 "さきに、わくぐみだけを作り",
 	itext 4 "そのうえに具体的な処理を実装することができる",
 	text "型による表現力の向上",
-	itext 4 "たとえば整数ではなく、年齢をあらわす型を作るなど"
+	itext 4 "整数ではなく、年齢をあらわす型を作るなど",
+	text "ここまでなら、最近の多くの言語で可能",
+	text "これらを「静的な型」によって",
+	itext 4 "おかしな組み合わせかたから守る",
+	text "「かたいレンガを、すきまなく組み合わせる」こと"
+	]
+
+dekinai2 :: Page
+dekinai2 = pageTitle "保守性が高い" :| [
+	]
+
+dekinai3 :: Page
+dekinai3 = pageTitle "構文糖と実際の意味論" :| [
+	]
+
+dekinai4 :: Page
+dekinai4 = pageTitle "より高度な概念や機能" :| [
 	]
 
 dekinaiN :: Page
