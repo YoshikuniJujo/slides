@@ -134,6 +134,14 @@ dekinai1_3 = pageTitle "複雑さの制御" :| [
 
 dekinai2 :: Page
 dekinai2 = pageTitle "保守性が高い" :| [
+	text "長く使ってもらわないと実感できないかもしれない",
+	text "Haskellは、適切に使えば",
+	itext 4 "とても保守性の高いコードが書ける",
+	text "型を適切に使うことで、",
+	itext 4 "-> その変数に何の意味があるのかわかる",
+	itext 4 "-> 関係ない値に変更することを、ふせげる",
+	text "変数が再代入できないことで、",
+	itext 4 "-> 変数が定義されたところだけで、その値がわかる"
 	]
 
 dekinai3 :: Page
