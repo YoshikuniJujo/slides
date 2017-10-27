@@ -11,7 +11,6 @@ main = runLecture version $ titlePage :| [
 	greeting, selfIntroduction, kinkyou, nerai,
 	dekinai, dekinai1_1, dekinai1_2, dekinai1_3,
 	dekinai2, dekinai3, dekinai4,
-	dekinaiN,
 	kousei
 	]
 
@@ -141,17 +140,31 @@ dekinai2 = pageTitle "保守性が高い" :| [
 	itext 4 "-> その変数に何の意味があるのかわかる",
 	itext 4 "-> 関係ない値に変更することを、ふせげる",
 	text "変数が再代入できないことで、",
-	itext 4 "-> 変数が定義されたところだけで、その値がわかる"
+	itext 4 "-> 変数が定義されたところだけで、値がわかる"
 	]
 
 dekinai3 :: Page
 dekinai3 = pageTitle "構文糖と実際の意味論" :| [
+	text "Haskellでは実際の意味論と",
+	itext 4 "構文上の「見かけ」が異なることがある",
+	text "読み書きしやすくするための構文を「構文糖」とよぶ",
+	text "今回は「構文糖」でオブラートされた構文を説明する",
+	text "オブラートを取りのぞいた意味論の話はしない",
+	text "裸の意味論について学ぶと、その合理性に感動すると思う",
+	text "拙書では「裸の意味論」に近いところから説明している"
 	]
 
 dekinai4 :: Page
 dekinai4 = pageTitle "より高度な概念や機能" :| [
+	text "Haskellを学び続けるのは楽しい",
+	text "Haskellは意図的に成長中の言語とされている",
+	text "良いものを積極的に取り込もうとしている",
+	text "多くはプレインな言語に対する「拡張」というかたち",
+	text "素のHaskellに飽きたり、不満を感じたりしたら",
+	itext 4 "言語拡張を試してみよう"
 	]
 
+{-
 dekinaiN :: Page
 dekinaiN = pageTitle "(ねらわないことの各論)" :| [
 	text "ここに4枚の「それぞれのねらわないこと」のスライドを置く",
@@ -160,6 +173,7 @@ dekinaiN = pageTitle "(ねらわないことの各論)" :| [
 	itext 8 "「すっぴんを教えること」",
 	itext 4 "にこだわりすぎたという事情を書こうかな?"
 	]
+	-}
 
 kousei :: Page
 kousei = pageTitle "前半の流れ" :| [
