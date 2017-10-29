@@ -11,7 +11,7 @@ main = runLecture version $ titlePage :| [
 	greeting, selfIntroduction, kinkyou, nerai,
 	dekinai, dekinai1_1, dekinai1_2, dekinai1_3,
 	dekinai2, dekinai3, dekinai4,
-	kousei
+	zentei, kousei
 	]
 
 titlePage :: Page
@@ -174,6 +174,14 @@ dekinaiN = pageTitle "(ねらわないことの各論)" :| [
 	itext 4 "にこだわりすぎたという事情を書こうかな?"
 	]
 	-}
+
+zentei :: Page
+zentei = pageTitle "前提" :| [
+	text "本当なら処理系の導入からサポートしたい気持ちがある",
+	text "しかし、時間の関係で難しいので",
+	itext 4 "処理系は導入ずみであるという前提で話を進める",
+	text "処理系はStackを使ってインストールしているものとする"
+	]
 
 kousei :: Page
 kousei = pageTitle "前半の流れ" :| [
