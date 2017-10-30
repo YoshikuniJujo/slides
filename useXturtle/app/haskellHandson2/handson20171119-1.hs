@@ -8,8 +8,8 @@ version = [0, 1, 0, 0]
 
 main :: IO ()
 main = runLecture version $ titlePage :| [
-	tryVersion, tryReplChar, tryReplInteger, tryReplBind,
-	loadDefinition
+	tryVersion, tryReplChar, tryReplInteger, tryReplBind, tryQuit,
+	loadDefinition, tryReload
 	]
 
 titlePage :: Page
@@ -75,6 +75,41 @@ tryReplBind = pageTitle "対話環境を試す" :| [
 	text "BMIは22くらいが調度いいとのこと"
 	]
 
+tryQuit :: Page
+tryQuit = pageTitle "対話環境を終わらせる" :| [
+	text "ここで、対話環境の終わらせかたを知っておこう",
+	text "つぎのように打ち込む",
+	itext 4 "> :quit",
+	text "対話環境のなかで定義した関数は",
+	itext 4 "対話環境を閉じれば消えてしまう"
+	]
+
 loadDefinition :: Page
 loadDefinition = pageTitle "定義ファイルを読み込む" :| [
+	text "ファイルに保存した関数を対話環境に読み込んでみよう",
+	text "まず、ファイルbmi.hsを作成する",
+	itext 4 "% vim bmi.hs",
+	itext 4 "bmi h w = w / (h / 100) ^ 2",
+	text "例としてVimとしたが、お気に入りのエディタを使おう",
+	text "定義ファイルを読み込むには:loadコマンドを使う",
+	text "対話環境を立ち上げて、つぎのように打ち込む",
+	itext 4 "> :load bmi.hs",
+	itext 4 "> bmi 172 68",
+	itext 4 "22.985397512168742"
+	]
+
+tryReload :: Page
+tryReload = pageTitle "定義ファイルを再読み込みする" :| [
+	text "対話環境とは、べつのウィンドウで、エディタを開こう",
+	text "bmi.hsを、つぎの関数を追加する",
+	itext 4 "% vim bmi.hs",
+	itext 4 "isObese h w = bmi h w >= 25",
+	text "開いたままの対話環境で:reloadコマンドを試す",
+	itext 4 "> :reload",
+	itext 4 "> isObese 172 68",
+	itext 4 "False",
+	itext 4 "> isObese 172 80",
+	itext 4 "True",
+	text "BMI値が25以上で肥満とされる",
+	text "肥満であるかどうかを判定する関数isObeseを追加した"
 	]
