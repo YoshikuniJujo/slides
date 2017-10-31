@@ -12,7 +12,7 @@ main = runLecture version $ titlePage :| [
 	]
 
 titlePage :: Page
-titlePage = writeTitle "Haskell入門ハンズオン! #2" "2. 関数を学ぶ" :| []
+titlePage = writeTitle "Haskell入門ハンズオン! #2" "2. 関数と再帰" :| []
 
 whatsFunction :: Page
 whatsFunction = pageTitle "関数とは" :| [
