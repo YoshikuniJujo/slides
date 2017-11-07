@@ -8,7 +8,7 @@ version = [0, 1, 0, 0]
 
 main :: IO ()
 main = runLecture version $ titlePage :| [
-	greeting, selfIntroduction, kinkyou, nerai,
+	greeting, selfIntroduction, {- kinkyou, -} nerai,
 	dekinai, dekinai1_1, dekinai1_2, dekinai1_3,
 	dekinai2, dekinai3, dekinai4,
 	zentei, kousei
