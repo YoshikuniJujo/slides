@@ -9,11 +9,14 @@ version = [0, 1, 0, 0]
 main :: IO ()
 main = runLecture version $ titlePage :| [
 	whatsFunction, circleArea,
-	recursion, recursion2
+	recursion, recursion2,
+	maybe1, maybe2, maybe3, maybe4,
+	patternMatch1
 	]
 
 titlePage :: Page
-titlePage = writeTitle "Haskell入門ハンズオン! #2" "2. 関数、再帰、リスト" :| []
+titlePage = writeTitle
+	"Haskell入門ハンズオン! #2" "2. 関数、再帰、パターンマッチ" :| []
 
 whatsFunction :: Page
 whatsFunction = pageTitle "関数とは" :| [
@@ -68,3 +71,76 @@ recursion2 = pageTitle "再帰" :| [
 	itext 4 "> sumN 10",
 	itext 4 "55"
 	]
+
+maybe1 :: Page
+maybe1 = pageTitle "Maybe値" :| [
+	text "値を持たないかもしれない値としてMaybe値がある",
+	text "Maybe値はNothing値とJust値とからなる",
+	itext 4 "> Just 8",
+	itext 4 "Just 8",
+	itext 4 "> Nothing",
+	itext 4 "Nothing"
+	]
+
+maybe2 :: Page
+maybe2 = pageTitle "Maybe値" :| [
+	text "わる数が0のときに値をもたないわり算を示す",
+	itext 4 "> :{",
+	itext 4 "| divide _ 0 = Nothing",
+	itext 4 "| divide a b = Just (a `div` b)",
+	itext 4 "> :}",
+	itext 4 "> divide 13 3",
+	itext 4 "Just 4",
+	itext 4 "> divide 8 0",
+	itext 4 "Nothing",
+	text ":{と:}とを使うと、対話環境で複数行での定義ができる",
+	text "_(アンダースコア)は、仮引数のかわりに置くことができる",
+	text "これを使うと、不要な変数を定義せずにすむ",
+	text "関数divは整数どうしのわり算をあらわす"
+	]
+
+maybe3 :: Page
+maybe3 = pageTitle "Maybe値" :| [
+	text "Just値になってしまった値をどう使おうか",
+	itext 4 "> :{",
+	itext 4 "> maybeMul (Just a) b = Just (a * b)",
+	itext 4 "> maybeMul Nothing _ = Nothing",
+	itext 4 "> :}",
+	itext 4 "> maybeMul (divide 13 3) 5",
+	itext 4 "Just 20",
+	text "関数maybeMulの、ひとつめの仮引数は、つぎのふたつ",
+	itext 4 "Just a",
+	itext 4 "Nothing",
+	text "これらは適用された引数と比較される",
+	text "Just aとJust 4とが比較されると、変数aは4に束縛される",
+	text "これをパターンマッチと呼ぶ"
+	]
+
+maybe4 :: Page
+maybe4 = pageTitle "Maybe値" :| [
+	text "関数maybeMulの第1引数にNothingがあたえられたとする",
+	text "まず、Just aと比較される",
+	itext 4 "しかし、これとNothingとは形がちがう",
+	text "よって、NothingはJust aとはマッチしない",
+	text "つぎに、仮引数のところのNothingと比較される",
+	text "これは形がおなじなのでマッチする"
+	]
+
+patternMatch1 :: Page
+patternMatch1 = pageTitle "パターンマッチ" :| [
+	text "仮引数のところにはパターンが置ける",
+	text "実引数はパターンと比較される",
+	itext 4 "形がおなじなら、なかの値を取り出せる",
+	itext 4 "形がちがければ、つぎの定義へと、くりかえす"
+	]
+
+{-
+list1 :: Page
+list1 = pageTitle "リスト" :| [
+	text "Haskellで、よく使われるデータ構造はリスト",
+	text "対話環境でみてみよう",
+	itext 4 "> [2, 8, 3, 5]",
+	itext 4 "[2,8,3,5]",
+	text "おなじタイプの値を、複数まとめることができる"
+	]
+	-}
