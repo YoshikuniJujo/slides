@@ -11,7 +11,7 @@ main = runLecture version $ titlePage :| [
 	whatsFunction, circleArea,
 	recursion, recursion2,
 	maybe1, maybe2, maybe3, maybe4,
-	patternMatch1
+	patternMatch1, patternMatch2
 	]
 
 titlePage :: Page
@@ -131,7 +131,18 @@ patternMatch1 = pageTitle "パターンマッチ" :| [
 	text "仮引数のところにはパターンが置ける",
 	text "実引数はパターンと比較される",
 	itext 4 "形がおなじなら、なかの値を取り出せる",
-	itext 4 "形がちがければ、つぎの定義へと、くりかえす"
+	itext 4 "形がちがければ、つぎの定義へと。くりかえす"
+	]
+
+patternMatch2 :: Page
+patternMatch2 = pageTitle "パターンマッチ" :| [
+	text "関数定義の仮引数にはパターンが置ける",
+	text "ここまでで見てきたパターンは、つぎの3種類",
+	itext 4 "1. 変数(x, y, z, ...)",
+	itext 4 "2. ワイルドカード(_)",
+	itext 4 "3. 値構築子が0個以上の引数をとったもの",
+	itext 8 "(Just x, Nothing, ...)",
+	text "仮引数である変数もパターンのひとつである"
 	]
 
 {-
