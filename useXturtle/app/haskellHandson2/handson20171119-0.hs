@@ -11,7 +11,7 @@ main = runLecture version $ titlePage :| [
 	greeting, selfIntroduction, {- kinkyou, -} nerai,
 	dekinai, dekinai1_1, dekinai1_2, dekinai1_3,
 	dekinai2, dekinai3, dekinai4,
-	zentei, kousei
+	zentei, kousei, binding
 	]
 
 titlePage :: Page
@@ -43,6 +43,7 @@ selfIntroduction = pageTitle "自己紹介" :| [
 	itext 4 "メールソフト: Mutt",
 	itext 4 "キーボード: HHKB" ]
 
+{-
 kinkyou :: Page
 kinkyou = pageTitle "近況" :| [
 	text "最近、水出しコーヒーの器具を買った",
@@ -55,6 +56,7 @@ kinkyou = pageTitle "近況" :| [
 	itext (- 2) "1滴ずつ水をたらしながら何時間もかけて抽出する",
 	itext (- 2) "豆の挽きかた(細かくか、荒くか)など、いろいろ試している"
 	]
+	-}
 
 nerai :: Page
 nerai = pageTitle "今日のねらい" :| [
@@ -185,6 +187,7 @@ zentei = pageTitle "前提" :| [
 
 kousei :: Page
 kousei = pageTitle "前半の流れ" :| [
+	text "!!!このページは最後に修正すること!!!",
 	text "前半ではハンズオン形式でひととおりの基礎を学ぶ",
 	text "後半ではオリジナルプロダクトを作る",
 	text "前半の流れは、つぎのようになる",
@@ -197,4 +200,18 @@ kousei = pageTitle "前半の流れ" :| [
 	itext 4 "6. 単独で実行可能なアプリケーションを作る",
 	itext 4 "7. プロダクトの例",
 	itext 4 "8. 書籍の宣伝"
+	]
+
+binding :: Page
+binding = pageTitle "代入と束縛" :| [
+	text "できるだけわかりやすい言葉を使いたい",
+	text "「代入」という言葉のほうが「束縛」という言葉より",
+	itext 4 "入門者にはわかりやすいとも思う",
+	text "しかし、やはり「代入」という言葉は関数型言語の説明では",
+	itext 4 "使いにくい",
+	text "ここでは、だいたい、つぎのように理解しておけばいい",
+	itext 4 "値123が変数xを束縛する",
+	itext 4 "値123で変数xを束縛する",
+	text "これらが、つぎのような意味になる",
+	itext 4 "値123を変数xに代入する"
 	]
