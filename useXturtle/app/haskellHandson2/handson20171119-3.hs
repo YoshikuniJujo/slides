@@ -11,7 +11,8 @@ main = runLecture version $ titlePage :| [
 	tuple1, tuple2,
 	list1, list2, list3,
 	listRec1, listRec2, listRec3, listRec4,
-	listRec5, listRec6, listRec7, listRec8, listRec9
+	listRec5, listRec6, listRec7, listRec8, listRec9,
+	whereClause1, whereClause2
 	]
 
 titlePage :: Page
@@ -191,12 +192,35 @@ listRec8 = pageTitle "リストに対する再帰関数" :| [
 
 listRec9 :: Page
 listRec9 = pageTitle "リストに対する再帰関数" :| [
+	text "ファイルlistRec.hsに定義を書く",
+	itext 2 "onlyOdd [] = []",
+	itext 2 "onlyOdd (x : xs) =",
+	itext 2 "        bool (onlyOdd xs) (x : onlyOdd xs) (odd x)",
 	text "対話環境で試す",
-	itext 2 "> :{",
-	itext 2 "| onlyOdd [] = []",
-	itext 2 "| onlyOdd (x : xs) =",
-	itext 2 "|     bool (onlyOdd xs) (x : onlyOdd xs) (odd x)",
-	itext 2 "| :}",
+	itext 2 "> :load listRec.hs",
 	itext 2 "> onlyOdd [1, 2, 3, 4, 5]",
 	itext 2 "[1,3,5]"
+	]
+
+whereClause1 :: Page
+whereClause1 = pageTitle "where節" :| [
+	text "関数onlyOddの定義をみてみよう",
+	itext 2 "onlyOdd [] = []",
+	itext 2 "onlyOdd (x : xs) =",
+	itext 2 "        bool (onlyOdd xs) (x : onlyOdd xs) (odd x)",
+	text "onlyOdd xsが2回、使われている",
+	text "DRY(Don't Repeat Your Self)原則に反している",
+	text "ファイルlistRec.hsにある定義を書き換えよう",
+	itext 2 "onlyOdd [] = []",
+	itext 2 "onlyOdd (x : xs) = bool xs' (x : xs') (odd x)",
+	itext 2 "        where xs' = onlyOdd xs",
+	text "where節を使ってローカル変数xs'を定義した"
+	]
+
+whereClause2 :: Page
+whereClause2 = pageTitle "where節" :| [
+	text "対話環境で試す",
+	itext 4 "> :reload",
+	itext 4 "> onlyOdd [1, 2, 3, 4, 5]",
+	itext 4 "[1,3,5]"
 	]
