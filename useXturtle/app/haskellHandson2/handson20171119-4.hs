@@ -8,15 +8,15 @@ version = [0, 1, 0, 0]
 
 main :: IO ()
 main = runLecture version $ titlePage :| [
-	prelude,
+--	prelude,
 	application1, application2, application3,
 	composition1, composition2,
-	appToComp1
+	appToComp1, appToComp2, appToComp3, appToComp4
 	]
 
 titlePage :: Page
 titlePage = writeTitle
-	"Haskell入門ハンズオン! #2" "4. いくつかの関数を学ぶ(1)" :| []
+	"Haskell入門ハンズオン! #2" "4. 関数適用演算子と関数合成演算子" :| []
 
 prelude :: Page
 prelude = pageTitle "はじめに" :| [
@@ -100,4 +100,51 @@ composition2 = pageTitle "関数合成演算子" :| [
 
 appToComp1 :: Page
 appToComp1 = pageTitle "関数適用演算子を関数合成演算子に置き換える" :| [
+	text "つぎのように関数適用を2回以上使う例をみる",
+	itext 4 "> abs $ logBase 2 $ recip 8",
+	itext 4 "3.0",
+	text "これを、つぎのように書き換えることができる",
+	itext 4 "> abs . logBase 2 $ recip 8",
+	itext 4 "3.0",
+	text "結合力が演算子(.)のほうが($)よりも強いことに注意する",
+	text "また、演算子($)は右結合である、つまり",
+	itext 4 "それぞれ、丸括弧を明示すると、つぎのようになる",
+	itext 4 "abs $ (logBase 2 $ recip 8)",
+	itext 4 "(abs . logBase 2) $ recip 8",
+	text "(丸括弧を明示した定義は、つぎのスライドで再掲する)"
+	]
+
+appToComp2 :: Page
+appToComp2 = pageTitle "関数適用演算子を関数合成演算子に置き換える" :| [
+	text "丸括弧を明示した定義を再掲する",
+	itext 4 "abs $ (logBase 2 $ recip 8)",
+	itext 4 "(abs . logBase 2) $ recip 8",
+	text "「8の逆数の対数をもとめて、絶対値をもとめる」のと",
+	text "「8の逆数に、",
+	itext 4 "絶対値関数と対数関数を合成したものを適用する」",
+	itext 4 "のふたつは、おなじ意味になる"
+	]
+
+appToComp3 :: Page
+appToComp3 = pageTitle "関数適用演算子を関数合成演算子に置き換える" :| [
+	text "演算子($)が連続したとき、一番右の($)以外は",
+	itext 4 "すべて、演算子(.)に置き換えられる",
+	text "逆に、演算子($)が一番右にあるとき",
+	itext 4 "その左の(.)の連続は",
+	itext 4 "すべて、演算子($)に置き換えて、解釈できる",
+	text "これまで、みてきた「理屈」は理解しなくても",
+	itext 4 "ここでは、このような「置き換え」ができることを",
+	itext 4 "知っておけばいい",
+	text "つぎのような置き換えができる",
+	itext 4 "f $ g $ h $ i $ j $ ... $ z x",
+	itext 4 "f . g . h . i . j . ... $ z x"
+	]
+
+appToComp4 :: Page
+appToComp4 = pageTitle "関数適用演算子を関数合成演算子に置き換える" :| [
+	text "演算子($)を(.)に置き換えたい、その理由は何か?",
+	text "そのほうが「見ため」がきれいだから",
+	itext 4 "foo $ bar $ baz $ qux $ quux $ corge arg",
+	itext 4 "foo . bar . baz . qux . quux $ corge arg",
+	text "したのほうが「すっきり」している感じがある"
 	]
