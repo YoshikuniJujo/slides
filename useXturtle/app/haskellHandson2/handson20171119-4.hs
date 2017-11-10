@@ -9,7 +9,9 @@ version = [0, 1, 0, 0]
 main :: IO ()
 main = runLecture version $ titlePage :| [
 	prelude,
-	application1, application2, application3
+	application1, application2, application3,
+	composition1, composition2,
+	appToComp1
 	]
 
 titlePage :: Page
@@ -68,4 +70,34 @@ application3 = pageTitle "関数適用演算子" :| [
 	text "丸括弧が入れ子になるよりスマートに書ける",
 	text "Lisperの人はいますか?",
 	text "けっして、Lispをディスっているわけではありません"
+	]
+
+composition1 :: Page
+composition1 = pageTitle "関数合成演算子" :| [
+	text "関数合成演算子を紹介する",
+	text "小文字にして文字コードをもとめる関数",
+	itext 4 "> :module Data.Char",
+	itext 4 "> fun c = ord (toLower c)",
+	itext 4 "> fun 'Y'",
+	itext 4 "121",
+	text "この関数funは関数ordとtoLowerとを、くっつけたもの",
+	text "このように「くっつける」ことを「関数合成」と呼ぶ",
+	text "関数合成演算子(.)を使った関数fun2はつぎのようになる",
+	itext 4 "> fun2 = ord . toLower",
+	itext 4 "> fun2 'Y'",
+	itext 4 "121"
+	]
+
+composition2 :: Page
+composition2 = pageTitle "関数合成演算子" :| [
+	text "関数funとfun2の定義を再掲する",
+	itext 4 "fun c = ord (toLower c)",
+	itext 4 "fun2 = ord . toLower",
+	text "関数funの定義よりもfun2の定義のほうが",
+	itext 4 "より直接的に、つぎの意味を表せている",
+	text "「小文字化して、文字コードをもとめる」"
+	]
+
+appToComp1 :: Page
+appToComp1 = pageTitle "関数適用演算子を関数合成演算子に置き換える" :| [
 	]
