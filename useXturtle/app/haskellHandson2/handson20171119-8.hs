@@ -8,7 +8,8 @@ version = [0, 1, 0, 0]
 
 main :: IO ()
 main = runLecture version $ titlePage :| [
-	prelude, putStr1, print1, print2, getChar1, getArgs1, getArgs2
+	prelude, putStr1, print1, print2, getChar1, getArgs1, getArgs2,
+	hGetSetBuffering1, hGetSetBuffering2
 	]
 
 titlePage :: Page
@@ -100,4 +101,37 @@ getArgs2 = pageTitle "動作getArgs" :| [
 	itext 4 "コマンド:runを使う",
 	itext 4 "> :run printArgs hello world",
 	itext 4 "[\"hello\",\"world\"]"
+	]
+
+hGetSetBuffering1 :: Page
+hGetSetBuffering1 = pageTitle "バッファリング" :| [
+	text "バッファリングというものがある",
+	text "バッファリングのモードを変えることで",
+	itext 4 "一文字ずつ入力を行うのか",
+	itext 4 "一行ずつ入力を行うのか、を",
+	itext 2 "変えることができる",
+	text "現在のバッファリングのモードを確認する",
+	itext 4 "> :module System.IO",
+	itext 4 "> hGetBuffering stdin",
+	itext 4 "NoBuffering",
+	text "現在のバッファリングのモードはNoBufferingである",
+	text "つまり、入力は一文字ずつ処理される",
+	itext 4 "> getChar",
+	itext 4 "(cと入力)c'c'"
+	]
+
+hGetSetBuffering2 :: Page
+hGetSetBuffering2 = pageTitle "バッファリング" :| [
+	text "バッファリングのモードを変えるには",
+	itext 4 "関数hSetBufferingを使う",
+	itext 4 "> hSetBuffering stdin LineBuffering",
+	itext 4 "> hGetBuffering stdin",
+	itext 4 "LineBuffering",
+	itext 4 "> getChar",
+	itext 4 "(c123と入力し改行を入力)c'c'",
+	itext 4 "> 123",
+	itext 4 "123",
+	text "改行を入力するまで、文字'c'は読み込まれない",
+	text "一文字読み込んだあとの文字列\"123\"は",
+	itext 4 "対話環境への「つぎの入力」とされる"
 	]
