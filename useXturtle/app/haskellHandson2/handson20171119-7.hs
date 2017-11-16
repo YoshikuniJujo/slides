@@ -10,7 +10,8 @@ main :: IO ()
 main = runLecture version $ titlePage :| [
 	prelude, action1, action2, action3, action4,
 	doNotation1, doNotation2,
-	returnValue1, returnValue2
+	returnValue1, returnValue2, returnValue3,
+	getAbsolute1, getAbsolute2
 	]
 
 titlePage :: Page
@@ -147,5 +148,33 @@ returnValue3 :: Page
 returnValue3 = pageTitle "かえされた値を使う" :| [
 	text "つぎのように「<-」を使うことで",
 	itext 4 "動作からかえされた値を変数に束縛できる",
-	itext 4 "var <- action"
+	itext 4 "var <- action",
+	text "この変数varは、このあとに列挙される動作のなかで",
+	itext 4 "使うことができる"
+	]
+
+getAbsolute1 :: Page
+getAbsolute1 = pageTitle "絶対温度" :| [
+	text "打ち込まれた文字列を数値に変換し",
+	itext 4 "それを摂氏温度として",
+	itext 4 "絶対温度をかえす動作を考える",
+	text "action.hsに、つぎの関数を定義する",
+	itext 4 "getAbsolute = do",
+	itext 4 "        c <- getLine",
+	itext 4 "        return $ read c + 273",
+	text "試してみる",
+	itext 4 "> :reload",
+	itext 4 "> getAbsolute",
+	itext 4 "25",
+	itext 4 "298"
+	]
+
+getAbsolute2 :: Page
+getAbsolute2 = pageTitle "絶対温度" :| [
+	text "動作getAbsoluteの最後の行を再掲する",
+	itext 4 "return $ read c + 273",
+	text "returnという関数が使われている",
+	text "関数returnは「何もせずに」引数の値をかえす動作を作る",
+	text "この動作を最後に置くことで",
+	itext 4 "動作getAbsoluteで、絶対温度の値をかえせる"
 	]
