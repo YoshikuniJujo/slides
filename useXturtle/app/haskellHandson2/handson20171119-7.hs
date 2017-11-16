@@ -9,7 +9,8 @@ version = [0, 1, 0, 0]
 main :: IO ()
 main = runLecture version $ titlePage :| [
 	prelude, action1, action2, action3, action4,
-	doNotation1, doNotation2
+	doNotation1, doNotation2,
+	returnValue1, returnValue2
 	]
 
 titlePage :: Page
@@ -108,4 +109,43 @@ doNotation2 = pageTitle "do記法" :| [
 	itext 8 "インデントは「そろえる」ということだ",
 	text "どうだろうか",
 	text "「ふつうの言語」の書きかたに近くなったと思う"
+	]
+
+returnValue1 :: Page
+returnValue1 = pageTitle "入力" :| [
+	text "関数putStrLnによって作られる動作は「出力」だ",
+	text "動作には「出力」だけでなく「入力」もある",
+	text "たとえば、ユーザの打ち込んだ文字列を取り込みたい",
+	text "そんなときは、「値をかえす動作」を使う",
+	itext 4 "> getLine",
+	itext 4 "(helloと入力する)hello",
+	itext 4 "\"hello\"",
+	text "動作getLineはユーザからの入力を待ち",
+	itext 4 "打ち込まれた文字列を動作からかえる値とする",
+	text "対話環境は式が「値をかえす動作」に評価されたとき",
+	itext 4 "その動作を実行し、さらに",
+	itext 4 "かえされた値を表示する"
+	]
+
+returnValue2 :: Page
+returnValue2 = pageTitle "かえされた値を使う" :| [
+	text "かえされた値を使うことを考えよう",
+	text "名前を入力すると、「Hello, 誰々!」のように",
+	itext 4 "あいさつしてくれる動作をつくる",
+	text "action.hsにつぎの関数を定義する",
+	itext 4 "greeting = do",
+	itext 4 "        name <- getLine",
+	itext 4 "        putStrLn $ \"Hello, \" ++ name ++ \"!\"",
+	text "試してみる",
+	itext 4 "> :reload",
+	itext 4 "> greeting",
+	itext 4 "(自分の名前を入力)Yoshikuni",
+	itext 4 "Hello, Yoshikuni!"
+	]
+
+returnValue3 :: Page
+returnValue3 = pageTitle "かえされた値を使う" :| [
+	text "つぎのように「<-」を使うことで",
+	itext 4 "動作からかえされた値を変数に束縛できる",
+	itext 4 "var <- action"
 	]
