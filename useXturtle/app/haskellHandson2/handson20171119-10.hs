@@ -10,7 +10,8 @@ main :: IO ()
 main = runLecture version $ titlePage :| [
 	specification1, specification2, module1,
 	structure1, structure2, structure3, structure4,
-	toField1
+	moduleField1, widthHeight1, toField1, sampleField1, sampleToField1,
+	showField1, showField2, showField3, showField4
 	]
 
 titlePage :: Page
@@ -116,6 +117,51 @@ structure4 = pageTitle "迷路をあらわすデータ構造" :| [
 	(>>) <$> backLine <*> itext 6 "([False, True], [False, False, True]),",
 	itext 6 "([True, True], [False, False, True]),",
 	itext 6 "([True, True], [True, False, False]) ] )"
+	]
+
+moduleField1 :: Page
+moduleField1 = pageTitle "モジュールField" :| [
+	text "ファイルField.hsを、つぎのように作成する",
+	itext 4 "module Field where",
+	itext 4 "",
+	itext 4 "import Data.Bool",
+	itext 4 "import System.Random",
+	itext 4 "",
+	text "モジュール宣言と必要なモジュールの導入"
+	]
+
+widthHeight1 :: Page
+widthHeight1 = pageTitle "幅と高さ" :| [
+	text "フィールドの幅と高さを定義する",
+	itext 4 "width = 40",
+	itext 4 "height = 20",
+	text "これをファイルField.hsに定義しておこう"
+	]
+
+toField1 :: Page
+toField1 = pageTitle "関数toField" :| [
+	text "リストのリストを「現在位置を含むデータ構造」に変換",
+	text "はじめの「現在位置」は左上とする",
+	text "ファイルField.hsに関数toFieldを定義する",
+	itext 4 "toField ls = ([], map (\\l -> ([], l)) ls)",
+	text "現在位置が左上なので",
+	itext 4 "すべての行で左側は空リストになる",
+	itext 4 "また、上にある行はないので、やはり空リスト"
+	]
+
+sampleField1 :: Page
+sampleField1 = pageTitle "サンプルのフィールド" :| [
+	text "試しながら定義するためのサンプルのフィールドを用意",
+	itext 4 "sample = [",
+	itext 4 "        [False, False, False, True, True],",
+	itext 4 "        [True, False, False, False, True],",
+	itext 4 "        [True, True, False, False, True],",
+	itext 4 "        [True, True, True, False, False] ]",
+	text "これは、つぎのようなフィールドをあらわす",
+	itext 4 "   **",
+	itext 4 "*   *",
+	itext 4 "**  *",
+	itext 4 "***  "
 	{-
 	(>>) <$> backLine <*> itext 8 "[False, False, False, True, True],",
 	itext 8 "[True, False, False, False, True],",
@@ -124,13 +170,66 @@ structure4 = pageTitle "迷路をあらわすデータ構造" :| [
 	-}
 	]
 
-toField1 :: Page
-toField1 = pageTitle "関数toField" :| [
-	text "リストのリストを「現在位置を含むデータ構造」に変換する",
-	text "はじめの「現在位置」は左上とする",
-	text "ファイルField.hsを、つぎのように作成する",
-	itext 4 "module Field where",
-	itext 4 "",
-	itext 4 "toField ls = ([], map (\\l -> ([], l)) ls)",
-	text "(ここに説明を追加するところから)"
+sampleToField1 :: Page
+sampleToField1 = pageTitle "サンプルのフィールド" :| [
+	text "関数toFieldでサンプルのフィールドを",
+	itext 4 "「現在地情報つきのフィールド」に変換する",
+	itext 4 "> :load Field.hs",
+	itext 4 "> toField sample",
+	itext 4 "([],[([],[False,False,False,True,True]),..."
+	]
+
+showField1 :: Page
+showField1 = pageTitle "フィールドを表示する" :| [
+	text "フィールドを表示するために文字列化する",
+	text "一行の左側を表示する関数showLを定義する",
+	itext 4 "showL = map (bool ' ' '*') . reverse",
+	text "左側は要素が逆順になっているので",
+	itext 4 "関数reverseでもとにもどす",
+	text "そのうえで、すべての要素について",
+	itext 4 "関数boolでFalseなら' '、Trueなら'*'とする",
+	text "右側を表示する関数showRは関数reverseを使わないだけ",
+	itext 4 "showR = map (bool ' ' '*')",
+	text "関数showLとshowRの定義を書き込もう"
+	]
+
+showField2 :: Page
+showField2 = pageTitle "フィールドを表示する" :| [
+	text "関数showLとshowRを使って",
+	itext 4 "一行を文字列化する関数showLineを定義する",
+	itext 4 "showLine (l, r) = showL l ++ showR r",
+	text "これらを使ってフィールドを表示する関数showFieldを定義",
+	itext 4 "showField (t, (l, _ : r) : b) = unlines $",
+	itext 4 "        map showLine (reverse t) ++",
+	itext 4 "        [showL l ++ \"A\" ++ showR r] ++",
+	itext 4 "        map showLine b ++",
+	itext 4 "        [replicate (width - 2) ' ' ++ \"GOAL\"]",
+	text "tは上の行、lは左側、rは右側で、bは下の行",
+	text "最後に「GOAL」の表示を追加した"
+	]
+
+showField3 :: Page
+showField3 = pageTitle "フィールドを表示する" :| [
+	text "サンプルのフィールドを表示してみよう",
+	itext 4 "> :reload",
+	itext 4 "> putStr . showField $ toField sample",
+	itext 4 "A  **",
+	itext 4 "*   *",
+	itext 4 "**  *",
+	itext 4 "***  ",
+	itext 4 "                                      GOAL"
+	]
+
+showField4 :: Page
+showField4 = pageTitle "フィールドを表示する" :| [
+	text "フィールドを表示する関数putFieldを定義する",
+	itext 4 "putField = putStr . showField",
+	text "試してみる",
+	itext 4 "> :reload",
+	itext 4 "> putField $ toField sample",
+	itext 4 "A  **",
+	itext 4 "*   *",
+	itext 4 "**  *",
+	itext 4 "***  ",
+	itext 4 "                                      GOAL"
 	]
