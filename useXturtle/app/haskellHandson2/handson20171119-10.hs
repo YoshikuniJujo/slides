@@ -12,7 +12,8 @@ main = runLecture version $ titlePage :| [
 	structure1, structure2, structure3, structure4,
 	moduleField1, widthHeight1, toField1, sampleField1, sampleToField1,
 	showField1, showField2, showField3, showField4,
-	downf1, downf2, upf1, upf2, mapTuple1, rightf1, rightf2, leftf1, leftf2
+	downf1, downf2, upf1, upf2, mapTuple1, rightf1, rightf2, leftf1, leftf2,
+	moveCheck1, moveCheck2
 	]
 
 titlePage :: Page
@@ -294,7 +295,7 @@ mapTuple1 = pageTitle "タプルの2要素に、おなじ変換を" :| [
 	itext 0 "mapTuple f (x, y) = (f x, f y)",
 	itext (- 2) "試してみる",
 	itext 0 "> :reload",
-	itext 0 "> mapTuple $ map (\\x -> x * 2) ([1, 2, 3], [10, 20])",
+	itext 0 "> mapTuple (map (\\x -> x * 2)) ([1, 2, 3], [10, 20])",
 	itext 0 "([2,4,6],[20,40])",
 	itext (- 2) "関数mapTupleとmapとを組み合わせて",
 	itext 0 "ふたつのリストの全要素に、おなじ変換をしている"
@@ -345,4 +346,34 @@ leftf2 = pageTitle "左方向への移動" :| [
 	itext 4 "*   *",
 	itext 4 "**  *",
 	itext 4 "***  "
+	]
+
+moveCheck1 :: Page
+moveCheck1 = pageTitle "壁はすりぬけない" :| [
+	text "それぞれの移動の「壁をすりぬけないバージョン」を定義",
+	itext 4 "[up, down, left, right] =",
+	itext 4 "        map check [upf, downf, leftf, rightf]",
+	itext 4 "        where check m f = case m f of",
+	itext 4 "                (_, (_, True : _) : _) -> f",
+	itext 4 "                f' -> f'",
+	text "関数checkは移動さきが「壁」であったときに",
+	itext 4 "移動しないようにする関数",
+	text "リストリテラルパターンを使って一気に定義している"
+	]
+
+moveCheck2 :: Page
+moveCheck2 = pageTitle "壁はすりぬけない" :| [
+	text "試してみる",
+	itext 4 "> :reload",
+	itext 4 "> f = toField sample",
+	itext 4 "> putField $ down f",
+	itext 4 "A  **",
+	itext 4 "*   *",
+	itext 4 "...",
+	itext 4 "> putField $ right f",
+	itext 4 " A **",
+	itext 4 "*   *",
+	itext 4 "...",
+	text "下方向への移動は「壁」なので、できない",
+	text "右方向への移動は「通路」なので、できる"
 	]

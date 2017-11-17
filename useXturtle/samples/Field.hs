@@ -32,3 +32,19 @@ downf (as, h : bs) = (h : as, bs)
 
 upf ([], hbs) = ([], hbs)
 upf (a : as, hbs) = (as, a : hbs)
+
+mapTuple f (x, y) = (f x, f y)
+
+rightf = mapTuple . map $ \lhr -> case lhr of
+	(_, [_]) -> lhr
+	(ls, h : rs) -> (h : ls, rs)
+
+leftf = mapTuple . map $ \lhr -> case lhr of
+	([], _) -> lhr
+	(l : ls, hrs) -> (ls, l : hrs)
+
+[up, down, left, right] =
+	map check [upf, downf, leftf, rightf]
+	where check m f = case m f of
+		(_, (_, True : _) : _) -> f
+		f' -> f'
