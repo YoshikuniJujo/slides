@@ -8,7 +8,8 @@ version = [0, 1, 0, 0]
 
 main :: IO ()
 main = runLecture version $ titlePage :| [
-	greeting, selfIntroduction, {- kinkyou, -} nerai,
+	greeting, selfIntroduction, {- kinkyou, -} prelude,
+	nerai,
 	dekinai, dekinai1_1, dekinai1_2, dekinai1_3,
 	dekinai2, dekinai3, dekinai4,
 	zentei, kousei, binding
@@ -57,6 +58,21 @@ kinkyou = pageTitle "近況" :| [
 	itext (- 2) "豆の挽きかた(細かくか、荒くか)など、いろいろ試している"
 	]
 	-}
+
+prelude :: Page
+prelude = pageTitle "はじめに" :| [
+	text "スライドの内容はすべてQiitaで共有しています",
+	text "コードのコピーや、復習などにお使いください",
+	text "つぎのURLでアクセスできます",
+	itext 4 "https://goo.gl/15H8T2",
+	itext 8 "(いち、ご、えいち、はち、てぃー、に)",
+	text "Qiitaで「Haskell入門ハンズオン」で検索して",
+	itext 2 "「『Haskell入門ハンズオン #2』の当日用資料(1)」を",
+	itext 2 "探していただいてもいいかと思います",
+	text "アクセスできましたでしょうか",
+	text "もうすこし待ちます",
+	text "いかがでしょうか?"
+	]
 
 nerai :: Page
 nerai = pageTitle "今日のねらい" :| [
