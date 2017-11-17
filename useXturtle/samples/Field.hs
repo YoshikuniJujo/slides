@@ -26,3 +26,9 @@ showField (t, (l, _ : r) : b) = unlines $
 	[replicate (width - 2) ' ' ++ "GOAL"]
 
 putField = putStr . showField
+
+downf (as, [h]) = (as, [h])
+downf (as, h : bs) = (h : as, bs)
+
+upf ([], hbs) = ([], hbs)
+upf (a : as, hbs) = (as, a : hbs)

@@ -11,7 +11,8 @@ main = runLecture version $ titlePage :| [
 	specification1, specification2, module1,
 	structure1, structure2, structure3, structure4,
 	moduleField1, widthHeight1, toField1, sampleField1, sampleToField1,
-	showField1, showField2, showField3, showField4
+	showField1, showField2, showField3, showField4,
+	downf1, downf2, upf1, upf2
 	]
 
 titlePage :: Page
@@ -232,4 +233,56 @@ showField4 = pageTitle "フィールドを表示する" :| [
 	itext 4 "**  *",
 	itext 4 "***  ",
 	itext 4 "                                      GOAL"
+	]
+
+downf1 :: Page
+downf1 = pageTitle "下方向に移動" :| [
+	text "下方向に移動する関数downfを定義する",
+	text "これは「壁か通路か」を判定せずに",
+	itext 4 "壁であっても移動する関数だ",
+	itext 4 "downf (as, [h]) = (as, [h])",
+	itext 4 "downf (as, h : bs) = (h : as, bs)",
+	text "hが「現在いる行」である",
+	text "「現在いる行」を「上の行」とすることで",
+	itext 4 "下方向に移動を実現することができる",
+	text "下の行がないときは、そのまま変化させない"
+	]
+
+downf2 :: Page
+downf2 = pageTitle "下方向に移動" :| [
+	text "対話環境で試してみよう",
+	itext 4 "> putField . downf $ toField sample",
+	itext 4 "   **",
+	itext 4 "A   *",
+	itext 4 "**  *",
+	itext 4 "***  ",
+	text "キャラクター(A)が下に移動した(壁をすりぬけている)",
+	text "GOALの表示は、ここでは省略する"
+	]
+
+upf1 :: Page
+upf1 = pageTitle "上方向に移動" :| [
+	text "上方向への移動関数を定義する",
+	text "こちらも壁をすりぬける",
+	itext 4 "upf ([], hbs) = ([], hbs)",
+	itext 4 "upf (a : as, hbs) = (as, a : hbs)",
+	text "下方向への移動と、だいたいおなじだ",
+	text "上の行(a)を現在の行にしている"
+	]
+
+upf2 :: Page
+upf2 = pageTitle "上方向に移動" :| [
+	text "対話環境で試してみよう",
+	itext 4 "> :reload",
+	itext 4 "> f = downf . downf $ toField sample",
+	itext 4 "> putField f",
+	itext 4 "   **",
+	itext 4 "*   *",
+	itext 4 "A*  *",
+	itext 4 "***  ",
+	itext 4 "> putField $ upf f",
+	itext 4 "   **",
+	itext 4 "A   *",
+	itext 4 "**  *",
+	itext 4 "***  "
 	]
