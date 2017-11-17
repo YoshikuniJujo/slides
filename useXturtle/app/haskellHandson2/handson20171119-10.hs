@@ -12,7 +12,7 @@ main = runLecture version $ titlePage :| [
 	structure1, structure2, structure3, structure4,
 	moduleField1, widthHeight1, toField1, sampleField1, sampleToField1,
 	showField1, showField2, showField3, showField4,
-	downf1, downf2, upf1, upf2
+	downf1, downf2, upf1, upf2, mapTuple1, rightf1, rightf2, leftf1, leftf2
 	]
 
 titlePage :: Page
@@ -283,6 +283,66 @@ upf2 = pageTitle "上方向に移動" :| [
 	itext 4 "> putField $ upf f",
 	itext 4 "   **",
 	itext 4 "A   *",
+	itext 4 "**  *",
+	itext 4 "***  "
+	]
+
+mapTuple1 :: Page
+mapTuple1 = pageTitle "タプルの2要素に、おなじ変換を" :| [
+	itext (- 2) "左右方向への移動を実装するまえに",
+	itext 0 "タプルの2要素に、おなじ変換をする関数を定義",
+	itext 0 "mapTuple f (x, y) = (f x, f y)",
+	itext (- 2) "試してみる",
+	itext 0 "> :reload",
+	itext 0 "> mapTuple $ map (\\x -> x * 2) ([1, 2, 3], [10, 20])",
+	itext 0 "([2,4,6],[20,40])",
+	itext (- 2) "関数mapTupleとmapとを組み合わせて",
+	itext 0 "ふたつのリストの全要素に、おなじ変換をしている"
+	]
+
+rightf1 :: Page
+rightf1 = pageTitle "右方向への移動" :| [
+	text "右方向への移動関数rightfを定義する",
+	itext 4 "rightf = mapTuple . map $ \\lhr -> case lhr of",
+	itext 4 "        (_, [_]) -> lhr",
+	itext 4 "        (ls, h : rs) -> (h : ls, rs)",
+	text "「リストのタプル」の全要素に",
+	itext 4 "「\\lhr ->」以下の変換を適用している",
+	text "「変換」は現在のマスを左に動かしている"
+	]
+
+rightf2 :: Page
+rightf2 = pageTitle "右方向への移動" :| [
+	text "試してみる",
+	itext 4 "> :reload",
+	itext 4 "> putField . rightf $ toField sample",
+	itext 4 " A **",
+	itext 4 "*   *",
+	itext 4 "**  *",
+	itext 4 "***  "
+	]
+
+leftf1 :: Page
+leftf1 = pageTitle "左方向への移動" :| [
+	text "左方向への移動関数leftfを定義する",
+	itext 4 "leftf = mapTuple . map $ \\lhr -> case lhr of",
+	itext 4 "        ([], _) -> lhr",
+	itext 4 "        (l : ls, hrs) -> (ls, l : hrs)"
+	]
+
+leftf2 :: Page
+leftf2 = pageTitle "左方向への移動" :| [
+	text "試してみる",
+	itext 4 "> :reload",
+	itext 4 "> f = rightf . rightf . rightf $ toField sample",
+	itext 4 "> putField f",
+	itext 4 "   A*",
+	itext 4 "*   *",
+	itext 4 "**  *",
+	itext 4 "***  ",
+	itext 4 "> putField $ leftf f",
+	itext 4 "  A**",
+	itext 4 "*   *",
 	itext 4 "**  *",
 	itext 4 "***  "
 	]
