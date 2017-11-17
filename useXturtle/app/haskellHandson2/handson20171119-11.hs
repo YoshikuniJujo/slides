@@ -13,7 +13,7 @@ main = runLecture version $ titlePage :| [
 	]
 
 titlePage :: Page
-titlePage = writeTitle "Haskell入門ハンズオン! #2" "10. 迷路ゲーム(1)" :| []
+titlePage = writeTitle "Haskell入門ハンズオン! #2" "11. 迷路ゲーム(2)" :| []
 
 prelude :: Page
 prelude = pageTitle "はじめに" :| [

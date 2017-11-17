@@ -172,7 +172,7 @@ listRec7 = pageTitle "リストに対する再帰関数" :| [
 	text "関数oddとboolとを組み合わせる",
 	itext 4 "> bool \"It isn't odd.\" \"It's odd!\" (odd 8)",
 	itext 4 "\"It isn't odd.\"",
-	itext 4 "> bool \"It isn't odd.\" \"It's odd!\" (even 13)",
+	itext 4 "> bool \"It isn't odd.\" \"It's odd!\" (odd 13)",
 	itext 4 "\"It's odd!\""
 	]
 
