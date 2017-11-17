@@ -13,7 +13,8 @@ main = runLecture version $ titlePage :| [
 	moduleField1, widthHeight1, toField1, sampleField1, sampleToField1,
 	showField1, showField2, showField3, showField4,
 	downf1, downf2, upf1, upf2, mapTuple1, rightf1, rightf2, leftf1, leftf2,
-	moveCheck1, moveCheck2
+	moveCheck1, moveCheck2,
+	randomField1, randomField2, randomField3, goal1, goal2
 	]
 
 titlePage :: Page
@@ -376,4 +377,66 @@ moveCheck2 = pageTitle "壁はすりぬけない" :| [
 	itext 4 "...",
 	text "下方向への移動は「壁」なので、できない",
 	text "右方向への移動は「通路」なので、できる"
+	]
+
+randomField1 :: Page
+randomField1 = pageTitle "ランダムなフィールド" :| [
+	text "ランダム関数を使ってフィールドを作る",
+	text "つぎのような手順とする",
+	itext 4 "ランダムなブール値の無限リストをつくる",
+	itext 4 "先頭に4つのFalseを追加する",
+	itext 8 "(スタート地点から水平に4つを通路とする)",
+	itext 4 "width個ずつにわけて、リストのリストにする",
+	itext 4 "先頭のheight個だけ取り出す"
+	]
+
+randomField2 :: Page
+randomField2 = pageTitle "フィールドを生成" :| [
+	text "リストをn個ずつにわける関数divideを定義",
+	itext 4 "divide _ [] = []",
+	itext 4 "divide n xs = take n xs : divide n (drop n xs)",
+	text "試してみる",
+	itext 4 "> :reload",
+	itext 4 "> divide 3 [1, 2, 3, 4, 5, 6, 7]",
+	itext 4 "[[1,2,3],[4,6,5],[7]]"
+	]
+
+randomField3 :: Page
+randomField3 = pageTitle "フィールドを生成" :| [
+	text "整数値を引数としてフィールドを生成する関数field",
+	itext 4 "field = toField . take height . divide width",
+	itext 4 "        . (\\bs -> replicate 4 False ++ bs)",
+	itext 4 "        . randoms . mkStdGen",
+	text "試してみる",
+	itext 4 "> :reload",
+	itext 4 "> putField $ field 8",
+	itext 4 "(フィールドが表示される)"
+	]
+
+goal1 :: Page
+goal1 = pageTitle "ゴールを判定" :| [
+	text "右下がゴールなので",
+	itext 4 "ゴールを判定する関数goalは、つぎのようになる",
+	itext 4 "goal (_, [(_, [_])]) = True",
+	itext 4 "goal _ = False",
+	text "下に行がなく、右にマスがない状態だ",
+	text "試してみる",
+	itext 4 "> :{",
+	itext 4 "| f = rightf . rightf . rightf . rightf",
+	itext 4 "|    . downf . downf . downf $ toField sample",
+	itext 4 "> :}",
+	itext 4 "(続く)"
+	]
+
+goal2 :: Page
+goal2 = pageTitle "ゴールを判定" :| [
+	itext 4 "> putField f",
+	itext 4 "   **",
+	itext 4 "*   *",
+	itext 4 "**  *",
+	itext 4 "*** A",
+	itext 4 "> goal f",
+	itext 4 "True",
+	itext 4 "> goal $ upf f",
+	itext 4 "False"
 	]

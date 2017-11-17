@@ -48,3 +48,13 @@ leftf = mapTuple . map $ \lhr -> case lhr of
 	where check m f = case m f of
 		(_, (_, True : _) : _) -> f
 		f' -> f'
+
+divide _ [] = []
+divide n xs = take n xs : divide n (drop n xs)
+
+field = toField . take height . divide width
+	. (\bs -> replicate 4 False ++ bs)
+	. randoms . mkStdGen
+
+goal (_, [(_, [_])]) = True
+goal _ = False
