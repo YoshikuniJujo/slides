@@ -26,8 +26,8 @@ library:
   source-dirs: src
 
 executables:
-  haskellNyumonHandson3-exe:
-    main:                Main.hs
+  haskellNyumonHandson3:
+    main:                haskellNyumonHandson3.hs
     source-dirs:         app
     ghc-options:
     - -threaded
