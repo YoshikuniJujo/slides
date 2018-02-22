@@ -39,7 +39,7 @@ packages:
 - .
 - location:
     git: https://github.com/YoshikuniJujo/xturtle-slide.git
-    commit: 6c77c05cd6287b4d9a3d0061c3f236f997afc179
+    commit: 22d67ef25ce7fc3c9b61dff47f7094a135f6d307
   extra-dep: true
 # Dependency packages to be pulled from upstream that are not in the resolver
 # (e.g., acme-missiles-0.3)
