@@ -58,9 +58,19 @@ expr = (term >@> op >@> term) `build` \((x, o), y) -> x `o` y
 term :: Parse Integer
 term = number `alt` (char '(' @> expr >@ char ')')
 
+doWhile :: IO Bool -> IO ()
+doWhile act = do
+	c <- act
+	if c then act >> doWhile act else return ()
+
 main :: IO ()
 main = do
 	hSetBuffering stdin NoBuffering
-	putStr "> "
-	ex <- getLine
-	print . fst . head $ expr ex
+	doWhile $ do
+		putStr "> "
+		ex <- getLine
+		case ex of
+			"quit" -> return False
+			_ -> case (expr >@ eof) ex of
+				[] -> return True
+				(n, _) : _ -> print n >> return True
