@@ -38,6 +38,78 @@ executables:
     - haskellNyumonHandson3
     - xturtle-slide
 
+  haskellNyumonHandson3_1:
+    main:                haskellNyumonHandson3_1.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    - -fno-warn-tabs
+    dependencies:
+    - haskellNyumonHandson3
+    - xturtle-slide
+
+  haskellNyumonHandson3_2:
+    main:                haskellNyumonHandson3_2.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    - -fno-warn-tabs
+    dependencies:
+    - haskellNyumonHandson3
+    - xturtle-slide
+
+  haskellNyumonHandson3_3:
+    main:                haskellNyumonHandson3_3.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    - -fno-warn-tabs
+    dependencies:
+    - haskellNyumonHandson3
+    - xturtle-slide
+
+  haskellNyumonHandson3_4:
+    main:                haskellNyumonHandson3_4.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    - -fno-warn-tabs
+    dependencies:
+    - haskellNyumonHandson3
+    - xturtle-slide
+
+  haskellNyumonHandson3_5:
+    main:                haskellNyumonHandson3_5.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    - -fno-warn-tabs
+    dependencies:
+    - haskellNyumonHandson3
+    - xturtle-slide
+
+  haskellNyumonHandson3_6:
+    main:                haskellNyumonHandson3_6.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    - -fno-warn-tabs
+    dependencies:
+    - haskellNyumonHandson3
+    - xturtle-slide
+
 tests:
   haskellNyumonHandson3-test:
     main:                Spec.hs
