@@ -19,5 +19,8 @@ title = writeTitle "Haskell入門ハンズオン! #3" "0. はじめに" :| []
 
 prelude :: Page
 prelude = pageTitle "自己紹介" :| [
-	text "おあつまりいただき、ありがとうございます"
+	text "おあつまりいただき、ありがとうございます",
+	writeImage 0.3 0.25 170 210 "images/cover.png",
+	text "「Haskell - 教養としての関数型プログラミング」の",
+	itext 20 "著者です"
 	]
