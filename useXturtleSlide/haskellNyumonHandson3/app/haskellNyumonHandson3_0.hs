@@ -50,7 +50,7 @@ vimperator = pageTitle "Vimperator" :| [
 	text "ところで、Firefoxに新しいバージョンが出たらしい",
 	text "Firefoxの最新バージョンである58(Quantum)の評判は上々",
 	text "Firefox派としては、うれしいかぎり",
-	text "と、思っていたのだが、Add-onsのVimperatorのページにて",
+	text "と、思っていたのだが、Add-onsのVimperatorのページで",
 	nextLine
 		>> itext 4 "_人人人人人人人人人人人人人人人人人人人_"
 		>> nextLine
