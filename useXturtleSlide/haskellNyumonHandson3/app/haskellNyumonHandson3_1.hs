@@ -13,6 +13,7 @@ someSlide :: Slide
 someSlide = title :| [
 	prelude, refactoring, giveup, killerApp, killerApp2, environment,
 	repl1, repl2, repl3, repl4, repl5, defFile1, defFile2, defFile3,
+	type1, type2, type3, type4,
 	aboutIO1, aboutIO2, aboutIO3, aboutIO4
 	]
 
@@ -174,7 +175,7 @@ defFile1 = pageTitle "定義ファイル" :| [
 defFile2 :: Page
 defFile2 = pageTitle "定義ファイル" :| [
 	text "試してみよう",
-	itext 4 "Main> area 3",
+	itext 4 "*Main> area 3",
 	itext 4 "28.274333882308138",
 	text "読み込めたようだ",
 	text "ここで、対話環境は立ち上げたままとして",
@@ -182,8 +183,8 @@ defFile2 = pageTitle "定義ファイル" :| [
 	itext 4 "% vim circle.hs",
 	itext 4 "circumf r = r * 2 * pi",
 	text "対話環境に、コマンド:reloadを打ち込む",
-	itext 4 "Main> :reload",
-	itext 4 "Main> circumf 3",
+	itext 4 "*Main> :reload",
+	itext 4 "*Main> circumf 3",
 	itext 4 "18.84955592153876"
 	]
 
@@ -193,6 +194,64 @@ defFile3 = pageTitle "定義ファイル" :| [
 	itext 4 "ターミナルを2つに分割して",
 	itext 4 "Vimと対話環境を開きっぱなしにして",
 	itext 4 "ファイルを変更するたびに:reloadしながら"
+	]
+
+type1 :: Page
+type1 = pageTitle "型" :| [
+	text "値には型がある",
+	text "対話環境で型をみてみよう",
+	itext 4 "*Main> :type 'c'",
+	itext 4 "'c' :: Char",
+	text "文字'c'はChar型の値だ",
+	itext 4 "*Main> :type True",
+	itext 4 "True :: Bool",
+	text "真(本当)であることをあらわす値TrueはBool型の値だ"
+	]
+
+type2 :: Page
+type2 = pageTitle "関数の型" :| [
+	text "関数にも型がある",
+	text "関数の型は、引数の型と返り値の型とで決まる",
+	text "例として、文字を大文字にする関数と",
+	itext 4 "文字が大文字であることを確認する関数をみる",
+	text "まずは、それぞれを使ってみる",
+	itext 4 "*Main> :module Data.Char",
+	itext 4 "Prelude Data.Char> toUpper 'c'",
+	itext 4 "'C'",
+	itext 4 "Prelude Data.Char> isUpper 'c'",
+	itext 4 "False",
+	text "関数toUpper, isUpperは",
+	itext 4 "モジュールData.Charから公開されている",
+	text "対話環境では、コマンド:moduleでモジュールを導入する"
+	]
+
+type3 :: Page
+type3 = pageTitle "関数の型" :| [
+	text "関数toUpperは引数も返り値もChar型の値であり",
+	itext 4 "関数isUpperは引数がChar型で、返り値はBool型の値",
+	text "それぞれの型をみてみよう",
+	itext 4 "Prelude Data.Char> :type toUpper",
+	itext 4 "toUpper :: Char -> Char",
+	itext 4 "Prelude Data.Char> :type isUpper",
+	itext 4 "isUpper :: Char -> Bool",
+	text "関数の型は、引数の型と返り値の型とを'->'でつなぐ"
+	]
+
+type4 :: Page
+type4 = pageTitle "型宣言" :| [
+	text "Haskellでは(たいてい)型は自動的に決まる",
+	text "しかし、型を明示するのは良い習慣だ",
+	text "ファイルcircle.hsを編集しよう",
+	itext 4 "% vim circle.hs",
+	itext 4 "area :: Double -> Double",
+	itext 4 "area r = r ^ 2 * pi",
+	itext 4 "",
+	itext 4 "circumf :: Double -> Double",
+	itext 4 "circumf r = r * 2 * pi",
+	text "対話環境に読み込んで試してみよう",
+	itext 4 "Prelude Data.Char> :load circle.hs",
+	itext 4 "*Main> area 3",
+	itext 4 "28.274333882308138"
 	]
 
 aboutIO1 :: Page
@@ -212,19 +271,19 @@ aboutIO2 :: Page
 aboutIO2 = pageTitle "入出力は値だ" :| [
 	text "リストという構造がある",
 	text "たとえば数のリストの総和をもとめられる",
-	itext 2 "Main> sum [3, 4, 5]",
+	itext 2 "*Main> sum [3, 4, 5]",
 	itext 2 "12",
 	text "入出力も値なのでリストの要素にすることができる",
-	itext 2 "Main> hello = [putStrLn \"hello\", putStrLn \"world\"]",
+	itext 2 "*Main> hello = [putStrLn \"hello\", putStrLn \"world\"]",
 	text "リストに含まれる入出力を組み立てることもできる",
-	itext 2 "Main> sequence_ hello",
+	itext 2 "*Main> sequence_ hello",
 	itext 2 "hello",
 	itext 2 "world" ]
 
 aboutIO3 :: Page
 aboutIO3 = pageTitle "入出力は値だ" :| [
 	text "逆順にして組み立てることもできる",
-	itext 4 "Main> sequence_ (reverse hello)",
+	itext 4 "*Main> sequence_ (reverse hello)",
 	itext 4 "world",
 	itext 4 "hello",
 	text "対話環境は評価した結果の値が入出力だったとき",
