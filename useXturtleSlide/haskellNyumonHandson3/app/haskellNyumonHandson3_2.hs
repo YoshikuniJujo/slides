@@ -14,7 +14,11 @@ someSlide = title :| [
 	prelude, combinator, importModules,
 	typeParse1, typeParse2, typeParse3, typeParse4,
 	funSucceed1, funSucceed2, funCheck1, funCheck2, funCheck3,
-	funChar1, funChar2
+	funChar1, funChar2,
+	funAlt1, funAlt2, funAlt3, funAlt4,
+	funBuild1, funBuild2,
+	funBind1, funBind2, funBind3, funBind4, funBind5,
+	funEof1, funEof2, summary
 	]
 
 title :: Page
@@ -211,4 +215,183 @@ funChar2 = pageTitle "指定した1文字を読み込むパーサ" :| [
 	itext 4 "パースは成功し、文字'a'が消費され",
 	itext 4 "文字'a'が結果となる",
 	text "そうでなければ、パースは失敗する"
+	]
+
+funAlt1 :: Page
+funAlt1 = pageTitle "ふたつのパーサのうち、どちらか" :| [
+	text "ふたつのパーサのうちの",
+	itext 4 "どちらかで解析するパーサを作る",
+	text "パーサは「リストを返す関数」なので",
+	itext 4 "返されたリストを結合すればいい",
+	itext 4 "% vim calc.hs",
+	itext 4 "alt :: Parse a -> Parse a -> Parse a",
+	itext 4 "(p1 `alt` p2) inp = p1 inp ++ p2 inp",
+	text "演算子(++)はリストを結合する",
+	text "パーサの失敗を空リストとしたので",
+	itext 4 "パーサp1が失敗したとき",
+	itext 4 "パーサp2の結果が全体の結果になる",
+	text "逆も成り立つ"
+	]
+
+funAlt2 :: Page
+funAlt2 = pageTitle "ふたつのパーサのうち、どちらか" :| [
+	text "まえに演算子は()でかこむと、関数になると説明した",
+	itext 4 "*Main> 3 + 5",
+	itext 4 "8",
+	itext 4 "*Main> (+) 3 5",
+	itext 4 "8",
+	text "逆に2引数関数は``(バッククォート)でかこむと",
+	itext 4 "演算子になる",
+	itext 4 "*Main> mod 8 3",
+	itext 4 "2",
+	itext 4 "*Main> 8 `mod` 3",
+	itext 4 "2"
+	]
+
+funAlt3 :: Page
+funAlt3 = pageTitle "ふたつのパーサのうち、どちらか" :| [
+	text "関数altの定義を再掲する",
+	itext 4 "(p1 `alt` p2) inp = p1 inp ++ p2 inp",
+	text "「``(バッククォート)で演算子になる」これは",
+	itext 4 "関数を使うときだけでなく",
+	itext 4 "関数を定義するときにも同様だ",
+	text "つまり、うえの定義は、つぎとおなじことだ",
+	itext 4 "alt p1 p2 inp = p1 inp ++ p2 inp",
+	text "「パーサp1とp2とを足し合わせる感じ」を表現したくて",
+	itext 4 "定義にも演算子の構文を使った"
+	]
+
+funAlt4 :: Page
+funAlt4 = pageTitle "ふたつのパーサのうち、どちらか" :| [
+	text "対話環境で試してみよう",
+	itext 4 "*Main> :reload",
+	itext 4 "*Main> (char 'a' `alt` check isDigit) \"123\"",
+	itext 4 "[('1',\"23\")]",
+	itext 4 "*Main> (char 'a' `alt` check isDigit) \"abc\"",
+	itext 4 "[('a',\"bc\")]",
+	text "「文字'a'、または、数字」の",
+	itext 4 "1文字をパースするパーサを作り、使った"
+	]
+
+funBuild1 :: Page
+funBuild1 = pageTitle "パースの結果を加工する" :| [
+	text "パースした結果の値に関数を適用して",
+	itext 4 "別の値に変換する関数",
+	itext 4 "% vim calc.hs",
+	itext 4 "build :: Parse a -> (a -> b) -> Parse b",
+	itext 4 "(p `build` f) inp =",
+	itext 4 "        [ (f x, r) | (x, r) <- p inp ]",
+	text "ここで使っているのは、リスト内包表記だ",
+	text "これは構文糖",
+	text "リストinpの要素のすべてに関数pを適用し",
+	itext 4 "それらの結果をあつめたリストを作る",
+	text "新しいリストの要素すべてに対して",
+	itext 4 "パターン(x, r)を使って、変数x, rを束縛し",
+	itext 4 "式(f x, r)によって新しい値を作る"
+	]
+
+funBuild2 :: Page
+funBuild2 = pageTitle "パースの結果を加工する" :| [
+	text "対話環境で試してみよう",
+	itext 4 "*Main> :reload",
+	itext 4 "*Main> (check isDigit `build` digitToInt) \"123\"",
+	itext 4 "[(1,\"23\")]",
+	text "関数digitToIntは数字の1文字を数値に変換する関数",
+	text "check isDigitだけだと、結果は文字'1'になる",
+	text "それを関数buildを使ってdigitToIntを適用することで",
+	itext 4 "数値の1にしている"
+	]
+
+funBind1 :: Page
+funBind1 = pageTitle "ふたつのパーサをつなげる" :| [
+	text "ふたつのパーサをつなげる演算子",
+	itext 4 "(>@>) :: Parse a -> Parse b -> Parse (a, b)",
+	itext 4 "(p1 >@> p2) inp = [ ((x, y), r') |",
+	itext 4 "        (x, r) <- p1 inp, (y, r') <- p2 r ]",
+	text "ここでもリスト内包表記を使っている",
+	text "パーサp1で解析した結果の残りの文字列rが",
+	itext 4 "パーサp2の引数としてわたされている",
+	text "パーサp1の複数の結果すべてに対して",
+	itext 4 "パーサp2の複数の結果すべてが計算される",
+	text "全体の結果として、それぞれのパースの結果の値x, yが",
+	itext 4 "タプルとして、まとめられて",
+	itext 4 "それにさらに、パーサp2による解析の残りr'を追加"
+	]
+
+funBind2 :: Page
+funBind2 = pageTitle "ふたつのパーサをつなげる" :| [
+	text "対話環境で試す",
+	itext 4 "*Main> :reload",
+	itext 4 "*Main> (char 'a' >@> check isDigit) \"a123\"",
+	itext 4 "[(('a', '1'),\"23\")]",
+	text "文字'a'をパースするパーサと",
+	itext 4 "数字をパースするパーサとをつなげたパーサだ"
+	]
+
+funBind3 :: Page
+funBind3 = pageTitle "ふたつのパーサをつなげる" :| [
+	text "ふたつのパーサをつなげるとき",
+	itext 4 "どちらかのパース結果を捨てたいときがある",
+	text "たとえば「123,456」のような文字列をパースするとき",
+	itext 4 ",(カンマ)はパースの結果には必要ない",
+	text "まえの結果と、うしろの結果について",
+	itext 4 "それぞれを残す(他方を捨てる)、結合用の関数を作る"
+	]
+
+funBind4 :: Page
+funBind4 = pageTitle "ふたつのパーサをつなげる" :| [
+	itext 4 "% vim calc.hs",
+	itext 4 "(>@) :: Parse a -> Parse b -> Parse a",
+	itext 4 "p1 >@ p2 = (p1 >@> p2) `build` fst",
+	itext 4 "",
+	itext 4 "(@>) :: Parse a -> Parse b -> Parse b",
+	itext 4 "p1 @> p2 = (p1 >@> p2) `build` snd",
+	text "関数fstとsndは、それぞれ",
+	itext 4 "タプルの第1要素、第2要素を取り出す関数",
+	text "これを関数buildによって、パースの結果に適用している"
+	]
+
+funBind5 :: Page
+funBind5 = pageTitle "ふたつのパーサをつなげる" :| [
+	text "対話環境で試す",
+	itext 4 "*Main> :reload",
+	itext 4 "*Main> (char 'a' >@ check isDigit) \"a123\"",
+	itext 4 "[('a',\"23\")]",
+	itext 4 "*Main> (char 'a' @> check isDigit) \"a123\"",
+	itext 4 "[('1',\"23\")]",
+	text "それぞれ、まえの値、うしろの値だけ結果として残る"
+	]
+
+funEof1 :: Page
+funEof1 = pageTitle "文字列のおわりを調べる" :| [
+	text "文字列のすべてを解析したことを確認するパーサ",
+	itext 4 "% vim calc.hs",
+	itext 4 "eof :: Parse ()",
+	itext 4 "eof \"\" = [((), \"\")]",
+	itext 4 "eof _ = []",
+	text "型()はユニット型と呼ばれる",
+	text "値()のみを値とする型",
+	text "情報量は0",
+	text "簡単に言うとパーサeofには返す結果がないということ"
+	]
+
+funEof2 :: Page
+funEof2 = pageTitle "文字列のおわりを調べる" :| [
+	text "対話環境で試す",
+	itext 4 "*Main> :reload",
+	itext 4 "*Main> (char 'a' >@ eof) \"a123\"",
+	itext 4 "[]",
+	itext 4 "*Main> (char 'a' >@ eof) \"a\"",
+	itext 4 "[('a', \"\")]",
+	text "解析されていない文字列が残っていれば",
+	itext 4 "パースは失敗する"
+	]
+
+summary :: Page
+summary = pageTitle "まとめ" :| [
+	text "構文解析に使う基本的な道具を定義した",
+	text "以下のパーサやパーサをあつかう関数だ",
+	itext 4 "succeed, check, char",
+	itext 4 "alt, build, (>@>), (>@), (@>)",
+	text "これらを使ってパーサを組み立てていく"
 	]
