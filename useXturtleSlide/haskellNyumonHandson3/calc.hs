@@ -27,3 +27,14 @@ p1 >@ p2 = (p1 >@> p2) `build` fst
 
 (@>) :: Parse a -> Parse b -> Parse b
 p1 @> p2 = (p1 >@> p2) `build` snd
+
+eof :: Parse ()
+eof "" = [((), "")]
+eof _ = []
+
+list, list1 :: Parse a -> Parse [a]
+list p = succeed [] `alt` list1 p
+list1 p = (p >@> list p) `build` uncurry (:)
+
+number :: Parse Integer
+number = list1 (check isDigit) `build` read

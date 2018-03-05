@@ -11,7 +11,8 @@ main = runSlide version someSlide
 
 someSlide :: Slide
 someSlide = title :| [
-	prelude, funList1, funList2, funList3, funList4
+	prelude, funList1, funList2, funList3, funList4,
+	numberList1, numberList2, numberList3
 	]
 
 title :: Page
@@ -73,4 +74,50 @@ funList4 = pageTitle "リストのパーサ" :| [
 	text "関数listで0要素以上のくりかえしが",
 	itext 4 "関数list1で1要素以上のくりかえしが",
 	itext 4 "それぞれ、解析されている"
+	]
+
+numberList1 :: Page
+numberList1 = pageTitle "数の並びの構文解析" :| [
+	text "ここで、例として数の並びの構文解析をしてみる",
+	text "1文字以上の空白文字で区切られた数値の並びを",
+	itext 4 "数値のリストに変換する",
+	text "まずは、ひとつの数値を解析する",
+	itext 4 "% vim calc.hs",
+	itext 4 "number :: Parse Integer",
+	itext 4 "number = list1 (check isDigit) `build` read",
+	text "Haskellでは多倍長整数としてInteger型の値が使える",
+	text "関数readは、ここでは",
+	itext 4 "文字列を数値に変換する関数と考えておく"
+	]
+
+numberList2 :: Page
+numberList2 = pageTitle "数の並びの構文解析" :| [
+	text "対話環境で試してみよう",
+	itext 4 "*Main> :reload",
+	itext 4 "*Main> number \"4492\"",
+	itext 4 "[(4,\"492\"),(44,\"92\"),(449,\"2\"),(4492,\"\")]",
+	itext 4 "*Main> (number >@ eof) \"4492\"",
+	itext 4 "[(4492,\"\")]",
+	text "パーサeofを最後につけると",
+	itext 4 "残りの文字列が空文字列のものだけにしぼられる",
+	text "なので、「残りの文字列」は情報としての価値がない",
+	text "タプルの第1要素だけを取り出したい",
+	text "関数fstが使えると思うが",
+	itext 4 "[(4492,\"\")]では、タプルはリストのなかにある"
+	]
+
+numberList3 :: Page
+numberList3 = pageTitle "関数mapとhead" :| [
+	text "Haskellでは関数mapによって",
+	itext 4 "リストの要素すべてに、関数を適用できる",
+	itext 4 "*Main> map negate [3, 4, 5]",
+	itext 4 "[-3,-4,-5]",
+	text "この関数mapを使うと、つぎのようにできる",
+	itext 4 "*Main> map fst ((number >@ eof) \"4492\"",
+	itext 4 "[4492]",
+	text "ここで、複数の候補のうち",
+	itext 4 "はじめのひとつを取り出すとする",
+	text "リストの先頭を取り出すのに関数headが使える",
+	itext 4 "*Main> head (map fst ((number >@ eof) \"4492\"",
+	itext 4 "4492"
 	]
