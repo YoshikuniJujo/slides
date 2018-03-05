@@ -12,7 +12,8 @@ main = runSlide version someSlide
 someSlide :: Slide
 someSlide = title :| [
 	prelude, funList1, funList2, funList3, funList4,
-	numberList1, numberList2, numberList3, numberList4, numberList5
+	numberList1, numberList2, numberList3, numberList4, numberList5,
+	funParse1, funParse2
 	]
 
 title :: Page
@@ -145,5 +146,27 @@ numberList5 = pageTitle "関数合成" :| [
 	itext (- 1.5) "関数negateを適用したうえで、関数(+ 5)を適用している",
 	itext (- 1.5) "演算子(.)を使うと、つぎのようにできる",
 	itext (- 1.5) "*Main> (listToMaybe . map fst . (number >@ eof)) \"4492\"",
-	itext (- 1.5) "4492"
+	itext (- 1.5) "Just 4492"
+	]
+
+funParse1 :: Page
+funParse1 = pageTitle "関数parse" :| [
+	text "文字列をすべて解析し",
+	itext 4 "結果だけを取り出し、候補のうちの先頭を取り出す",
+	text "そういう処理をまとめた関数を作る",
+	itext 4 "% vim calc.hs",
+	itext 4 "parse :: Parse a -> String -> Maybe a",
+	itext 4 "parse p = listToMaybe . map fst . (p >@ eof)",
+	text "対話環境に打ち込んだ式の",
+	itext 4 "numberのところを引数pに確き換えたかたち",
+	text "Just値やNothing値の型は",
+	itext 4 "Just値が含む型をaとすると、型Maybe aになる"
+	]
+
+funParse2 :: Page
+funParse2 = pageTitle "関数parse" :| [
+	text "対話環境で試してみる",
+	itext 4 "*Main> :reload",
+	itext 4 "*Main> parse number \"4492\"",
+	itext 4 "4492"
 	]
