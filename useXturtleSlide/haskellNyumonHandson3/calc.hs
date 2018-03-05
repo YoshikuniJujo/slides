@@ -38,3 +38,16 @@ list1 p = (p >@> list p) `build` uncurry (:)
 
 number :: Parse Integer
 number = list1 (check isDigit) `build` read
+
+parse :: Parse a -> String -> Maybe a
+parse p = listToMaybe . map fst . (p >@ eof)
+
+spaces1 :: Parse ()
+spaces1 = list1 (check isSpace) `build` const ()
+
+spNumbers :: Parse [Integer]
+spNumbers = list (spaces1 @> number)
+
+numbers :: Parse [Integer]
+numbers = (number >@> spNumbers)
+	`build` uncurry (:)

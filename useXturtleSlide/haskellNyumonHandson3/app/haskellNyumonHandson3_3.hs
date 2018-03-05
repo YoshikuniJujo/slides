@@ -13,7 +13,8 @@ someSlide :: Slide
 someSlide = title :| [
 	prelude, funList1, funList2, funList3, funList4,
 	numberList1, numberList2, numberList3, numberList4, numberList5,
-	funParse1, funParse2
+	funParse1, funParse2,
+	parseNumberList1, parseNumberList2, parseNumberList3, parseNumberList4
 	]
 
 title :: Page
@@ -169,4 +170,50 @@ funParse2 = pageTitle "関数parse" :| [
 	itext 4 "*Main> :reload",
 	itext 4 "*Main> parse number \"4492\"",
 	itext 4 "4492"
+	]
+
+parseNumberList1 :: Page
+parseNumberList1 = pageTitle "区切り用の空白のパース" :| [
+	text "区切り用の空白をパースするパーサ",
+	itext 3 "% vim calc.hs",
+	itext 3 "spaces1 :: Parse ()",
+	itext 3 "spaces1 = list1 (check isSpace) `build` const ()",
+	text "関数isSpaceは空白文字であることを確認する",
+	text "空白文字には意味がないので、const ()で",
+	itext 4 "ユニット値に置き換えている",
+	text "関数constはどんな引数に対しても",
+	itext 4 "おなじ値をかえす関数をつくる関数"
+	]
+
+parseNumberList2 :: Page
+parseNumberList2 = pageTitle "数値のリストのパース" :| [
+	text "「区切り、数値」のくりかえしのパーサ",
+	itext 4 "% vim calc.hs",
+	itext 4 "spNumbers :: Parse [Integer]",
+	itext 4 "spNumbers = list (spaces1 @> number)",
+	text "1文字以上の空白文字(spaces1)に",
+	itext 4 "数値(number)を続けた(@>)もの",
+	text "その全体の0回以上のくりかえし(list)だ"
+	]
+
+parseNumberList3 :: Page
+parseNumberList3 = pageTitle "数値のリストのパース" :| [
+	text "数値のリストのパーサ",
+	itext 4 "% vim calc.hs",
+	itext 4 "numbers :: Parse [Integer]",
+	itext 4 "numbers = (number >@> spNumbers)",
+	itext 4 "        `bind` uncurry (:)",
+	text "パースしたいのは",
+	itext 4 "「区切り、数値、区切り、数値...」ではなく",
+	itext 4 "「数値、区切り、数値、区切り、...」なので",
+	text "はじめに数値(number)を追加した"
+	]
+
+parseNumberList4 :: Page
+parseNumberList4 = pageTitle "数値のリストのパース" :| [
+	text "対話環境で試してみる",
+	itext 4 "*Main> :reload",
+	itext 4 "*Main> parse numbers \"123 456 789\"",
+	itext 4 "Just [123,456,789]",
+	text "ちゃんと解析できている"
 	]
