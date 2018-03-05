@@ -12,7 +12,7 @@ main = runSlide version someSlide
 someSlide :: Slide
 someSlide = title :| [
 	prelude, funList1, funList2, funList3, funList4,
-	numberList1, numberList2, numberList3
+	numberList1, numberList2, numberList3, numberList4, numberList5
 	]
 
 title :: Page
@@ -107,17 +107,43 @@ numberList2 = pageTitle "数の並びの構文解析" :| [
 	]
 
 numberList3 :: Page
-numberList3 = pageTitle "関数mapとhead" :| [
+numberList3 = pageTitle "関数map" :| [
 	text "Haskellでは関数mapによって",
-	itext 4 "リストの要素すべてに、関数を適用できる",
-	itext 4 "*Main> map negate [3, 4, 5]",
-	itext 4 "[-3,-4,-5]",
+	itext 2 "リストの要素すべてに、関数を適用できる",
+	itext 2 "*Main> map negate [3, 4, 5]",
+	itext 2 "[-3,-4,-5]",
 	text "この関数mapを使うと、つぎのようにできる",
-	itext 4 "*Main> map fst ((number >@ eof) \"4492\"",
-	itext 4 "[4492]",
+	itext 2 "*Main> map fst ((number >@ eof) \"4492\"",
+	itext 2 "[4492]"
+	]
+
+numberList4 :: Page
+numberList4 = pageTitle "関数listToMaybe" :| [
 	text "ここで、複数の候補のうち",
-	itext 4 "はじめのひとつを取り出すとする",
-	text "リストの先頭を取り出すのに関数headが使える",
-	itext 4 "*Main> head (map fst ((number >@ eof) \"4492\"",
-	itext 4 "4492"
+	itext 2 "はじめのひとつを取り出すとする",
+	text "リストの先頭を取り出すのに関数listToMaybeが使える",
+	itext 1 "*Main> listToMaybe [3, 4, 5]",
+	itext 1 "Just 3",
+	itext 1 "*Main> listToMaybe []",
+	itext 1 "Nothing",
+	text "空リストでは、値がないことを意味するNothing値が返る",
+	text "これを使うと、つぎのようにできる",
+	itext 1 "*Main> listToMaybe (map fst ((number >@ eof) \"4492\"))",
+	itext 1 "Just 4492"
+	]
+
+numberList5 :: Page
+numberList5 = pageTitle "関数合成" :| [
+	itext (- 1.5)  "最後に対話環境に打ち込んだ式を、再掲する",
+	itext 3 "listToMaybe (map fst ((number >@ eof) \"4492\"))",
+	itext (- 1.5) "これは、すこし複雑だ",
+	itext (- 1.5) "Haskellでは演算子(.)で関数合成ができる",
+	itext 3 "*Main> (+ 5) (negate 3)",
+	itext 3 "2",
+	itext 3 "*Main> ((+ 5) . negate) 3",
+	itext 3 "2",
+	itext (- 1.5) "関数negateを適用したうえで、関数(+ 5)を適用している",
+	itext (- 1.5) "演算子(.)を使うと、つぎのようにできる",
+	itext (- 1.5) "*Main> (listToMaybe . map fst . (number >@ eof)) \"4492\"",
+	itext (- 1.5) "4492"
 	]
