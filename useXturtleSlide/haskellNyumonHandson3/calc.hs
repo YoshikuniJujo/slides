@@ -1,5 +1,7 @@
 import Data.Maybe (listToMaybe, fromJust)
 import Data.Char (isDigit, isSpace, digitToInt)
+import System.IO (hFlush, stdout)
+import Data.Bool (bool)
 
 type Parse a = String -> [(a, String)]
 
@@ -73,3 +75,20 @@ term = number `alt`
 
 calc :: String -> Maybe Integer
 calc = parse expr
+
+doWhile_ :: IO Bool -> IO ()
+doWhile_ act = do
+	c <- act
+	bool (return ()) (doWhile_ act) c
+
+main :: IO ()
+main = doWhile_ $ do
+	putStr "> "
+	hFlush stdout
+	l <- getLine
+	case l of
+		":q" -> return False
+		_ -> do	case calc l of
+				Just n -> print n
+				Nothing -> putStrLn "parse error"
+			return True
