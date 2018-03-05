@@ -51,3 +51,25 @@ spNumbers = list (spaces1 @> number)
 numbers :: Parse [Integer]
 numbers = (number >@> spNumbers)
 	`build` uncurry (:)
+
+type Op = Integer -> Integer -> Integer
+
+ad, sb, ml, dv :: Parse Op
+ad = char '+' `build` const (+)
+sb = char '-' `build` const (-)
+ml = char '*' `build` const (*)
+dv = char '/' `build` const div
+
+op :: Parse Op
+op = ad `alt` sb `alt` ml `alt` dv
+
+expr :: Parse Integer
+expr = (term >@> op >@> term) `build`
+	\((x, o), y) -> x `o` y
+
+term :: Parse Integer
+term = number `alt`
+	(char '(' @> expr >@ char ')')
+
+calc :: String -> Maybe Integer
+calc = parse expr
