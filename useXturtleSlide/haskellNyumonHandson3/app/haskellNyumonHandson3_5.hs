@@ -12,7 +12,8 @@ main = runSlide version someSlide
 someSlide :: Slide
 someSlide = title :| [
 	prelude, ioAsValue, funPutStrLn, ioNextIo, ioBind, ioTypes,
-	doNotation1, doNotation2, doNotation3, doNotation4
+	doNotation1, doNotation2, doNotation3, doNotation4,
+	expressionCase1
 	]
 
 title :: Page
@@ -141,3 +142,16 @@ doNotation4 = pageTitle "do記法" :| [
 	itext 4 "(何か打ち込み、改行)hello",
 	itext 4 "hello"
 	]
+
+expressionCase1 :: Page
+expressionCase1 = pageTitle "case式" :| [
+	text "ここで、case式を紹介する",
+	text "Haskellでコードを分岐させるには",
+	itext 4 "いくつかの構文があるが",
+	itext 4 "case式がすべての基礎になっている",
+	text "case式では、値に対してパターンマッチをして",
+	itext 4 "マッチするかどうかでコードを分岐させる"
+	]
+
+-- 文字列に対するcase式の例
+-- Maybe値に対するcase式の例
