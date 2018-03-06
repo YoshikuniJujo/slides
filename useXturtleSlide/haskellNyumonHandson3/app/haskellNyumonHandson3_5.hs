@@ -12,7 +12,7 @@ main = runSlide version someSlide
 someSlide :: Slide
 someSlide = title :| [
 	prelude, ioAsValue, funPutStrLn, ioNextIo, ioBind, ioTypes,
-	doNotation1
+	doNotation1, doNotation2, doNotation3, doNotation4
 	]
 
 title :: Page
@@ -92,5 +92,52 @@ ioTypes = pageTitle "入出力の型" :| [
 
 doNotation1 :: Page
 doNotation1 = pageTitle "do記法" :| [
-	text "ここまでみてきた「入出力」の例をファイルに定義する"
+	text "ここまでみてきた「入出力」の例をファイルに定義する",
+	itext 4 "% vim io.hs",
+	itext 4 "hello :: IO ()",
+	itext 4 "hello = putStrLn \"hello\" >> putStrLn \"world\"",
+	itext 4 "",
+	itext 4 "echo :: IO ()",
+	itext 4 "echo = getLine >>= putStrLn"
+	]
+
+doNotation2 :: Page
+doNotation2 = pageTitle "do記法" :| [
+	text "対話環境で試してみる",
+	itext 4 "*Main> :load io.hs",
+	itext 4 "*Main> hello",
+	itext 4 "hello",
+	itext 4 "world",
+	itext 4 "*Main> echo",
+	itext 4 "(何か打ちこみ、改行)hello",
+	itext 4 "hello"
+	]
+
+doNotation3 :: Page
+doNotation3 = pageTitle "do記法" :| [
+	text "Haskellにはdo記法という構文糖がある",
+	text "do記法を使って入出力hello, echoを書き直す",
+	text "型宣言はそのまま、関数定義を編修する",
+	itext 4 "% vim io.hs",
+	itext 4 "hello = do",
+	itext 4 "        putStrLn \"hello\"",
+	itext 4 "        putStrLn \"world\"",
+	itext 4 "",
+	itext 4 "echo = do",
+	itext 4 "        l <- getLine",
+	itext 4 "        putStrLn l"
+	]
+
+doNotation4 :: Page
+doNotation4 = pageTitle "do記法" :| [
+	text "do記法を使うと",
+	itext 4 "ふつうの手続き型言語のように書ける",
+	text "対話環境で試してみよう",
+	itext 4 "*Main> :reload",
+	itext 4 "*Main> hello",
+	itext 4 "hello",
+	itext 4 "world",
+	itext 4 "*Main> echo",
+	itext 4 "(何か打ち込み、改行)hello",
+	itext 4 "hello"
 	]
