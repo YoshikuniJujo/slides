@@ -13,7 +13,8 @@ someSlide :: Slide
 someSlide = title :| [
 	prelude, ioAsValue, funPutStrLn, ioNextIo, ioBind, ioTypes,
 	doNotation1, doNotation2, doNotation3, doNotation4,
-	expressionCase1
+	expressionCase1, expressionCase2, expressionCase3,
+	expressionCase4, expressionCase5, expressionCase6
 	]
 
 title :: Page
@@ -151,6 +152,70 @@ expressionCase1 = pageTitle "case式" :| [
 	itext 4 "case式がすべての基礎になっている",
 	text "case式では、値に対してパターンマッチをして",
 	itext 4 "マッチするかどうかでコードを分岐させる"
+	]
+
+expressionCase2 :: Page
+expressionCase2 = pageTitle "case式" :| [
+	text "特定の人にだけ、ていねいにあいさつする関数",
+	itext 4 "% vim case.hs",
+	itext 4 "helloTo :: String -> String",
+	itext 4 "helloTo n = case n of",
+	itext 4 "        \"Yoshikuni\" -> \"Good morning, sir.\"",
+	itext 4 "        _ -> \"Hello, \" ++ n ++ \"!\"",
+	text "予約語caseとofのあいだに式を置く",
+	text "その式の評価された結果を",
+	itext 4 "予係語->の左側のパターンとマッチさせる",
+	itext 4 "最初にマッチしたパターンの右側の式が全体の結果"
+	]
+
+expressionCase3 :: Page
+expressionCase3 = pageTitle "case式" :| [
+	text "試してみる",
+	itext 4 "*Main> :load case.hs",
+	itext 4 "*Main> helloTo \"Yoshikuni\"",
+	itext 4 "\"Good morning, sir.\"",
+	itext 4 "*Main> helloTo \"Ichiro\"",
+	itext 4 "\"Hello, Ichiro!\"",
+	text "Yoshikuniにだけ、ていねいにあいさつしている"
+	]
+
+expressionCase4 :: Page
+expressionCase4 = pageTitle "case式" :| [
+	text "ユーザのIDを調べる関数の例",
+	itext 4 "% vim case.hs",
+	itext 4 "users :: [(String, Int)]",
+	itext 4 "users = [",
+	itext 4 "        (\"Taro\", 3),",
+	itext 4 "        (\"Saburo\", 9),",
+	itext 4 "        (\"Keiko\", 5) ]",
+	itext 4 "",
+	itext 4 "getId :: String -> String",
+	itext 4 "getId n = case lookup n users of",
+	itext 4 "        Just i -> \"ID: \" ++ show i",
+	itext 4 "        Nothing -> \"No such user\""
+	]
+
+expressionCase5 :: Page
+expressionCase5 = pageTitle "case式" :| [
+	text "関数lookupについて",
+	text "型は、つぎのようになる",
+	itext 4 "lookup :: a -> [(a, b)] -> Maybe b",
+	text "タプルのリストを辞書として",
+	itext 4 "タプルの第1要素で検索し",
+	itext 4 "検索が成功すれば第2要素をJust値としてかえし",
+	itext 4 "失敗すればNothing値をかえす",
+	text "関数lookupの結果に対してcase式を使用",
+	itext 4 "Just値とNothing値とで処理をわけている"
+	]
+
+expressionCase6 :: Page
+expressionCase6 = pageTitle "case式" :| [
+	text "試してみる",
+	itext 4 "*Main> :reload",
+	itext 4 "*Main> getId \"Keiko\"",
+	itext 4 "\"ID: 5\"",
+	itext 4 "*Main> getId \"Yoshio\"",
+	itext 4 "\"No such user\""
 	]
 
 -- 文字列に対するcase式の例
