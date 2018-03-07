@@ -14,7 +14,8 @@ someSlide = title :| [
 	prelude, ioAsValue, funPutStrLn, ioNextIo, ioBind, ioTypes,
 	doNotation1, doNotation2, doNotation3, doNotation4,
 	expressionCase1, expressionCase2, expressionCase3,
-	expressionCase4, expressionCase5, expressionCase6
+	expressionCase4, expressionCase5, expressionCase6,
+	ioCalc1, ioCalc2, ioCalc3, ioCalc4, ioCalc5, ioCalc6, ioCalc7
 	]
 
 title :: Page
@@ -218,5 +219,96 @@ expressionCase6 = pageTitle "case式" :| [
 	itext 4 "\"No such user\""
 	]
 
--- 文字列に対するcase式の例
--- Maybe値に対するcase式の例
+ioCalc1 :: Page
+ioCalc1 = pageTitle "電卓" :| [
+	text "さて、ここまで対話環境で試してきた電卓を",
+	itext 4 "スタンドアロンなプログラムにしていこう",
+	text "ターミナルに打ち込んだ式を評価して表示する",
+	text "これを、くりかえすようにする"
+	]
+
+ioCalc2 :: Page
+ioCalc2 = pageTitle "電卓" :| [
+	text "まずは必要な関数などを導入する",
+	text "ファイルcalc.hsの先頭に、つぎのように追加する",
+	itext 4 "% vim calc.hs",
+	itext 4 "import System.IO (hFlush, stdout)",
+	itext 4 "import Data.Bool (bool)"
+	]
+
+ioCalc3 :: Page
+ioCalc3 = pageTitle "電卓" :| [
+	text "関数boolを試してみよう",
+	itext 4 "*Main> :load calc.hs",
+	itext 4 "*Main> bool \"else\" \"then\" False",
+	itext 4 "\"else\"",
+	itext 4 "*Main> bool \"else\" \"then\" True",
+	itext 4 "\"then\"",
+	itext 4 "*Main> bool \"odd\" \"even\" (even 8)",
+	itext 4 "\"even\"",
+	text "第3引数のブール値が値Falseなら第1引数の値を",
+	itext 4 "値Trueなら第2引数の値をかえす"
+	]
+
+ioCalc4 :: Page
+ioCalc4 = pageTitle "電卓" :| [
+	text "つぎの「入出力」にブール値をわたす「入出力」を",
+	itext 4 "引数として",
+	itext 4 "その「入出力」をくりかえす「入出力」を作る関数",
+	itext 4 "% vim calc.hs",
+	itext 4 "doWhile_ :: IO Bool -> IO ()",
+	itext 4 "doWhile_ act = do",
+	itext 4 "        c <- act",
+	itext 4 "        bool (return ()) (doWhile_ act) c",
+	text "わたされるブール値で変数cを束縛し",
+	itext 4 "そのブール値の値によって",
+	itext 4 "値Falseならreturn ()とし",
+	itext 4 "値TrueならdoWhile_ actを再帰的に呼び出す",
+	text "return ()はユニット値をわたすだけで「なにもしない」"
+	]
+
+ioCalc5 :: Page
+ioCalc5 = pageTitle "電卓" :| [
+	itext (- 4) "電卓の動作を行う「入出力」を変数mainに束縛する",
+	itext (- 4) "% vim calc.hs",
+	itext (- 4) "main :: IO ()",
+	itext (- 4) "main = doWhile_ $ do",
+	itext (- 4) "        putStr \"> \"",
+	itext (- 4) "        hFlush stdout",
+	itext (- 4) "        l <- getLine",
+	itext (- 4) "        case l of",
+	itext (- 4) "                \":q\" -> return False",
+	itext (- 4) "                _ -> do case calc l of",
+	itext (- 4) "                                Just n -> print n",
+	itext (- 4) "                                Nothing -> putStrLn \"parse error\"",
+	itext (- 4) "                        return True"
+	]
+
+ioCalc6 :: Page
+ioCalc6 = pageTitle "電卓" :| [
+	text "doWhile_ $ doの演算子($)は",
+	itext 4 "do以降の「入出力」が",
+	itext 4 "関数doWhile_の引数であることをしめす",
+	text "putStr \"> \"のあとにある",
+	itext 4 "hFlush stdoutは、改行を待たずに表示するため",
+	text "入出力getLineがわたす値lについて",
+	itext 4 "\":q\"であればreturn Falseによって終了",
+	itext 4 "そうでなければ関数calcで数式として評価",
+	itext 4 "構文エラーかどうかで処理をわけ",
+	itext 4 "return Trueによって、くりかえす"
+	]
+
+ioCalc7 :: Page
+ioCalc7 = pageTitle "電卓" :| [
+	text "対話環境で試してみよう",
+	itext 4 "*Main> :reload",
+	itext 4 "*Main> main",
+	itext 4 "> 3+5",
+	itext 4 "8",
+	itext 4 "> (11-9)*2",
+	itext 4 "4",
+	itext 4 "> (21*3)/(7+4)",
+	itext 4 "5",
+	itext 4 "> :q",
+	itext 4 "*Main>"
+	]
