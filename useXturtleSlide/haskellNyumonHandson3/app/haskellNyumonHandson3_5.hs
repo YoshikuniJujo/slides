@@ -15,7 +15,8 @@ someSlide = title :| [
 	doNotation1, doNotation2, doNotation3, doNotation4,
 	expressionCase1, expressionCase2, expressionCase3,
 	expressionCase4, expressionCase5, expressionCase6,
-	ioCalc1, ioCalc2, ioCalc3, ioCalc4, ioCalc5, ioCalc6, ioCalc7
+	ioCalc1, ioCalc2, ioCalc3, ioCalc4, ioCalc5, ioCalc6, ioCalc7,
+	standalone1, standalone2, summary
 	]
 
 title :: Page
@@ -311,4 +312,42 @@ ioCalc7 = pageTitle "電卓" :| [
 	itext 4 "5",
 	itext 4 "> :q",
 	itext 4 "*Main>"
+	]
+
+standalone1 :: Page
+standalone1 = pageTitle "電卓" :| [
+	text "Haskellで実行可能ファイルを作るには",
+	itext 4 "実行したい入出力で特別な変数mainを束縛する",
+	text "ファイルcalc.hsでは、すでに変数mainは定義ずみなので",
+	itext 4 "つぎのようにして、実行可能ファイルを作る",
+	itext 4 "% stack ghc -- calc.hs -o calc",
+	text "タブ文字に対する警告を消したければ",
+	itext 4 "% stack ghc -- calc.hs -o calc -fno-warn-tabs"
+	]
+
+standalone2 :: Page
+standalone2 = pageTitle "電卓" :| [
+	text "試してみよう",
+	itext 4 "% ./calc",
+	itext 4 "> 3+5",
+	itext 4 "8",
+	itext 4 "> (3+5)*9",
+	itext 4 "72",
+	itext 4 "> ((3+5)*9)/(3+4)",
+	itext 4 "10",
+	itext 4 "> :q"
+	]
+
+summary :: Page
+summary = pageTitle "まとめ" :| [
+	text "打ち込んだ式を評価している電卓を作った",
+	text "そのなかで、使われている構文や技法を学んだ",
+	text "",
+	text "Slackやってます",
+	itext 4 "https://haskelldojo.slack.com",
+	text "登録は以下から",
+	itext 4 "http://haskelldojo.herokuapp.com",
+	text "",
+	text "メールでの質問は以下まで",
+	itext 4 "funpaala@gmail.com"
 	]
