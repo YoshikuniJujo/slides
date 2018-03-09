@@ -70,7 +70,7 @@ ioNextIo = pageTitle "...のつぎに..." :| [
 
 ioBind :: Page
 ioBind = pageTitle "...の結果をわたして..." :| [
-	text "「入出力」の「入出」のところはどうだろうか",
+	text "「入出力」の「入力」のところはどうだろうか",
 	text "「入力」は「入力された値」が使えないと意味がない",
 	text "Haskellでは「入力された値」を",
 	itext 4 "つぎの「入出力」にわたす仕組みがある",
@@ -166,7 +166,7 @@ expressionCase2 = pageTitle "case式" :| [
 	itext 4 "        _ -> \"Hello, \" ++ n ++ \"!\"",
 	text "予約語caseとofのあいだに式を置く",
 	text "その式の評価された結果を",
-	itext 4 "予係語->の左側のパターンとマッチさせる",
+	itext 4 "予約語->の左側のパターンとマッチさせる",
 	itext 4 "最初にマッチしたパターンの右側の式が全体の結果"
 	]
 
@@ -270,7 +270,7 @@ ioCalc4 = pageTitle "電卓" :| [
 
 ioCalc5 :: Page
 ioCalc5 = pageTitle "電卓" :| [
-	itext (- 4) "電卓の動作を行う「入出力」を変数mainに束縛する",
+	itext (- 4) "電卓の動作を行う「入出力」で変数mainを束縛する",
 	itext (- 4) "% vim calc.hs",
 	itext (- 4) "main :: IO ()",
 	itext (- 4) "main = doWhile_ $ do",
@@ -341,7 +341,7 @@ standalone2 = pageTitle "電卓" :| [
 summary :: Page
 summary = pageTitle "まとめ" :| [
 	text "打ち込んだ式を評価している電卓を作った",
-	text "そのなかで、使われている構文や技法を学んだ",
+	text "作りながら、そのなかで使われている構文や技法を学んだ",
 	text "",
 	text "Slackやってます",
 	itext 4 "https://haskelldojo.slack.com",

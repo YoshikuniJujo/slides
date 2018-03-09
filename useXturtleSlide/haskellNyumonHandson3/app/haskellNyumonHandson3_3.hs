@@ -159,7 +159,7 @@ funParse1 = pageTitle "関数parse" :| [
 	itext 4 "parse :: Parse a -> String -> Maybe a",
 	itext 4 "parse p = listToMaybe . map fst . (p >@ eof)",
 	text "対話環境に打ち込んだ式の",
-	itext 4 "numberのところを引数pに確き換えたかたち",
+	itext 4 "numberのところを引数pに置き換えたかたち",
 	text "Just値やNothing値の型は",
 	itext 4 "Just値が含む型をaとすると、型Maybe aになる"
 	]
