@@ -283,9 +283,8 @@ funBuild1 = pageTitle "パースの結果を加工する" :| [
 	itext 4 "        [ (f x, r) | (x, r) <- p inp ]",
 	text "ここで使っているのは、リスト内包表記だ",
 	text "これは構文糖",
-	text "リストinpの要素のすべてに関数pを適用し",
-	itext 4 "それらの結果をあつめたリストを作る",
-	text "新しいリストの要素すべてに対して",
+	text "文字列inpに関数pを適用した結果としてリストができる",
+	text "そのリストの要素すべてに対して",
 	itext 4 "パターン(x, r)を使って、変数x, rを束縛し",
 	itext 4 "式(f x, r)によって新しい値を作る"
 	]
@@ -305,6 +304,7 @@ funBuild2 = pageTitle "パースの結果を加工する" :| [
 funBind1 :: Page
 funBind1 = pageTitle "ふたつのパーサをつなげる" :| [
 	text "ふたつのパーサをつなげる演算子",
+	itext 4 "% vim calc.hs",
 	itext 4 "(>@>) :: Parse a -> Parse b -> Parse (a, b)",
 	itext 4 "(p1 >@> p2) inp = [ ((x, y), r') |",
 	itext 4 "        (x, r) <- p1 inp, (y, r') <- p2 r ]",
@@ -323,7 +323,7 @@ funBind2 = pageTitle "ふたつのパーサをつなげる" :| [
 	text "対話環境で試す",
 	itext 4 "*Main> :reload",
 	itext 4 "*Main> (char 'a' >@> check isDigit) \"a123\"",
-	itext 4 "[(('a', '1'),\"23\")]",
+	itext 4 "[(('a','1'),\"23\")]",
 	text "文字'a'をパースするパーサと",
 	itext 4 "数字をパースするパーサとをつなげたパーサだ"
 	]
@@ -382,7 +382,7 @@ funEof2 = pageTitle "文字列のおわりを調べる" :| [
 	itext 4 "*Main> (char 'a' >@ eof) \"a123\"",
 	itext 4 "[]",
 	itext 4 "*Main> (char 'a' >@ eof) \"a\"",
-	itext 4 "[('a', \"\")]",
+	itext 4 "[('a',\"\")]",
 	text "解析されていない文字列が残っていれば",
 	itext 4 "パースは失敗する"
 	]
