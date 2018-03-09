@@ -11,7 +11,7 @@ main = runSlide version someSlide
 
 someSlide :: Slide
 someSlide = title :| [
-	prelude, refactoring, giveup, killerApp, killerApp2, environment,
+	prelude, refactoring, giveup, killerApp, killerApp2, urls, environment,
 	repl1, repl2, repl3, repl4, repl5, defFile1, defFile2, defFile3,
 	type1, type2, type3, type4,
 	aboutIO1, aboutIO2, aboutIO3, aboutIO4
@@ -81,6 +81,15 @@ killerApp2 = pageTitle "キラーアプリ" :| [
 	itext 4 "Haskellを学びはじめた様子",
 	text "ここまでくれば",
 	itext 4 "これをキラーアプリと呼んでいいように思う"
+	]
+
+urls :: Page
+urls = pageTitle "当日用資料、サンプルコード" :| [
+	text "今日やる内容はQiitaにすべて、まとめてある",
+	text "以下の短縮アドレスからアクセスしてほしい" >> nextLine,
+	itext 4 "https://goo.gl/EpZU8E" >> nextLine,
+	text "サンプルコードはGitHubに置いてある" >> nextLine,
+	itext 4 "https://goo.gl/GQdqsT"
 	]
 
 environment :: Page
