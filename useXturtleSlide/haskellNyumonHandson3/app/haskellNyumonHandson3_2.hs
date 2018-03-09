@@ -335,15 +335,14 @@ funBind3 = pageTitle "ふたつのパーサをつなげる" :| [
 	text "たとえば「123,456」のような文字列をパースするとき",
 	itext 4 ",(カンマ)はパースの結果には必要ない",
 	text "まえの結果と、うしろの結果について",
-	itext 4 "それぞれを残す(他方を捨てる)、結合用の関数を作る"
+	itext 2 "それぞれを残す(他方を捨てる)、結合用の関数を作る"
 	]
 
 funBind4 :: Page
 funBind4 = pageTitle "ふたつのパーサをつなげる" :| [
 	itext 4 "% vim calc.hs",
 	itext 4 "(>@) :: Parse a -> Parse b -> Parse a",
-	itext 4 "p1 >@ p2 = (p1 >@> p2) `build` fst",
-	itext 4 "",
+	itext 4 "p1 >@ p2 = (p1 >@> p2) `build` fst" >> nextLine,
 	itext 4 "(@>) :: Parse a -> Parse b -> Parse b",
 	itext 4 "p1 @> p2 = (p1 >@> p2) `build` snd",
 	text "関数fstとsndは、それぞれ",

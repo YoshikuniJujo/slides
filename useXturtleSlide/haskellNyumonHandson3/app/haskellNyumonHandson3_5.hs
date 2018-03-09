@@ -16,7 +16,7 @@ someSlide = title :| [
 	expressionCase1, expressionCase2, expressionCase3,
 	expressionCase4, expressionCase5, expressionCase6,
 	ioCalc1, ioCalc2, ioCalc3, ioCalc4, ioCalc5, ioCalc6, ioCalc7,
-	standalone1, standalone2, summary
+	standalone1, standalone2, summary, snss
 	]
 
 title :: Page
@@ -39,7 +39,7 @@ ioAsValue = pageTitle "入出力という値" :| [
 	text "Haskellでは、たとえば数値や文字列という値と",
 	itext 4 "おなじように、「入出力」という値がある",
 	text "「入出力」という値は",
-	itext 4 "より細かい「入出力」という部品から組み立てられる",
+	itext 4 "より細かい「入出力」の部品から組み立てられる",
 	text "組み立てられた「入出力」は",
 	itext 4 "対話環境で評価されたとき、あるいは",
 	itext 4 "変数mainを束縛したものは",
@@ -99,8 +99,7 @@ doNotation1 = pageTitle "do記法" :| [
 	text "ここまでみてきた「入出力」の例をファイルに定義する",
 	itext 4 "% vim io.hs",
 	itext 4 "hello :: IO ()",
-	itext 4 "hello = putStrLn \"hello\" >> putStrLn \"world\"",
-	itext 4 "",
+	itext 4 "hello = putStrLn \"hello\" >> putStrLn \"world\"" >> nextLine,
 	itext 4 "echo :: IO ()",
 	itext 4 "echo = getLine >>= putStrLn"
 	]
@@ -189,8 +188,7 @@ expressionCase4 = pageTitle "case式" :| [
 	itext 4 "users = [",
 	itext 4 "        (\"Taro\", 3),",
 	itext 4 "        (\"Saburo\", 9),",
-	itext 4 "        (\"Keiko\", 5) ]",
-	itext 4 "",
+	itext 4 "        (\"Keiko\", 5) ]" >> nextLine,
 	itext 4 "getId :: String -> String",
 	itext 4 "getId n = case lookup n users of",
 	itext 4 "        Just i -> \"ID: \" ++ show i",
@@ -341,13 +339,19 @@ standalone2 = pageTitle "電卓" :| [
 summary :: Page
 summary = pageTitle "まとめ" :| [
 	text "打ち込んだ式を評価している電卓を作った",
-	text "作りながら、そのなかで使われている構文や技法を学んだ",
-	text "",
-	text "Slackやってます",
+	text "作りながら、そのなかで使われている構文や技法を学んだ"
+	]
+
+snss :: Page
+snss = pageTitle "質問などは、こちらへ" :| [
+	text "teratailでHaskellタグをつけて、質問してください",
+	itext 4 "くわしくはteratailのかたから説明があるかと" >> nextLine,
+	text "Slackもやってます",
 	itext 4 "https://haskelldojo.slack.com",
 	text "登録は以下から",
-	itext 4 "http://haskelldojo.herokuapp.com",
-	text "",
+	itext 4 "http://haskelldojo.herokuapp.com" >> nextLine,
 	text "メールでの質問は以下まで",
-	itext 4 "funpaala@gmail.com"
+	itext 4 "funpaala@gmail.com",
+	text "twitterでは以下のアカウントへ",
+	itext 4 "@YoshikuniJujo"
 	]

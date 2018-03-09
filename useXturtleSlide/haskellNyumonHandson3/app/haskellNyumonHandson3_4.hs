@@ -27,10 +27,10 @@ prelude = pageTitle "はじめに" :| [
 parseOp1 :: Page
 parseOp1 = pageTitle "演算子のパース" :| [
 	text "はじめに演算子をパースする",
-	text "演算子をあらわす型シノニムを定義",
+	text "演算をあらわす型シノニムを定義",
 	itext 4 "% vim calc.hs",
 	itext 4 "type Op = Integer -> Integer -> Integer",
-	text "ここでの「演算子」は",
+	text "ここでの「演算」は",
 	itext 4 "ふたつの整数を引数として",
 	itext 4 "整数をかえす関数"
 	]

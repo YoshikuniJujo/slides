@@ -48,8 +48,12 @@ refactoring = pageTitle "Haskellの特徴" :| [
 giveup :: Page
 giveup = pageTitle "Haskellの特徴" :| [
 	text "Haskellの特徴をつたえるのは(僕には)無理みたいだ",
-	text "ハンズオンしていくなかで、その都度",
-	itext 4 "「これがHaskellの特徴です」のように紹介する"
+	text "実際にコードを書いていくなかで",
+	itext 4 "感じとってもらいたい",
+	text "ただし、短時間では",
+	itext 4 "Haskellの魅力を十分にはつたえられない",
+	text "たとえば、Haskellの魅力のひとつに「保守性」がある",
+	itext 4 "これは何年もコードを保守することでわかるもの"
 	]
 
 killerApp :: Page
@@ -87,9 +91,11 @@ urls :: Page
 urls = pageTitle "当日用資料、サンプルコード" :| [
 	text "今日やる内容はQiitaにすべて、まとめてある",
 	text "以下の短縮アドレスからアクセスしてほしい" >> nextLine,
-	itext 4 "https://goo.gl/EpZU8E" >> nextLine,
+	itext 4 "https://goo.gl/EpZU8E" >> nextLine >>
+	itext 4 "(イー、ピー、ゼット、ユー、ハチ、イー)" >> nextLine,
 	text "サンプルコードはGitHubに置いてある" >> nextLine,
-	itext 4 "https://goo.gl/GQdqsT"
+	itext 4 "https://goo.gl/GQdqsT" >> nextLine >>
+	itext 4 "(ジー、キュー、ディー、キュー、エス、ティー)"
 	]
 
 environment :: Page
@@ -237,7 +243,7 @@ type2 = pageTitle "関数の型" :| [
 type3 :: Page
 type3 = pageTitle "関数の型" :| [
 	text "関数toUpperは引数も返り値もChar型の値であり",
-	itext 4 "関数isUpperは引数がChar型で、返り値はBool型の値",
+	itext 3 "関数isUpperは引数がChar型で、返り値はBool型の値",
 	text "それぞれの型をみてみよう",
 	itext 4 "Prelude Data.Char> :type toUpper",
 	itext 4 "toUpper :: Char -> Char",
@@ -253,8 +259,7 @@ type4 = pageTitle "型宣言" :| [
 	text "ファイルcircle.hsを編集しよう",
 	itext 4 "% vim circle.hs",
 	itext 4 "area :: Double -> Double",
-	itext 4 "area r = r ^ 2 * pi",
-	itext 4 "",
+	itext 4 "area r = r ^ 2 * pi" >> nextLine,
 	itext 4 "circumf :: Double -> Double",
 	itext 4 "circumf r = r * 2 * pi",
 	text "対話環境に読み込んで試してみよう",
@@ -280,14 +285,15 @@ aboutIO2 :: Page
 aboutIO2 = pageTitle "入出力は値だ" :| [
 	text "リストという構造がある",
 	text "たとえば数のリストの総和をもとめられる",
-	itext 2 "*Main> sum [3, 4, 5]",
-	itext 2 "12",
+	itext 1 "*Main> sum [3, 4, 5]",
+	itext 1 "12",
 	text "入出力も値なのでリストの要素にすることができる",
-	itext 2 "*Main> hello = [putStrLn \"hello\", putStrLn \"world\"]",
+	itext 1 "*Main> hello = [putStrLn \"hello\", putStrLn \"world\"]",
 	text "リストに含まれる入出力を組み立てることもできる",
-	itext 2 "*Main> sequence_ hello",
-	itext 2 "hello",
-	itext 2 "world" ]
+	itext 1 "*Main> sequence_ hello",
+	itext 1 "hello",
+	itext 1 "world"
+	]
 
 aboutIO3 :: Page
 aboutIO3 = pageTitle "入出力は値だ" :| [
